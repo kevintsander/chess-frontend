@@ -1,5 +1,8 @@
+import { Action } from "../action/action.model";
+import { Board } from "../board/board.model";
+import { Player } from "../player/player.model";
 
-interface GameState {
+export interface GameState {
   players: Player[];
   game_log: {
     turn: number;
