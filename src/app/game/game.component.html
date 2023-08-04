@@ -1,1 +1,7 @@
-<p>{{JSON.stringify(chessGame)}}</p>
+<div>
+  <label for="game-id">Game ID: </label>
+  <input id="game-id" #gameId />
+  <button type="button" (click)="loadGame(gameId.value)">Load</button>
+</div>
+<p>{{chessGame?.id}}</p>
+<app-board *ngIf="chessGame" [board]="chessGame.game_state.board"></app-board>

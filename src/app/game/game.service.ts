@@ -9,11 +9,8 @@ import { Game } from './game.model';
 })
 export class GameService {
 
-  JSON;
   chessApiGamesUrl: string = `${environment.chessApiUrl}/games/`
-  constructor(private http: HttpClient) {
-    this.JSON = JSON;
-  }
+  constructor(private http: HttpClient) { }
 
   getGame(id: string): Observable<Game> {
     const getUrl = `${this.chessApiGamesUrl}/${id}`

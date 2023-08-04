@@ -1,1 +1,5 @@
-<p>board works!</p>
+<div class="board">
+  <div id="square-{{square.coordinate}}" *ngFor="let square of squares" [ngClass]="['square', square.colorClass]">
+    <div *ngIf="getUnit(square.coordinate)">{{getUnit(square.coordinate)?.symbol}}</div>
+  </div>
+</div>

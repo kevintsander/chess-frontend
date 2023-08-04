@@ -16,12 +16,13 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.gameService.getGame('f3777531-665a-4374-b63c-b33331fc7595').subscribe({
-      next: (response) => {
-        console.log(response)
+
+  }
+
+  loadGame(id: string) {
+    this.gameService.getGame(id)
+      .subscribe((response) => {
         this.chessGame = response;
-        console.log(this.chessGame)
-      }
-    });
+      });
   }
 }
