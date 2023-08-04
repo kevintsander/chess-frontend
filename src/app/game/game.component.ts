@@ -7,17 +7,11 @@ import { Game } from './game.model';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent {
   chessGame: Game | undefined;
-  JSON;
 
-  constructor(public gameService: GameService) {
-    this.JSON = JSON;
-  }
+  constructor(public gameService: GameService) { }
 
-  ngOnInit() {
-
-  }
 
   loadGame(id: string) {
     this.gameService.getGame(id)
