@@ -1,8 +1,8 @@
-import { GameState } from "./game-state.model";
+import { GameState } from "../game-state/game-state.model";
 
 export interface Game {
-  id: string;
-  game_state: GameState;
-  created_at: string;
-  updated_at: string;
+    id: string;
+    game_state: GameState;
+    created_at: string;
+    updated_at: string;
 }

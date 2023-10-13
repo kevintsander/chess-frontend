@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from './game.service';
+import { GameApiService } from './game-api.service';
 import { Game } from './game.model';
+import { GameStateService } from '../game-state/game-state.service';
 
 @Component({
   selector: 'app-game',
@@ -9,14 +10,16 @@ import { Game } from './game.model';
 })
 export class GameComponent {
   chessGame: Game | undefined;
+  gameStateService!: GameStateService;
 
-  constructor(public gameService: GameService) { }
-
+  constructor(public gameService: GameApiService) { }
 
   loadGame(id: string) {
     this.gameService.getGame(id)
       .subscribe((response) => {
         this.chessGame = response;
+        this.gameStateService = new GameStateService(this.chessGame.game_state);
       });
   }
+
 }

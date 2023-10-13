@@ -16,3 +16,10 @@
 .square-light {
   background: #fff;
 }
+
+.selectable {
+  background: yellow;
+}
+.selectable:hover {
+  transform: scale(1.5);
+}

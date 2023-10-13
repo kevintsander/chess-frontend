@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Board } from './board.model';
 import { Square } from './square.model';
-import { Unit } from '../unit/unit.model';
+import { Action } from '../action/action.model';
+import { GameStateService } from '../game-state/game-state.service';
 
 @Component({
   selector: 'app-board',
@@ -9,7 +9,9 @@ import { Unit } from '../unit/unit.model';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
-  @Input() board?: Board;
+  @Input() gameStateService!: GameStateService;
+  @Input() unitsAllowedActions?: { [key: string]: Action[] }
+
   squares: Array<Square> = [];
   JSON;
 
@@ -18,9 +20,6 @@ export class BoardComponent {
     this.initSquares();
   }
 
-  getUnit(location: string): Unit | null | undefined {
-    return this.board?.units.find(unit => unit.location == location);
-  }
 
   private colorClass = "square-dark";
   initSquares() {
