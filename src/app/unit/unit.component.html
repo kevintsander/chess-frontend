@@ -1,1 +1,3 @@
-<div [ngClass]="gameStateService.isSelectable(unit.location) ? 'selectable' : ''">{{unit.symbol}}</div>
+<div
+  [ngClass]="{'selectable': gameStateService.isSelectable(unit.location), 'selected': turnStateService.selectedUnit === unit}"
+  (click)="onClick()">{{unit.symbol}}</div>
