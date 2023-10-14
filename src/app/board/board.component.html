@@ -1,8 +1,7 @@
 <div class="board">
   <div id="square-{{square.coordinate}}" *ngFor="let square of squares" [ngClass]="['square', square.colorClass]">
-    <div *ngIf="gameStateService.unitAt(square.coordinate); let unit"
-      [ngClass]="gameStateService.isSelectable(square.coordinate) ? 'selectable' : ''">
-      {{unit.symbol}}
-    </div>
+    <app-unit *ngIf="gameStateService.unitAt(square.coordinate); let unit" [unit]="unit"
+      [gameStateService]="gameStateService">
+    </app-unit>
   </div>
 </div>

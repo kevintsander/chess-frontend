@@ -6,12 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { GameComponent } from './game/game.component';
+import { UnitComponent } from './unit/unit.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
-    GameComponent
+    GameComponent,
+    UnitComponent
   ],
   imports: [
     BrowserModule,
