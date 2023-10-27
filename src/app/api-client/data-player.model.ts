@@ -1,4 +1,4 @@
-export interface Player {
+export interface DataPlayer {
   name: string;
   color: string;
 }

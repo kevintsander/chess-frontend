@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Unit } from './unit.model';
-import { GameStateService } from '../game-state/game-state.service';
+import { DataUnit } from '../api-client/data-unit.model';
+import { DataGameStateUtil } from '../api-client/data-game-state.service';
 import { TurnStateService } from '../turn-state.service';
 
 @Component({
@@ -9,8 +9,8 @@ import { TurnStateService } from '../turn-state.service';
   styleUrls: ['./unit.component.scss']
 })
 export class UnitComponent {
-  @Input({ required: true }) unit!: Unit;
-  @Input() gameStateService!: GameStateService;
+  @Input({ required: true }) unit!: DataUnit;
+  @Input() gameStateService!: DataGameStateUtil;
 
   constructor(protected turnStateService: TurnStateService) { }
 

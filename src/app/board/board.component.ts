@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Square } from './square.model';
-import { Action } from '../action/action.model';
-import { GameStateService } from '../game-state/game-state.service';
+import { DataAction } from '../api-client/action.model';
+import { DataGameStateUtil } from '../api-client/data-game-state.service';
 
 @Component({
   selector: 'app-board',
@@ -9,8 +9,8 @@ import { GameStateService } from '../game-state/game-state.service';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
-  @Input() gameStateService!: GameStateService;
-  @Input() unitsAllowedActions?: { [key: string]: Action[] }
+  @Input() gameStateService!: DataGameStateUtil;
+  @Input() unitsAllowedActions?: { [key: string]: DataAction[] }
 
   squares: Array<Square> = [];
   JSON;

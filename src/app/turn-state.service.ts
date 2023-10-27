@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Unit } from './unit/unit.model';
+import { DataUnit } from './api-client/data-unit.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TurnStateService {
 
-  private selectedUnitSubject: Subject<Unit | null> = new Subject<Unit | null>
-  public selectedUnit!: Unit | null;
+  private selectedUnitSubject: Subject<DataUnit | null> = new Subject<DataUnit | null>
+  public selectedUnit!: DataUnit | null;
 
   constructor() { }
 
-  public getSelectedUnitObservable(): Observable<Unit | null> {
+  public getSelectedUnitObservable(): Observable<DataUnit | null> {
     return this.selectedUnitSubject.asObservable();
   }
 
-  public selectUnit(unit: Unit): void {
+  public selectUnit(unit: DataUnit): void {
     this.selectedUnit = unit;
     this.selectedUnitSubject
     this.emitSelectedUnit();

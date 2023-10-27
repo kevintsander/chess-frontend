@@ -1,8 +1,8 @@
-import { Player } from "../player/player.model";
+import { DataPlayer } from "./data-player.model";
 
-export interface Unit {
+export interface DataUnit {
   location: string;
-  player: Player;
+  player: DataPlayer;
   id: string;
   symbol: string;
   initial_location: string;

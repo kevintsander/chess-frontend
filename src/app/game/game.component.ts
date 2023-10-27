@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GameApiService } from './game-api.service';
-import { Game } from './game.model';
-import { GameStateService } from '../game-state/game-state.service';
-import { ActionCableService } from '../actioncable.service';
+import { GameApiService } from '../api-client/game-api.service';
+import { DataGame } from '../api-client/data-game.model';
+import { DataGameStateUtil } from '../api-client/data-game-state.service';
+import { ActionCableService } from '../api-client/actioncable.service';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
@@ -11,8 +11,8 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnDestroy {
-  chessGame: Game | undefined;
-  gameStateService!: GameStateService;
+  chessGame: DataGame | undefined;
+  gameStateService!: DataGameStateUtil;
   currentGameSub!: Subscription;
 
   constructor(public gameService: GameApiService, public actionCableService: ActionCableService) { }
@@ -22,7 +22,7 @@ export class GameComponent implements OnDestroy {
     this.currentGameSub = this.actionCableService.getGame$(id)
       .subscribe((response) => {
         this.chessGame = response;
-        this.gameStateService = new GameStateService(this.chessGame.game_state);
+        this.gameStateService = new DataGameStateUtil(this.chessGame.game_state);
       });
   }
 
