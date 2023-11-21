@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GameApiService } from '../api-client/game-api.service';
-import { DataGame } from '../api-client/data-game.model';
-import { DataGameStateUtil } from '../api-client/data-game-state.service';
-import { ActionCableService } from '../api-client/actioncable.service';
-import { Observable, Subscription } from 'rxjs';
+import { Game } from './game.model';
+import { GameDataService } from './game-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -11,23 +9,29 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnDestroy {
-  chessGame: DataGame | undefined;
-  gameStateService!: DataGameStateUtil;
+  game: Game | undefined | null;
   currentGameSub!: Subscription;
 
-  constructor(public gameService: GameApiService, public actionCableService: ActionCableService) { }
+  constructor(public gameDataService: GameDataService) { }
 
   loadGame(id: string) {
-    this.currentGameSub?.unsubscribe(); // unsubscribe to any already loaded game
-    this.currentGameSub = this.actionCableService.getGame$(id)
+    this.endGame();
+    this.currentGameSub = this.gameDataService.getGame$(id)
       .subscribe((response) => {
-        this.chessGame = response;
-        this.gameStateService = new DataGameStateUtil(this.chessGame.game_state);
+        console.log(response);
+        this.game = response;
       });
   }
 
+  endGame() {
+    if (!this.game) return;
+
+    this.currentGameSub.unsubscribe();
+    this.game = null;
+  }
+
   ngOnDestroy(): void {
-    this.currentGameSub?.unsubscribe();
+    this.endGame();
   }
 
 }

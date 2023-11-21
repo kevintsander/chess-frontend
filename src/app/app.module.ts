@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { GameComponent } from './game/game.component';
 import { UnitComponent } from './unit/unit.component';
+import { SquareComponent } from './board/square.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { UnitComponent } from './unit/unit.component';
     AppComponent,
     BoardComponent,
     GameComponent,
-    UnitComponent
+    UnitComponent,
+    SquareComponent
   ],
   imports: [
     BrowserModule,

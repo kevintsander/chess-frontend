@@ -1,6 +1,7 @@
-import { DataUnit } from "../api-client/data-unit.model";
+import { Unit } from "../unit/unit.model";
 
 export interface Square {
-    coordinate: string,
-    colorClass: string
+  location: string,
+  colorClass: string,
+  unit: Unit | null;
 }

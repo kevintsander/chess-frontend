@@ -3,5 +3,5 @@
   <input id="game-id" #gameId />
   <button type="button" (click)="loadGame(gameId.value)">Load</button>
 </div>
-<p>{{chessGame?.id}}</p>
-<app-board *ngIf="chessGame" [gameStateService]="gameStateService"></app-board>
+<p>{{game?.id}}</p>
+<app-board *ngIf="game" [state]="{ units: game.units, allowed_actions: game.allowed_actions }"></app-board>
