@@ -8,7 +8,10 @@ import { Unit } from '../unit/unit.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SquareComponent {
-  @Input() location!: string;
-  @Input() colorClass!: string;
-  @Input() unit?: Unit | null;
+  @Input() selectedLocation?: string | null;
+  @Input() state!: {
+    location: string,
+    colorClass: string,
+    unit: Unit | null
+  }
 }

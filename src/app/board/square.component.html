@@ -1,4 +1,4 @@
-<div id="square-{{location}}" [ngClass]="['square', colorClass]">
-  <app-unit *ngIf="unit" [unit]="unit">
+<div id="square-{{state.location}}" [ngClass]="['square', state.colorClass]">
+  <app-unit *ngIf="state.unit" [unit]="state.unit">
   </app-unit>
 </div>

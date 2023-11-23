@@ -4,4 +4,4 @@
   <button type="button" (click)="loadGame(gameId.value)">Load</button>
 </div>
 <p>{{game?.id}}</p>
-<app-board *ngIf="game" [state]="{ units: game.units, allowed_actions: game.allowed_actions }"></app-board>
+<app-board *ngIf="game" [boardState]="{ units: game.units, allowed_actions: game.allowed_actions }"></app-board>

@@ -8,6 +8,7 @@ import { BoardComponent } from './board/board.component';
 import { GameComponent } from './game/game.component';
 import { UnitComponent } from './unit/unit.component';
 import { SquareComponent } from './board/square.component';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SquareComponent } from './board/square.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [],
   bootstrap: [AppComponent]
