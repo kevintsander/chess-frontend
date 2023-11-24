@@ -34,7 +34,7 @@ export class BoardComponent implements OnChanges, OnInit {
       this.boardUserState = state;
       this.setSquares();
     });
-    this.stateStore.dispatch(BoardUserActions.startTurn({ allowedActions: this.boardState.allowed_actions }));
+    this.stateStore.dispatch(BoardUserActions.startTurn({ allActions: this.boardState.allowed_actions }));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,7 +43,10 @@ export class BoardComponent implements OnChanges, OnInit {
 
   onSquareClick(location: string) {
     if (this.boardUserState.selected?.location !== location && this.boardUserState.selectableLocations.includes(location)) {
-      this.stateStore.dispatch(BoardUserActions.selectUnit({ location: location, actions: this.boardState.allowed_actions.filter(a => a.moves.some(m => m.from_location === location)) }));
+      this.stateStore.dispatch(BoardUserActions.selectUnit({ location: location, unitActions: this.boardState.allowed_actions.filter(a => a.moves.some(m => m.from_location === location)) }));
+    }
+    else if (this.boardUserState.selected?.location === location) {
+      this.stateStore.dispatch(BoardUserActions.unselectUnit({ allActions: this.boardState.allowed_actions }));
     }
   }
 

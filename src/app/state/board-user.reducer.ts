@@ -19,13 +19,13 @@ const actionUtil = new ActionUtil();
 
 export const boardUserReducer = createReducer(
   initialState,
-  on(BoardUserActions.startTurn, (state, { allowedActions }) => {
+  on(BoardUserActions.startTurn, (state, { allActions: allowedActions }) => {
     return {
       ...initialState,
       selectableLocations: actionUtil.getSelectableLocations(allowedActions)
     }
   }),
-  on(BoardUserActions.selectUnit, (state, { location, actions }) => {
+  on(BoardUserActions.selectUnit, (state, { location, unitActions: actions }) => {
     return {
       ...state,
       selected: { location: location, allowedActions: actions },
@@ -36,7 +36,7 @@ export const boardUserReducer = createReducer(
       otherCastleUnitLocation: null
     };
   }),
-  on(BoardUserActions.unselectUnit, (state, { allowedActions }) => {
+  on(BoardUserActions.unselectUnit, (state, { allActions: allowedActions }) => {
     return {
       ...initialState,
       selectableLocations: actionUtil.getSelectableLocations(allowedActions)
