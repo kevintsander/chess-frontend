@@ -9,6 +9,7 @@ import { GameComponent } from './game/game.component';
 import { UnitComponent } from './unit/unit.component';
 import { SquareComponent } from './board/square.component';
 import { StoreModule } from '@ngrx/store';
+import { boardUserReducer } from './state/board-user.reducer';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { StoreModule } from '@ngrx/store';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({ boardUser: boardUserReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

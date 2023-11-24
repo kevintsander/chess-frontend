@@ -11,15 +11,4 @@ export class UnitComponent {
   @Input({ required: true }) unit!: Unit;
 
   constructor() { }
-
-  onClick(): void {
-    console.log("clicked unit"); // TODO - move this up to square?
-    // if (this.gameStateService.isSelectable(this.unit.location)) {
-    //   if (this.turnStateService.selectedUnit === this.unit) {
-    //     this.turnStateService.deselectUnit();
-    //   } else {
-    //     this.turnStateService.selectUnit(this.unit);
-    //   }
-    // }
-  }
 }

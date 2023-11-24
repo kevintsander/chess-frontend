@@ -1,4 +1,4 @@
 <div class="board">
-  <app-square *ngFor="let square of squares | keyvalue"
-    [state]="{ location: square.key, unit: square.value.unit, colorClass: square.value.backgroundColor }"></app-square>
+  <app-square *ngFor="let square of squares | keyvalue : locationComparer"
+    [state]="{ location: square.key, square: square.value }" (click)="onSquareClick($event)"></app-square>
 </div>

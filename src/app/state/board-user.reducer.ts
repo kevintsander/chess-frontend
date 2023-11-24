@@ -1,9 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 
-import * as UserActions from './user-board.action';
-import { ActionType } from '../action/action.model';
+import * as BoardUserActions from './board-user.action';
 import { ActionUtil } from '../action/action.util';
-import { BoardUserState } from './user-board.state';
+import { BoardUserState } from './board-user.state';
 
 const initialState: BoardUserState = {
   allowedActions: [],
@@ -20,16 +19,16 @@ const actionUtil = new ActionUtil();
 
 export const boardUserReducer = createReducer(
   initialState,
-  on(UserActions.startTurn, (state, { allowedActions }) => {
+  on(BoardUserActions.startTurn, (state, { allowedActions }) => {
     return {
       ...initialState,
       selectableLocations: actionUtil.getSelectableLocations(allowedActions)
     }
   }),
-  on(UserActions.selectUnit, (state, { location, actions }) => {
+  on(BoardUserActions.selectUnit, (state, { location, actions }) => {
     return {
       ...state,
-      selectedLocation: location,
+      selected: { location: location, allowedActions: actions },
       hoverLocation: null,
       movableLocations: actionUtil.getMovableLocations(actions),
       attackableLocations: actionUtil.getAttackableLocations(actions),
@@ -37,13 +36,13 @@ export const boardUserReducer = createReducer(
       otherCastleUnitLocation: null
     };
   }),
-  on(UserActions.unselectUnit, (state, { allowedActions }) => {
+  on(BoardUserActions.unselectUnit, (state, { allowedActions }) => {
     return {
       ...initialState,
       selectableLocations: actionUtil.getSelectableLocations(allowedActions)
     }
   }),
-  on(UserActions.hoverLocation, (state, { location }) => {
+  on(BoardUserActions.hoverLocation, (state, { location }) => {
     if (!state.selected) return state;
 
     if (!state.movableLocations?.includes(location) && !state.attackableLocations?.includes(location)) {
@@ -54,10 +53,10 @@ export const boardUserReducer = createReducer(
 
     var enPassantableLocation: string | null = null;
     var otherCastleUnitLocation: string | null = null;
-    if (locationAction.type = ActionType.EnPassant) {
+    if (locationAction.type = "ActionType") {
       enPassantableLocation = locationAction.capture_unit!;
     }
-    else if ([ActionType.KingsideCastle, ActionType.QueensideCastle].includes(locationAction.type)) {
+    else if (["KingsideCastle", "QueensideCastle"].includes(locationAction.type)) {
       otherCastleUnitLocation = actionUtil.getOtherCastleUnitLocation(location, locationAction);
     }
     return {

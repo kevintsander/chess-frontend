@@ -1,16 +1,7 @@
 import { Move } from "./move.model";
 
 export interface Action {
-  type: ActionType;
+  type: string;
   moves: Move[];
   capture_unit: string | null;
-}
-
-export enum ActionType {
-  None,
-  Move,
-  Attack,
-  EnPassant,
-  KingsideCastle,
-  QueensideCastle
 }

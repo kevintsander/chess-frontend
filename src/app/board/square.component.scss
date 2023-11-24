@@ -5,9 +5,29 @@
 }
 
 .square-dark {
-  background: green;
+  background: brown;
 }
 
 .square-light {
   background: #fff;
+}
+
+.selectable {
+  background: yellow;
+}
+
+.selectable:hover {
+  transform: scale(1.5);
+}
+
+.selected {
+  background: blue;
+}
+
+.movable {
+  background: green;
+}
+
+.attackable {
+  background: red;
 }

@@ -1,7 +1,8 @@
 import { Unit } from "../unit/unit.model";
+import { SquareDisplayState } from "./square-display-state.enum";
 
 export interface Square {
-  location: string,
-  colorClass: string,
-  unit: Unit | null;
+  backgroundColor: string,
+  unit: Unit | null,
+  displayState: SquareDisplayState
 }

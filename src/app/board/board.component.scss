@@ -3,10 +3,3 @@
   grid-template-columns: repeat(8, min-content);
   border: 1px solid #000;
 }
-
-.selectable {
-  background: yellow;
-}
-.selectable:hover {
-  transform: scale(1.5);
-}
