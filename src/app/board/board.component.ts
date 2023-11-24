@@ -74,7 +74,7 @@ export class BoardComponent implements OnChanges, OnInit {
   private getSquareMapTemplate(): SquareMap {
     const map: SquareMap = {};
 
-    var bgColor = "square-dark"; // initialize with dark color
+    var bgColor = "dark"; // initialize with dark color
     for (let fileIndex = 97; fileIndex <= 104; fileIndex++) {
       for (let rowIndex = 1; rowIndex <= 8; rowIndex++) {
         const fileChar = String.fromCharCode(fileIndex);
@@ -87,7 +87,7 @@ export class BoardComponent implements OnChanges, OnInit {
     return map;
   }
   private switchBgColor(colorClass: string) {
-    return colorClass == "square-light" ? "square-dark" : "square-light";
+    return colorClass == "light" ? "dark" : "light";
   }
 
   private setUnits(squares: SquareMap) {

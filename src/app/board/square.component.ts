@@ -12,20 +12,22 @@ export class SquareComponent implements OnInit {
   @Input() state!: { location: string, square: Square }
   @Output() click: EventEmitter<string> = new EventEmitter();
 
-  colorClass!: string;
+  bgClass!: string;
+  displayStateClass!: string;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.colorClass = this.getColorClass(this.state.square.displayState);
+    this.bgClass = `bg-${this.state.square.backgroundColor}`;
+    this.displayStateClass = this.getDisplayStateClass(this.state.square.displayState);
   }
 
   onClick() {
     this.click.emit(this.state.location);
   }
 
-  private getColorClass(displayState: SquareDisplayState) {
+  private getDisplayStateClass(displayState: SquareDisplayState) {
     switch (displayState) {
       case (SquareDisplayState.Selected):
         return "selected"
@@ -35,7 +37,7 @@ export class SquareComponent implements OnInit {
         return "movable"
       case (SquareDisplayState.Attackable):
         return "attackable"
-    };
-    return this.state.square.backgroundColor;
+    }
+    return "";
   }
 }
