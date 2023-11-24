@@ -38,6 +38,7 @@ export class BoardComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.stateStore.dispatch(BoardUserActions.startTurn({ allActions: this.boardState.allowed_actions }));
     this.setSquares();
   }
 
