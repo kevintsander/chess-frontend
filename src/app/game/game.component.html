@@ -3,5 +3,6 @@
   <input id="game-id" #gameId />
   <button type="button" (click)="loadGame(gameId.value)">Load</button>
 </div>
-<p>{{game?.id}}</p>
-<app-board *ngIf="game" [boardState]="{ units: game.units, allowed_actions: game.allowed_actions }"></app-board>
+<p>{{gameState?.id}}</p>
+<app-board *ngIf="gameState?.id"></app-board>
+<app-promote-unit *ngIf="gameState?.mustPromote"></app-promote-unit>

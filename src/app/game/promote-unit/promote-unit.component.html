@@ -1,0 +1,4 @@
+<button [ngClass]="{ 'selected': selectedUnitType === 'Queen'}" (click)="onUnitClick('Queen')">Queen</button>
+<button [ngClass]="{ 'selected': selectedUnitType === 'Rook'}" (click)="onUnitClick('Rook')">Rook</button>
+<button [ngClass]="{ 'selected': selectedUnitType === 'Knight'}" (click)="onUnitClick('Knight')">Knight</button>
+<button (click)="onOk()">OK</button>

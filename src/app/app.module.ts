@@ -4,12 +4,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BoardComponent } from './board/board.component';
+import { BoardComponent } from './game/board/board.component';
 import { GameComponent } from './game/game.component';
-import { UnitComponent } from './unit/unit.component';
-import { SquareComponent } from './board/square.component';
+import { UnitComponent } from './game/unit/unit.component';
+import { SquareComponent } from './game/board/square.component';
 import { StoreModule } from '@ngrx/store';
-import { boardUserReducer } from './state/board-user.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { PromoteUnitComponent } from './game/promote-unit/promote-unit.component';
+import { gameReducer } from './game/state/game.reducer';
+import { GameEffects } from './game/state/game.effects';
 
 
 @NgModule({
@@ -18,13 +21,15 @@ import { boardUserReducer } from './state/board-user.reducer';
     BoardComponent,
     GameComponent,
     UnitComponent,
-    SquareComponent
+    SquareComponent,
+    PromoteUnitComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({ boardUser: boardUserReducer })
+    StoreModule.forRoot({ game: gameReducer }),
+    EffectsModule.forRoot([GameEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

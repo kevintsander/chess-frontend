@@ -1,25 +1,31 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Square } from './square.model';
 import { SquareDisplayState } from './square-display-state.enum';
+import { GameData } from '../game-data.model';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-square',
   templateUrl: './square.component.html',
   styleUrls: ['./square.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SquareComponent implements OnInit {
+export class SquareComponent implements OnInit, OnChanges {
   @Input() state!: { location: string, square: Square }
   @Output() click: EventEmitter<string> = new EventEmitter();
 
   bgClass!: string;
   displayStateClass!: string;
 
-  constructor() {
+  constructor(store: Store<GameData>) {
   }
 
   ngOnInit(): void {
     this.bgClass = `bg-${this.state.square.backgroundColor}`;
+    this.displayStateClass = this.getDisplayStateClass(this.state.square.displayState);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.displayStateClass = this.getDisplayStateClass(this.state.square.displayState);
   }
 
