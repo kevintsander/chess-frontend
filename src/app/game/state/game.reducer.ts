@@ -39,14 +39,26 @@ export const gameReducer = createReducer(
     }
   }),
   on(GameActions.loadGameData, (state, { gameData }) => {
+    var newSelectedLocation = state.selectedLocation;
+    var newMovableLocations = [...state.movableLocations];
+    var newAttackableLocations = [...state.attackableLocations];
+    if (gameData.turn !== state.turn || gameData.current_player !== state.current_player) {
+      newSelectedLocation = null;
+      newMovableLocations = [];
+      newAttackableLocations = [];
+    }
+
     return {
       ...state,
       turn: gameData.turn,
       current_player: gameData.current_player,
       units: gameData.units,
       allowedActions: gameData.allowed_actions,
+      selectedLocation: newSelectedLocation,
 
-      selectableLocations: actionUtil.getSelectableLocations(gameData.allowed_actions)
+      selectableLocations: actionUtil.getSelectableLocations(gameData.allowed_actions),
+      movableLocations: newMovableLocations,
+      attackableLocations: newAttackableLocations
     }
   }),
   on(GameActions.selectUnit, (state, { location }) => {
