@@ -110,7 +110,7 @@ export const gameReducer = createReducer(
 
     return {
       ...state,
-      selectedMoveLocation: location,
+      selectedActionLocation: location,
       mustPromote: mustPromote
     }
   })

@@ -5,7 +5,7 @@ import { GameActions } from "./game.actions";
 import { filter, map, switchMap, tap, withLatestFrom } from "rxjs";
 import { GameDataService } from "../game-data.service";
 import { GameData } from "../game-data.model";
-import { selectMustPromote } from "./game.selector";
+import { selectMustPromote, selectSelectedActionWithId } from "./game.selector";
 
 @Injectable()
 export class GameEffects {
@@ -32,4 +32,13 @@ export class GameEffects {
     map(([action, mustPromote]) => GameActions.endAction())
   ));
 
+  endAction$ = createEffect(() => this.actions$.pipe(
+    ofType(GameActions.endAction),
+    withLatestFrom(this.store.select(selectSelectedActionWithId)),
+    filter(([userAction, boardAction]) => boardAction?.id != null),
+    tap(([userAction, boardAction]) => {
+      this.gameDataService.performAction(boardAction.id!, boardAction.selectedLocation!, boardAction.selectedActionLocation!);
+    })
+  ),
+    { dispatch: false });
 }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as ActionCable from '@rails/actioncable';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, catchError } from 'rxjs';
 import { GameData } from './game-data.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +11,7 @@ export class GameDataService {
   private consumer: any;
   receivedSubject: Subject<GameData> = new Subject<GameData>();
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
     this.consumer = ActionCable.createConsumer('http://localhost:3000/cable'); // TODO - move to config
   }
 
@@ -33,5 +35,14 @@ export class GameDataService {
       }
     });
     return game$;
+  }
+
+  performAction(gameId: string, unitLocation: string, moveLocation: string) {
+    const queryString = new HttpParams({ fromObject: { unit_location: unitLocation, move_location: moveLocation } }).toString();
+    this.httpClient.put(`${environment.chessApiUrl}/games/${gameId}`, { unit_location: unitLocation, move_location: moveLocation })
+      .subscribe({
+        next: (data) => console.log(`action succesful: game_id: ${gameId}, unit_location: ${unitLocation}, move_location: ${moveLocation}`),
+        error: (error) => console.log(`error saving action: game_id: ${gameId}, unit_location: ${unitLocation}, move_location: ${moveLocation}`)
+      });
   }
 }
