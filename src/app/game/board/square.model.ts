@@ -1,8 +1,8 @@
 import { Unit } from "../unit/unit.model";
-import { SquareDisplayState } from "./square-display-state.enum";
+import { LocationStatus } from "./location-status.enum";
 
 export interface Square {
   backgroundColor: string,
   unit: Unit | null,
-  displayState: SquareDisplayState
+  displayState: LocationStatus
 }

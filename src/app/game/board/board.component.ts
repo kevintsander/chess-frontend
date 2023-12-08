@@ -1,50 +1,125 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { SquareDisplayState } from './square-display-state.enum'
-import { Unit } from '../unit/unit.model';
-import { Action } from '../action/action.model';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { LocationStatus } from './location-status.enum'
 import { Store } from '@ngrx/store';
 import { Square } from './square.model';
 import { KeyValue } from '@angular/common';
 import { GameState } from '../state/game.state';
 import { GameActions } from '../state/game.actions';
-import { selectGame } from '../state/game.selector';
-
-interface SquareMap {
-  [location: string]: Square
-}
+import { selectLocationsStatuses, selectUnits } from '../state/game.selector';
+import { Unit } from '../unit/unit.model';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoardComponent implements OnInit {
   gameState: GameState | undefined;
-
-  squares: SquareMap = {};
-  squareMapTemplate: SquareMap = this.getSquareMapTemplate();
-  selectedLocation!: string;
+  locations: { [location: string]: { bgColor: string, unit: Unit | null, status: LocationStatus } } = {
+    "a1": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "a2": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "a3": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "a4": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "a5": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "a6": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "a7": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "a8": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "b1": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "b2": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "b3": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "b4": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "b5": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "b6": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "b7": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "b8": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "c1": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "c2": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "c3": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "c4": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "c5": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "c6": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "c7": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "c8": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "d1": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "d2": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "d3": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "d4": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "d5": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "d6": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "d7": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "d8": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "e1": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "e2": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "e3": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "e4": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "e5": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "e6": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "e7": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "e8": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "f1": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "f2": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "f3": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "f4": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "f5": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "f6": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "f7": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "f8": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "g1": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "g2": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "g3": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "g4": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "g5": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "g6": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "g7": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "g8": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "h1": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "h2": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "h3": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "h4": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "h5": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "h6": { bgColor: "color2", unit: null, status: LocationStatus.None },
+    "h7": { bgColor: "color1", unit: null, status: LocationStatus.None },
+    "h8": { bgColor: "color2", unit: null, status: LocationStatus.None },
+  };
 
   constructor(private stateStore: Store<GameState>) { }
 
   ngOnInit() {
-    this.stateStore.select(selectGame).subscribe(gameState => {
-      this.gameState = gameState;
-      this.setSquares();
-    })
+    this.setUnits();
+    this.setStatuses();
+  }
+
+  private setUnits() {
+    this.stateStore.select(selectUnits).subscribe((units) => {
+      units.filter(unit => unit.location).forEach(unit => {
+        console.log(`setting unit ${unit.location}`);
+        this.locations[unit.location].unit = unit;
+      })
+    });
+  }
+
+  private setStatuses() {
+    this.stateStore.select(selectLocationsStatuses).subscribe((locationsStatuses) => {
+      for (const location in locationsStatuses) {
+        const displayState = locationsStatuses[location];
+        this.locations[location].status = displayState;
+      }
+    });
   }
 
   onSquareClick(location: string) {
-    if (!this.gameState) return;
+    const locationStatus = this.locations[location]?.status;
+    if (!locationStatus) { return }
 
-    if (this.gameState.selectedLocation !== location && this.gameState.selectableLocations.includes(location)) {
+    if (locationStatus == LocationStatus.Selectable) {
       this.stateStore.dispatch(GameActions.selectUnit({ location: location }));
     }
-    else if (this.gameState.selectedLocation === location) {
+    else if (locationStatus == LocationStatus.Selected) {
       this.stateStore.dispatch(GameActions.unselectUnit());
     }
-    else if (this.gameState.movableLocations.includes(location) || this.gameState.attackableLocations.includes(location)) {
-      this.stateStore.dispatch(GameActions.selectActionLocation({ location: location }))
+    else if ([LocationStatus.Movable, LocationStatus.Attackable].includes(locationStatus)) {
+      this.stateStore.dispatch(GameActions.selectActionLocation({ location: location }));
     }
   }
 
@@ -64,64 +139,4 @@ export class BoardComponent implements OnInit {
       return 1
     }
   }
-
-  private setSquares() {
-    const squares = structuredClone(this.squareMapTemplate) // deep copy;
-    this.setUnits(squares);
-    this.setDisplayStates(squares);
-    this.squares = squares;
-  }
-
-  private getSquareMapTemplate(): SquareMap {
-    const map: SquareMap = {};
-
-    var bgColor = "dark"; // initialize with dark color
-    for (let fileIndex = 97; fileIndex <= 104; fileIndex++) {
-      for (let rowIndex = 1; rowIndex <= 8; rowIndex++) {
-        const fileChar = String.fromCharCode(fileIndex);
-        const location = `${fileChar}${rowIndex}`;
-        map[location] = { backgroundColor: bgColor, unit: null, displayState: SquareDisplayState.None };
-        bgColor = this.switchBgColor(bgColor);
-      }
-      bgColor = this.switchBgColor(bgColor);
-    }
-    return map;
-  }
-  private switchBgColor(colorClass: string) {
-    return colorClass == "light" ? "dark" : "light";
-  }
-
-  private setUnits(squares: SquareMap) {
-    for (const location in squares) {
-      const square = squares[location];
-      square.unit = this.gameState?.units.find(u => u.location === location) ?? null;
-    }
-  }
-
-  private setDisplayStates(squares: SquareMap) {
-    if (!this.gameState) { return };
-
-    if (this.gameState.selectedLocation) {
-      squares[this.gameState.selectedLocation].displayState = SquareDisplayState.Selected
-    }
-    this.gameState.selectableLocations.forEach(l => {
-      if (this.gameState!.selectedLocation != l) {
-        squares[l].displayState = SquareDisplayState.Selectable;
-      }
-    })
-    this.gameState.movableLocations.forEach(l => {
-      squares[l].displayState = SquareDisplayState.Movable;
-    })
-    this.gameState.attackableLocations.forEach(l => {
-      squares[l].displayState = SquareDisplayState.Attackable;
-    })
-    if (this.gameState.enPassantableLocation) {
-      squares[this.gameState.enPassantableLocation].displayState = SquareDisplayState.EnPassantable
-    }
-    if (this.gameState.otherCastleUnitLocation) {
-      squares[this.gameState.otherCastleUnitLocation].displayState = SquareDisplayState.OtherCastleLocation
-    }
-  }
-
-
 }

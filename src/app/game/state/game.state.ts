@@ -13,13 +13,6 @@ export interface GameState {
 
   selectedLocation: string | null;
   selectedActionLocation: string | null;
-  hoverLocation: string | null;
-
-  selectableLocations: string[];
-  movableLocations: string[];
-  attackableLocations: string[];
-  enPassantableLocation: string | null;
-  otherCastleUnitLocation: string | null;
 
   mustPromote: boolean;
   selectedPromoteUnitType: string | null;

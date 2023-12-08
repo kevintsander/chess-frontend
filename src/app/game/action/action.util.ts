@@ -19,12 +19,12 @@ export class ActionUtil {
     return action.moves.find(m => m.to_location !== location)!.to_location
   }
 
-  getUnitActions(location: string, actions: Action[]) {
-    return actions.filter(a => a.moves.some(m => m.from_location === location));
+  getFromLocationActions(location: string, actions: Action[]) {
+    return actions.filter(a => a.moves.some(m => m.from_location === location)) ?? [];
   }
 
-  getLocationAction(location: string, actions: Action[]) {
-    return actions.find(a => a.moves.some(m => m.to_location === location)) ?? null;
+  getToLocationAction(fromLocation: string, toLocation: string, actions: Action[]) {
+    return this.getFromLocationActions(fromLocation, actions).find(a => a.moves.some(m => m.to_location === toLocation));
   }
 
   getLocationUnit(location: string, units: Unit[]) {

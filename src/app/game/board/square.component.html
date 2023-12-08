@@ -1,4 +1,4 @@
-<div id="square-{{state.location}}" [ngClass]="['square', displayStateClass, bgClass]" (click)="onClick()">
-  <app-unit *ngIf="state.square.unit" [unit]="state.square.unit">
+<div id="square-{{location}}" [ngClass]="['square', displayStateClass, bgClass]" (click)="onClick()">
+  <app-unit *ngIf="unit" [unit]="unit">
   </app-unit>
 </div>
