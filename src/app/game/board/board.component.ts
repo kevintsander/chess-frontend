@@ -22,11 +22,11 @@ export class BoardComponent implements OnInit {
   constructor(private stateStore: Store<GameState>, private changeDet: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.setUnits();
-    this.setStatuses();
+    this.subscribeUnits();
+    this.subscribeStatuses();
   }
 
-  private setUnits() {
+  private subscribeUnits() {
     this.stateStore.select(selectUnits).subscribe((units) => {
       var newUnitMap: { [location: string]: Unit } = {}
       units.filter(unit => unit.location).forEach(unit => {
@@ -37,7 +37,7 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  private setStatuses() {
+  private subscribeStatuses() {
     this.stateStore.select(selectLocationStatusMap).subscribe((locationsStatuses) => {
       this.statusMap = { ...INIT_STATUS_MAP, ...locationsStatuses }
     });
