@@ -2,7 +2,7 @@ import { createSelector, createFeatureSelector } from "@ngrx/store";
 import { GameState } from "./game.state";
 import { ActionUtil } from "../action/action.util";
 import { ActionType } from "../action/action-type.enum";
-import { LocationStatus } from "../board/location-status.enum";
+import { LocationStatus } from "../board/board.enums";
 
 const actionUtil = new ActionUtil();
 
@@ -89,7 +89,7 @@ export const selectSelectedCastleOtherUnitLocation = createSelector(
   }
 );
 
-export const selectLocationsStatuses = createSelector(
+export const selectLocationStatusMap = createSelector(
   selectSelectedLocation,
   selectSelectedActionLocation,
   selectSelectableLocations,

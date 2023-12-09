@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Square } from './square.model';
-import { LocationStatus } from './location-status.enum';
-import { GameData } from '../game-data.model';
+import { LocationStatus } from '../board.enums';
+import { GameData } from '../../game-data.model';
 import { Store } from '@ngrx/store';
-import { Unit } from '../unit/unit.model';
+import { Unit } from '../../unit/unit.model';
 
 @Component({
   selector: 'app-square',
@@ -30,7 +29,6 @@ export class SquareComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('hello?')
     this.displayStateClass = this.getDisplayStateClass(this.status);
   }
 

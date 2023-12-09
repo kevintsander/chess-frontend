@@ -6,3 +6,5 @@ Move the promote into a new action reducer (start promote, end promote?)
 Is there any better way to do the squares?
 Is there a better way to handle getGame? what if a new push happens in the middle of a turn? (i think we should just update the game state like units and allowed actions, if selected is the same unit then keep it)
 Remove unused imports
+Should onSquareClick move to Square?
+Start game should store the ActionCable observable and EndGame should kill it
