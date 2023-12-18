@@ -3,20 +3,21 @@ import { ActionUtil } from '../action/action.util';
 import { GameState } from './game.state';
 import { GameActions } from './game.actions';
 import { ActionType } from '../action/action-type.enum';
+import { GameStatus } from '../game-status.enum';
 
 const initialState: GameState = {
   id: undefined,
   players: [],
   turn: null,
   current_player: null,
+  status: GameStatus.Initialized,
 
   units: [],
   allowedActions: [],
+  promoteUnitLocation: null,
 
   selectedLocation: null,
   selectedActionLocation: null,
-
-  mustPromote: false,
   selectedPromoteUnitType: null
 }
 
@@ -30,10 +31,10 @@ export const gameReducer = createReducer(
       id: id
     }
   }),
-  on(GameActions.loadGameData, (state, { gameData }) => {
+  on(GameActions.receiveGameData, (state, { gameData }) => {
     // keep selected location unless the turn or current player changed
     var newSelectedLocation = state.selectedLocation;
-    if (gameData.turn !== state.turn || gameData.current_player !== state.current_player) {
+    if (gameData.turn !== state.turn || gameData.current_player !== state.current_player || gameData.status == 'promoting') {
       newSelectedLocation = null;
     }
 
@@ -43,7 +44,9 @@ export const gameReducer = createReducer(
       current_player: gameData.current_player,
       units: gameData.units,
       allowedActions: gameData.allowed_actions,
-      selectedLocation: newSelectedLocation
+      promoteUnitLocation: gameData.promote_unit_location,
+      selectedLocation: newSelectedLocation,
+      status: gameData.status,
     }
   }),
   on(GameActions.selectUnit, (state, { location }) => {
@@ -62,23 +65,9 @@ export const gameReducer = createReducer(
   on(GameActions.selectActionLocation, (state, { location }) => {
     if (!state.selectedLocation) { return state; };
 
-    // check for promotable unit
-    var selectedUnit = actionUtil.getLocationUnit(state.selectedLocation, state.units);
-    if (!selectedUnit) { return state; }
-    var mustPromote = false;
-    if (selectedUnit.type === 'Pawn') {
-      if (selectedUnit.player === 'white' && location.substring(1) === '8') {
-        mustPromote = true;
-      }
-      else if (selectedUnit.player === 'black' && location.substring(1) === '1') {
-        mustPromote = true;
-      }
-    }
-
     return {
       ...state,
-      selectedActionLocation: location,
-      mustPromote: mustPromote
+      selectedActionLocation: location
     }
   })
 );

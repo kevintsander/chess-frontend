@@ -26,6 +26,8 @@ export class GameDataService {
           // TODO: throw error here? this means server disconnected the channel.
         },
         received: (data: any) => {
+          console.log('helo')
+          console.log(data);
           subscriber.next(data);
         }
       });
@@ -38,11 +40,18 @@ export class GameDataService {
   }
 
   performAction(gameId: string, unitLocation: string, moveLocation: string) {
-    const queryString = new HttpParams({ fromObject: { unit_location: unitLocation, move_location: moveLocation } }).toString();
     this.httpClient.put(`${environment.chessApiUrl}/games/${gameId}`, { unit_location: unitLocation, move_location: moveLocation })
       .subscribe({
         next: (data) => console.log(`action succesful: game_id: ${gameId}, unit_location: ${unitLocation}, move_location: ${moveLocation}`),
         error: (error) => console.log(`error saving action: game_id: ${gameId}, unit_location: ${unitLocation}, move_location: ${moveLocation}`)
+      });
+  }
+
+  performPromotion(gameId: string, promoteUnitType: string) {
+    this.httpClient.put(`${environment.chessApiUrl}/games/${gameId}`, { promote_unit_type: promoteUnitType })
+      .subscribe({
+        next: (data) => console.log(`promotion succesful: game_id: ${gameId}, promote_unit_type: ${promoteUnitType}`),
+        error: (error) => console.log(`error promoting: game_id: ${gameId}, promote_unit_type: ${promoteUnitType}`)
       });
   }
 }

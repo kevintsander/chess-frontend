@@ -6,11 +6,11 @@ export const GameActions = createActionGroup({
   events: {
     'Create Game': emptyProps(),
     'Start Game': props<{ id: string }>(),
-    'Load Game Data': props<{ gameData: GameData }>(),
+    'Receive Game Data': props<{ gameData: GameData }>(),
     'Select Unit': props<{ location: string }>(),
     'Unselect Unit': emptyProps(),
     'Select Action Location': props<{ location: string }>(),
-    'Select Promoted Unit Type': props<{ unitType: string }>(),
+    'Promote Unit': props<{ unitType: string }>(),
     'End Action': emptyProps()
   }
 });

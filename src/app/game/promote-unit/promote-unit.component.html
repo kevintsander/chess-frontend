@@ -1,4 +1,17 @@
-<button [ngClass]="{ 'selected': selectedUnitType === 'Queen'}" (click)="onUnitClick('Queen')">Queen</button>
-<button [ngClass]="{ 'selected': selectedUnitType === 'Rook'}" (click)="onUnitClick('Rook')">Rook</button>
-<button [ngClass]="{ 'selected': selectedUnitType === 'Knight'}" (click)="onUnitClick('Knight')">Knight</button>
+<label for="Queen">
+  <input type="radio" name="promotedUnitType" [(ngModel)]="selectedUnitType" value="Queen">
+  Queen
+</label>
+<label for="Knight">
+  <input type="radio" name="promotedUnitType" [(ngModel)]="selectedUnitType" value="Knight">
+  Knight
+</label>
+<label for="Bishop">
+  <input type="radio" name="promotedUnitType" [(ngModel)]="selectedUnitType" value="Bishop">
+  Bishop
+</label>
+<label for="Rook">
+  <input type="radio" name="promotedUnitType" [(ngModel)]="selectedUnitType" value="Rook">
+  Rook
+</label>
 <button (click)="onOk()">OK</button>

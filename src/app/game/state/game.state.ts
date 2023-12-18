@@ -1,4 +1,6 @@
 import { Action } from "../action/action.model";
+import { Promote } from "../action/promote.model";
+import { GameStatus } from "../game-status.enum";
 import { Unit } from "../unit/unit.model";
 
 export interface GameState {
@@ -7,6 +9,7 @@ export interface GameState {
   players: string[];
   turn: number | null;
   current_player: string | null;
+  status: GameStatus;
 
   units: Unit[];
   allowedActions: Action[];
@@ -14,6 +17,6 @@ export interface GameState {
   selectedLocation: string | null;
   selectedActionLocation: string | null;
 
-  mustPromote: boolean;
+  promoteUnitLocation: string | null;
   selectedPromoteUnitType: string | null;
 }

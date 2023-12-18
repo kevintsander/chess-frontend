@@ -1,0 +1,32 @@
+ideas:
+- need to update chess engine to store game status:
+
+INITIALIZING
+- setting up players
+MOVE
+CHECK
+PROMOTION
+GAME OVER
+- separately store:
+  - game over reason:
+    - Player draw
+    - Max turn draw
+    - Checkmate
+    - Stalemate
+  - promotion location
+  - can I implement state pattern without breaking everything?
+
+- need to update chess API to pass along game & check status:
+- chess board UI is read only during promotion ( turn off click events )
+- promotion should have only promoting unit highlighted (need to get promotionLocation from back end, or use game log)
+- receiving game data should fire a separate action to initialize turn
+- action for starting game turn will set if we're promoting or not
+- change endAction to doAction, and add doPromote
+    - API will need to check for promote unit instead of move location
+
+I want to break the above down into tasks:
+- Make sure promotion action can be sent through JSON wiht different schema
+- Investigate implementation of state pattern
+- store game states (with lazy or good implementation of above)
+- Pass along game states in API
+

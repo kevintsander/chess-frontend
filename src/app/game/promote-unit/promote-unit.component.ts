@@ -15,18 +15,9 @@ export class PromoteUnitComponent {
   constructor(private store: Store<GameState>) {
   }
 
-  onUnitClick(unitType: string) {
-    if (unitType && unitType === this.selectedUnitType) {
-      this.selectedUnitType = null
-    }
-    else {
-      this.selectedUnitType = unitType;
-    }
-  }
-
   onOk() {
     if (this.selectedUnitType) {
-      this.store.dispatch(GameActions.selectPromotedUnitType({ unitType: this.selectedUnitType }));
+      this.store.dispatch(GameActions.promoteUnit({ unitType: this.selectedUnitType }));
     }
   }
 }

@@ -10,7 +10,7 @@ export const selectGame = createFeatureSelector<GameState>('game');
 export const selectGameId = createSelector(selectGame, state => state.id);
 export const selectUnits = createSelector(selectGame, state => state.units);
 export const selectAllowedActions = createSelector(selectGame, state => state.allowedActions);
-export const selectMustPromote = createSelector(selectGame, state => state.mustPromote);
+export const selectStatus = createSelector(selectGame, state => state.status);
 export const selectSelectedLocation = createSelector(selectGame, state => state.selectedLocation);
 export const selectSelectedActionLocation = createSelector(selectGame, state => state.selectedActionLocation);
 export const selectSelectedPromoteUnitType = createSelector(selectGame, state => state.selectedPromoteUnitType);

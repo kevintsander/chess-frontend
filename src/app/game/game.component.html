@@ -3,6 +3,8 @@
   <input id="game-id" #gameId />
   <button type="button" (click)="loadGame(gameId.value)">Load</button>
 </div>
-<p>{{gameState?.id}}</p>
-<app-board *ngIf="gameState?.id"></app-board>
-<app-promote-unit *ngIf="gameState?.mustPromote"></app-promote-unit>
+<ng-container *ngIf="gameState$ | async; let gameState">
+  <p>{{gameState.id}}</p>
+  <app-board *ngIf="gameState.id"></app-board>
+  <app-promote-unit *ngIf="gameState.status == 'promoting'"></app-promote-unit>
+</ng-container>
