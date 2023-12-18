@@ -2,6 +2,7 @@
   <label for="game-id">Game ID: </label>
   <input id="game-id" #gameId />
   <button type="button" (click)="loadGame(gameId.value)">Load</button>
+  <button type="button" (click)="createGame()">Create Game</button>
 </div>
 <ng-container *ngIf="gameState$ | async; let gameState">
   <p>{{gameState.id}}</p>

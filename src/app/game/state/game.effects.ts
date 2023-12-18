@@ -16,13 +16,22 @@ export class GameEffects {
     private store: Store<GameData>
   ) { }
 
+  createGame$ = createEffect(() => this.actions$.pipe(
+    ofType(GameActions.createGame),
+    switchMap((_action) =>
+      this.gameDataService.createGame$().pipe(
+        map((id) => GameActions.startGame({ id: id }))
+      )
+    )
+  ));
+
   startGame$ = createEffect(() => this.actions$.pipe(
     ofType(GameActions.startGame),
-    switchMap((action) => {
-      return this.gameDataService.getGame$(action.id).pipe(
+    switchMap((action) =>
+      this.gameDataService.getGame$(action.id).pipe(
         map((game) => GameActions.receiveGameData({ gameData: game }))
       )
-    })
+    )
   ));
 
   selectActionLocation$ = createEffect(() => this.actions$.pipe(

@@ -28,7 +28,6 @@ export class BoardComponent implements OnInit {
 
   private subscribeUnits() {
     this.stateStore.select(selectUnits).subscribe((units) => {
-      console.log(units)
       var newUnitMap: { [location: string]: Unit } = {}
       units.filter(unit => unit.location).forEach(unit => {
         newUnitMap[unit.location] = { ...unit };

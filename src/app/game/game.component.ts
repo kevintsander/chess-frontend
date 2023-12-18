@@ -25,4 +25,8 @@ export class GameComponent implements OnInit {
     this.store.dispatch(GameActions.startGame({ id: id }));
   }
 
+  createGame() {
+    this.store.dispatch(GameActions.createGame());
+  }
+
 }

@@ -10,7 +10,7 @@ import { GameActions } from '../state/game.actions';
 })
 export class PromoteUnitComponent {
   @Output() selectUnit: EventEmitter<string> = new EventEmitter();
-  selectedUnitType: string | null = null;
+  selectedUnitType: string = 'Queen';
 
   constructor(private store: Store<GameState>) {
   }

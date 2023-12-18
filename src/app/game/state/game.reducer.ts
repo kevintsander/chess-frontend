@@ -25,6 +25,11 @@ const actionUtil = new ActionUtil();
 
 export const gameReducer = createReducer(
   initialState,
+  on(GameActions.createGame, (state) => {
+    return {
+      ...initialState,
+    }
+  }),
   on(GameActions.startGame, (state, { id }) => {
     return {
       ...initialState,
