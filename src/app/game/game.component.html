@@ -5,7 +5,12 @@
   <button type="button" (click)="createGame()">Create Game</button>
 </div>
 <ng-container *ngIf="gameState$ | async; let gameState">
-  <p>{{gameState.id}}</p>
   <app-board *ngIf="gameState.id"></app-board>
+  <div>
+    <p><b>ID:</b> {{gameState.id}}</p>
+    <p><b>Turn:</b> {{gameState.turn}}</p>
+    <p><b>Current Player:</b> {{gameState.current_player}}</p>
+    <p><b>Status:</b> {{gameState.status}}</p>
+  </div>
   <app-promote-unit *ngIf="gameState.status == 'promoting'"></app-promote-unit>
 </ng-container>
