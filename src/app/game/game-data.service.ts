@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class GameDataService {
   private consumer: any;
+  private currentGameData$: Observable<GameData> | null | undefined;
   receivedSubject: Subject<GameData> = new Subject<GameData>();
 
   constructor(private httpClient: HttpClient) {
@@ -22,7 +23,7 @@ export class GameDataService {
   }
 
   getGame$(game_id: string): Observable<GameData> {
-    const game$ = new Observable<GameData>(subscriber => {
+    this.currentGameData$ = new Observable<GameData>(subscriber => {
       const channel = this.consumer.subscriptions.create({ channel: 'GameChannel', game_id: game_id }, {
         connected: () => {
           console.log(`connected to game channel (game_id: '${game_id})`);
@@ -38,10 +39,11 @@ export class GameDataService {
       });
 
       return () => {
+        console.log(`unsubscribing from game channel (game_id: '${game_id}')`);
         channel.unsubscribe();
       }
     });
-    return game$;
+    return this.currentGameData$;
   }
 
   performAction(gameId: string, unitLocation: string, moveLocation: string) {

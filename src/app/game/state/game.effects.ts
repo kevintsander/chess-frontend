@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { Store } from "@ngrx/store"
 import { GameActions } from "./game.actions";
-import { filter, map, switchMap, tap, withLatestFrom } from "rxjs";
+import { filter, map, repeat, switchMap, takeUntil, tap, withLatestFrom } from "rxjs";
 import { GameDataService } from "../game-data.service";
 import { GameData } from "../game-data.model";
 import { selectGameId, selectSelectedActionWithId } from "./game.selector";
@@ -29,7 +29,17 @@ export class GameEffects {
     ofType(GameActions.startGame),
     switchMap((action) =>
       this.gameDataService.getGame$(action.id).pipe(
-        map((game) => GameActions.receiveGameData({ gameData: game }))
+        map((game) => GameActions.receiveGameData({ gameData: game })),
+        takeUntil(
+          this.actions$.pipe(
+            ofType(GameActions.endGame)
+          )
+        ),
+        repeat({
+          delay: () => this.actions$.pipe(
+            ofType(GameActions.startGame)
+          )
+        })
       )
     )
   ));

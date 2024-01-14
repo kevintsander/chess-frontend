@@ -11,6 +11,7 @@ export const GameActions = createActionGroup({
     'Unselect Unit': emptyProps(),
     'Select Action Location': props<{ location: string }>(),
     'Promote Unit': props<{ unitType: string }>(),
-    'End Action': emptyProps()
+    'End Action': emptyProps(),
+    'End Game': emptyProps()
   }
 });

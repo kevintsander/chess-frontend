@@ -25,17 +25,15 @@ const actionUtil = new ActionUtil();
 
 export const gameReducer = createReducer(
   initialState,
-  on(GameActions.createGame, (state) => {
-    return {
-      ...initialState,
-    }
-  }),
+
+
   on(GameActions.startGame, (state, { id }) => {
     return {
-      ...initialState,
+      ...state,
       id: id
     }
   }),
+
   on(GameActions.receiveGameData, (state, { gameData }) => {
     // keep selected location unless the turn or current player changed
     var newSelectedLocation = state.selectedLocation;
@@ -54,12 +52,20 @@ export const gameReducer = createReducer(
       status: gameData.status,
     }
   }),
+
+  on(GameActions.endGame, (state) => {
+    return {
+      ...initialState
+    }
+  }),
+
   on(GameActions.selectUnit, (state, { location }) => {
     return {
       ...state,
       selectedLocation: location
     };
   }),
+
   on(GameActions.unselectUnit, (state) => {
     return {
       ...state,
@@ -67,6 +73,7 @@ export const gameReducer = createReducer(
       selectedActionLocation: null
     }
   }),
+
   on(GameActions.selectActionLocation, (state, { location }) => {
     if (!state.selectedLocation) { return state; };
 
