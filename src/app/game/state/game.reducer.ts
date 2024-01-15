@@ -2,7 +2,6 @@ import { createReducer, on } from '@ngrx/store';
 import { ActionUtil } from '../action/action.util';
 import { GameState } from './game.state';
 import { GameActions } from './game.actions';
-import { ActionType } from '../action/action-type.enum';
 import { GameStatus } from '../game-status.enum';
 
 const initialState: GameState = {
@@ -21,11 +20,8 @@ const initialState: GameState = {
   selectedPromoteUnitType: null
 }
 
-const actionUtil = new ActionUtil();
-
 export const gameReducer = createReducer(
   initialState,
-
 
   on(GameActions.startGame, (state, { id }) => {
     return {

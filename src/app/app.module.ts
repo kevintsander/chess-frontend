@@ -14,6 +14,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { PromoteUnitComponent } from './game/promote-unit/promote-unit.component';
 import { gameReducer } from './game/state/game.reducer';
 import { GameEffects } from './game/state/game.effects';
+import { UserModule } from './user/user.module';
+import { PlayerComponent } from './player/player.component';
+import { playerReducer } from './player/state/player.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -23,14 +28,20 @@ import { GameEffects } from './game/state/game.effects';
     GameComponent,
     UnitComponent,
     SquareComponent,
-    PromoteUnitComponent
+    PromoteUnitComponent,
+    PlayerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    StoreModule.forRoot({ game: gameReducer }),
+    UserModule,
+    StoreModule.forRoot({ game: gameReducer, players: playerReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
     EffectsModule.forRoot([GameEffects])
   ],
   providers: [],
