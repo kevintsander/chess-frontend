@@ -7,5 +7,12 @@ const initialState: UserState = {
 }
 
 export const userReducer = createReducer(
-  initialState
+  initialState,
+
+  on(UserActions.loginSuccess, (state, { user }) => {
+    return {
+      ...state,
+      user: user
+    }
+  })
 );

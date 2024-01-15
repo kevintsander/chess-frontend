@@ -20,6 +20,7 @@ import { playerReducer } from './player/state/player.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { PlayerEffects } from './player/state/player.effects';
+import { AngularTokenModule } from '@kevintsander/angular-token';
 
 
 @NgModule({
@@ -42,8 +43,10 @@ import { PlayerEffects } from './player/state/player.effects';
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
-    , connectInZone: true}),
-    EffectsModule.forRoot([GameEffects, PlayerEffects])
+      connectInZone: true
+    }),
+    EffectsModule.forRoot([GameEffects, PlayerEffects]),
+    AngularTokenModule.forRoot({ apiBase: environment.chessApiUrl })
   ],
   providers: [],
   bootstrap: [AppComponent]

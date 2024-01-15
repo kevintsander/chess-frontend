@@ -5,6 +5,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { userReducer } from './state/user.reducer';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './state/user.effects';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { StoreModule } from '@ngrx/store';
     CommonModule,
     ReactiveFormsModule,
     StoreModule.forFeature('user', userReducer),
+    EffectsModule.forFeature(UserEffects)
   ],
   exports: [
     LoginComponent
