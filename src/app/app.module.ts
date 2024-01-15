@@ -19,6 +19,7 @@ import { PlayerComponent } from './player/player.component';
 import { playerReducer } from './player/state/player.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
+import { PlayerEffects } from './player/state/player.effects';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { environment } from 'src/environments/environment';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
-    EffectsModule.forRoot([GameEffects])
+    EffectsModule.forRoot([GameEffects, PlayerEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
