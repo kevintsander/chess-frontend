@@ -15,13 +15,15 @@ export const playerReducer = createReducer(
   on(PlayerActions.showPlayer1Login, (state) => {
     return {
       ...state,
-      showPlayer1Login: true
+      showPlayer1Login: true,
+      showPlayer2Login: false
     }
   }),
 
   on(PlayerActions.showPlayer2Login, (state) => {
     return {
       ...state,
+      showPlayer1Login: false,
       showPlayer2Login: true
     }
   })
