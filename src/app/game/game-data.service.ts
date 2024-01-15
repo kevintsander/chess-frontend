@@ -8,16 +8,18 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class GameDataService {
+  private apiUrl = `${environment.chessApiUrl}/games`;
+  private cableUrl = environment.chessActionCableUrl;
   private consumer: any;
   private currentGameData$: Observable<GameData> | null | undefined;
   receivedSubject: Subject<GameData> = new Subject<GameData>();
 
   constructor(private httpClient: HttpClient) {
-    this.consumer = ActionCable.createConsumer('http://localhost:3000/cable'); // TODO - move to config
+    this.consumer = ActionCable.createConsumer(this.cableUrl);
   }
 
   createGame$(): Observable<string> {
-    return this.httpClient.post(`${environment.chessApiUrl}/games`, {}, { responseType: 'text' }).pipe(
+    return this.httpClient.post(this.apiUrl, {}, { responseType: 'text' }).pipe(
       tap((id) => console.log(id))
     );
   }
@@ -47,7 +49,7 @@ export class GameDataService {
   }
 
   performAction(gameId: string, unitLocation: string, moveLocation: string) {
-    this.httpClient.put(`${environment.chessApiUrl}/games/${gameId}`, { unit_location: unitLocation, move_location: moveLocation })
+    this.httpClient.put(`${this.apiUrl}/${gameId}`, { unit_location: unitLocation, move_location: moveLocation })
       .subscribe({
         next: (data) => console.log(`action succesful: game_id: ${gameId}, unit_location: ${unitLocation}, move_location: ${moveLocation}`),
         error: (error) => console.log(`error saving action: game_id: ${gameId}, unit_location: ${unitLocation}, move_location: ${moveLocation}`)
@@ -55,7 +57,7 @@ export class GameDataService {
   }
 
   performPromotion(gameId: string, promoteUnitType: string) {
-    this.httpClient.put(`${environment.chessApiUrl}/games/${gameId}`, { promote_unit_type: promoteUnitType })
+    this.httpClient.put(`${this.apiUrl}/${gameId}`, { promote_unit_type: promoteUnitType })
       .subscribe({
         next: (data) => console.log(`promotion succesful: game_id: ${gameId}, promote_unit_type: ${promoteUnitType}`),
         error: (error) => console.log(`error promoting: game_id: ${gameId}, promote_unit_type: ${promoteUnitType}`)

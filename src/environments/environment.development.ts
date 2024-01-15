@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  chessApiUrl: "http://127.0.0.1:3000/"
+  chessApiUrl: "http://localhost:3000",
+  chessActionCableUrl: "http://localhost:3000/cable"
 };
