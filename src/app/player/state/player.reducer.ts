@@ -26,6 +26,22 @@ export const playerReducer = createReducer(
       showPlayer1Login: false,
       showPlayer2Login: true
     }
-  })
+  }),
+
+  on(PlayerActions.setPlayer1, (state) => {
+    return {
+      ...state,
+      showPlayer1Login: false,
+      showPlayer2Login: false
+    }
+  }),
+
+  on(PlayerActions.setPlayer2, (state) => {
+    return {
+      ...state,
+      showPlayer1Login: false,
+      showPlayer2Login: false
+    }
+  }),
 
 );
