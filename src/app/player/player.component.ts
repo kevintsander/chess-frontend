@@ -15,26 +15,26 @@ import { PlayerActions } from './state/player.actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerComponent implements OnInit {
-  @Input({ required: true }) player!: string;
+  @Input({ required: true }) player!: number;
 
   showPlayerLogin$!: Observable<boolean>;
 
   constructor(private playerStore: Store<PlayerState>) { }
 
   ngOnInit(): void {
-    if (this.player === "player1") {
+    if (this.player === 1) {
       this.showPlayerLogin$ = this.playerStore.select(selectShowPlayer1Login);
     }
-    else if (this.player === "player2") {
+    else if (this.player === 2) {
       this.showPlayerLogin$ = this.playerStore.select(selectShowPlayer2Login);
     }
   }
 
   onClick() {
-    if (this.player === "player1") {
+    if (this.player === 1) {
       this.playerStore.dispatch(PlayerActions.startSetPlayer1());
     }
-    else if (this.player === "player2") {
+    else if (this.player === 2) {
       this.playerStore.dispatch(PlayerActions.startSetPlayer2());
     }
   }

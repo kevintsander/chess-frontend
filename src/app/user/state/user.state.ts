@@ -1,3 +1,4 @@
 export interface UserState {
-  user: any;
+  user: any,
+  setPlayerOnLogin: number | null
 }

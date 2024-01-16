@@ -7,8 +7,8 @@
 </div>
 <ng-container *ngIf="gameState$ | async; let gameState">
   <ng-container *ngIf="gameState.id">
-    <app-player [player]="'player1'"></app-player>
-    <app-player [player]="'player2'"></app-player>
+    <app-player [player]="1"></app-player>
+    <app-player [player]="2"></app-player>
     <app-board></app-board>
     <div>
       <p><b>ID:</b> {{gameState.id}}</p>

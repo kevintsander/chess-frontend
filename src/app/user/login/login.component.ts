@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserState } from '../state/user.state';
 import { Store } from '@ngrx/store';
@@ -10,6 +10,7 @@ import { UserActions } from '../state/user.actions';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @Input() player: number | null = null;
   loginFormGroup!: FormGroup<any>;
 
   constructor(private userStore: Store<UserState>) { }
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userStore.dispatch(UserActions.login({ ...this.loginFormGroup.value }))
+    this.userStore.dispatch(UserActions.login({ ...this.loginFormGroup.value, setPlayerOnLogin: this.player }))
   }
 
 }

@@ -48,6 +48,10 @@ export class GameDataService {
     return this.currentGameData$;
   }
 
+  setPlayer$(game_id: string, user_id: number, player: number): Observable<any> {
+    return this.httpClient.put(`${this.apiUrl}/${game_id}/player${player}`, { user_id });
+  }
+
   performAction(gameId: string, unitLocation: string, moveLocation: string) {
     this.httpClient.put(`${this.apiUrl}/${gameId}`, { unit_location: unitLocation, move_location: moveLocation })
       .subscribe({

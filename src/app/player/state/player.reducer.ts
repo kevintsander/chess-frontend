@@ -6,7 +6,7 @@ const initialState: PlayerState = {
   showPlayer1Login: false,
   showPlayer2Login: false,
   player1: null,
-  player2: null
+  player2: null,
 }
 
 export const playerReducer = createReducer(
