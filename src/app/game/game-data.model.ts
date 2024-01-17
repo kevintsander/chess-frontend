@@ -6,7 +6,7 @@ import { Unit } from "./unit/unit.model";
 export interface GameData {
   id: string;
   turn: number;
-  current_player: string;
+  current_color: string;
   allowed_actions: Action[];
   promote_unit_location: string;
   units: Unit[];

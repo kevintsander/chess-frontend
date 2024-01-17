@@ -6,9 +6,8 @@ import { Unit } from "../unit/unit.model";
 export interface GameState {
   id: string | undefined;
 
-  players: string[];
   turn: number | null;
-  current_player: string | null;
+  current_color: string | null;
   status: GameStatus;
 
   units: Unit[];

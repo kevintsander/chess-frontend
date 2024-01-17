@@ -6,9 +6,8 @@ import { GameStatus } from '../game-status.enum';
 
 const initialState: GameState = {
   id: undefined,
-  players: [],
   turn: null,
-  current_player: null,
+  current_color: null,
   status: GameStatus.Initialized,
 
   units: [],
@@ -33,14 +32,14 @@ export const gameReducer = createReducer(
   on(GameActions.receiveGameData, (state, { gameData }) => {
     // keep selected location unless the turn or current player changed
     var newSelectedLocation = state.selectedLocation;
-    if (gameData.turn !== state.turn || gameData.current_player !== state.current_player || gameData.status == 'promoting') {
+    if (gameData.turn !== state.turn || gameData.current_color !== state.current_color || gameData.status == 'promoting') {
       newSelectedLocation = null;
     }
 
     return {
       ...state,
       turn: gameData.turn,
-      current_player: gameData.current_player,
+      current_player: gameData.current_color,
       units: gameData.units,
       allowedActions: gameData.allowed_actions,
       promoteUnitLocation: gameData.promote_unit_location,

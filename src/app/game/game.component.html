@@ -13,7 +13,7 @@
     <div>
       <p><b>ID:</b> {{gameState.id}}</p>
       <p><b>Turn:</b> {{gameState.turn}}</p>
-      <p><b>Current Player:</b> {{gameState.current_player}}</p>
+      <p><b>Current Color:</b> {{gameState.current_color}}</p>
       <p><b>Status:</b> {{gameState.status}}</p>
     </div>
     <app-promote-unit *ngIf="gameState.status == 'promoting'"></app-promote-unit>
