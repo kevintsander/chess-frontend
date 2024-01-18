@@ -1,3 +1,4 @@
+import { Player } from "src/app/player/state/player.model";
 import { Action } from "../action/action.model";
 import { Promote } from "../action/promote.model";
 import { GameStatus } from "../game-status.enum";
@@ -7,6 +8,8 @@ export interface GameState {
   id: string | undefined;
 
   turn: number | null;
+  player1: Player | null;
+  player2: Player | null;
   current_color: string | null;
   status: GameStatus;
 

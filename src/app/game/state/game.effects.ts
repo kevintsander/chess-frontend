@@ -28,7 +28,7 @@ export class GameEffects {
   startGame$ = createEffect(() => this.actions$.pipe(
     ofType(GameActions.startGame),
     switchMap((action) =>
-      this.gameDataService.getGame$(action.id).pipe(
+      this.gameDataService.getGameData$(action.id).pipe(
         map((game) => GameActions.receiveGameData({ gameData: game })),
         takeUntil(
           this.actions$.pipe(

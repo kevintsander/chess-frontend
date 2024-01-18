@@ -11,7 +11,6 @@ export class GameDataService {
   private apiUrl = `${environment.chessApiUrl}/games`;
   private cableUrl = environment.chessActionCableUrl;
   private consumer: any;
-  private currentGameData$: Observable<GameData> | null | undefined;
   receivedSubject: Subject<GameData> = new Subject<GameData>();
 
   constructor(private httpClient: HttpClient) {
@@ -24,8 +23,8 @@ export class GameDataService {
     );
   }
 
-  getGame$(game_id: string): Observable<GameData> {
-    this.currentGameData$ = new Observable<GameData>(subscriber => {
+  getGameData$(game_id: string): Observable<GameData> {
+    return new Observable<GameData>(subscriber => {
       const channel = this.consumer.subscriptions.create({ channel: 'GameChannel', game_id: game_id }, {
         connected: () => {
           console.log(`connected to game channel (game_id: '${game_id})`);
@@ -35,6 +34,7 @@ export class GameDataService {
           // TODO: throw error here? this means server disconnected the channel.
         },
         received: (data: any) => {
+          console.log(`received game data (game_id: '${game_id}`)
           console.log(data);
           subscriber.next(data);
         }
@@ -45,7 +45,6 @@ export class GameDataService {
         channel.unsubscribe();
       }
     });
-    return this.currentGameData$;
   }
 
   setPlayer$(game_id: string, user_id: number, player: number): Observable<any> {

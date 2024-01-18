@@ -7,6 +7,8 @@ import { GameStatus } from '../game-status.enum';
 const initialState: GameState = {
   id: undefined,
   turn: null,
+  player1: null,
+  player2: null,
   current_color: null,
   status: GameStatus.Initialized,
 
@@ -39,7 +41,9 @@ export const gameReducer = createReducer(
     return {
       ...state,
       turn: gameData.turn,
-      current_player: gameData.current_color,
+      player1: gameData.player1,
+      player2: gameData.player2,
+      current_color: gameData.current_color,
       units: gameData.units,
       allowedActions: gameData.allowed_actions,
       promoteUnitLocation: gameData.promote_unit_location,
