@@ -55,7 +55,7 @@ export class GameDataService {
     this.httpClient.put(`${this.apiUrl}/${gameId}`, { unit_location: unitLocation, move_location: moveLocation })
       .subscribe({
         next: (data) => console.log(`action succesful: game_id: ${gameId}, unit_location: ${unitLocation}, move_location: ${moveLocation}`),
-        error: (error) => console.log(`error saving action: game_id: ${gameId}, unit_location: ${unitLocation}, move_location: ${moveLocation}`)
+        error: (error) => console.log(`error saving action: game_id: ${gameId}, unit_location: ${unitLocation}, move_location: ${moveLocation}, error: ${error.error}`)
       });
   }
 
