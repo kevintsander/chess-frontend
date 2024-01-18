@@ -1,4 +1,6 @@
+import { User } from "../user.model";
+
 export interface UserState {
-  user: any,
+  user: User | null,
   setPlayerOnLogin: number | null
 }

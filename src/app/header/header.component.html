@@ -1,0 +1,7 @@
+<ng-container *ngIf="user$ | async as user; else nouser">
+  <p>Welcome, user {{user.id}}</p>
+</ng-container>
+
+<ng-template #nouser>
+  <p>Login</p>
+</ng-template>

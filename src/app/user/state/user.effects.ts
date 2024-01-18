@@ -25,7 +25,7 @@ export class UserEffects {
         map((response) => {
           if (response.data) {
             const user: User = {
-              userId: response.data.id,
+              id: response.data.id,
               email: response.data.email,
               nickname: response.data.nickname
             }
@@ -45,10 +45,10 @@ export class UserEffects {
     filter(([action, userState]) => userState.setPlayerOnLogin != null && [1, 2].includes(userState.setPlayerOnLogin)),
     map(([action, userState]) => {
       if (userState.setPlayerOnLogin === 1) {
-        return PlayerActions.setPlayer1({ id: userState.user.userId });
+        return PlayerActions.setPlayer1({ id: action.user.id });
       }
       else {
-        return PlayerActions.setPlayer2({ id: userState.user.userId });
+        return PlayerActions.setPlayer2({ id: action.user.id });
       }
     })
   ));

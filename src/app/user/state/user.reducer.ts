@@ -19,6 +19,12 @@ export const userReducer = createReducer(
 
   on(UserActions.loginSuccess, (state, { user }) => {
     return {
+      ...state
+    }
+  }),
+
+  on(UserActions.setCurrentUser, (state, { user }) => {
+    return {
       ...state,
       user: user
     }

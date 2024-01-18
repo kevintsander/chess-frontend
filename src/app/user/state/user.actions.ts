@@ -8,7 +8,7 @@ export const UserActions = createActionGroup({
     'Login': props<{ email: string, password: string, setPlayerOnLogin: number | null }>(),
     'Login Success': props<{ user: User }>(),
     'Login Failure': props<{ error: string }>(),
-    'Set Current User': props<{ user: User }>(),
+    'Set Current User': props<{ user: User | null }>(),
     'Logout': emptyProps()
   }
 });

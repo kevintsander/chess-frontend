@@ -26,7 +26,7 @@ export class PlayerEffects {
     withLatestFrom(this.userStore.select(selectUser)),
     map(([_startSetPlayer1Action, user]) => {
       if (user) {
-        return PlayerActions.setPlayer1({ id: user.userId });
+        return PlayerActions.setPlayer1({ id: user.id });
       }
       else {
         return PlayerActions.showPlayer1Login();
@@ -39,7 +39,7 @@ export class PlayerEffects {
     withLatestFrom(this.userStore.select(selectUser)),
     map(([_startSetPlayer2Action, user]) => {
       if (user) {
-        return PlayerActions.setPlayer2({ id: user.userId });
+        return PlayerActions.setPlayer2({ id: user.id });
       }
       else {
         return PlayerActions.showPlayer2Login();

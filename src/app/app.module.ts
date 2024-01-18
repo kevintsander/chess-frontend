@@ -21,6 +21,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { PlayerEffects } from './player/state/player.effects';
 import { AngularTokenModule } from '@kevintsander/angular-token';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { AngularTokenModule } from '@kevintsander/angular-token';
       connectInZone: true
     }),
     EffectsModule.forRoot([GameEffects, PlayerEffects]),
-    AngularTokenModule.forRoot({ apiBase: environment.chessApiUrl })
+    AngularTokenModule.forRoot({ apiBase: environment.chessApiUrl }),
+    HeaderComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
