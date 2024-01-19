@@ -1,4 +1,8 @@
-<ng-container *ngIf="{ value: user$ | async } as user">
-  <p *ngIf="user.value">Welcome, user {{user.value.id}}</p>
-  <button *ngIf="user.value" (click)="logoutClick()">Logout</button>
-</ng-container>
+@if ({ value: user$ | async }; as user) {
+  @if (user.value) {
+    <span>Welcome, user {{ user.value.id }}</span>
+    <button (click)="logoutClick()">Logout</button>
+  } @else {
+    <p>Login</p>
+  }
+}

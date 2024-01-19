@@ -1,4 +1,8 @@
-<div id="square-{{location}}" [ngClass]="['square', status, bgClass]" (click)="onClick()">
-  <app-unit *ngIf="unit" [unit]="unit">
-  </app-unit>
+<div
+  id="square-{{ location }}"
+  [ngClass]="['square', status, bgClass]"
+  (click)="onClick()">
+  @if (unit) {
+    <app-unit [unit]="unit"></app-unit>
+  }
 </div>

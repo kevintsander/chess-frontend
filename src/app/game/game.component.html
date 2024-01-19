@@ -1,21 +1,35 @@
 <div>
-  <label for="game-id">Game ID: </label>
+  <label for="game-id">Game ID:</label>
   <input id="game-id" #gameId />
   <button type="button" (click)="loadGame(gameId.value)">Load</button>
   <button type="button" (click)="createGame()">Create Game</button>
   <button type="button" (click)="endGame()">End Game</button>
 </div>
-<ng-container *ngIf="gameState$ | async; let gameState">
-  <ng-container *ngIf="gameState.id">
+@if (gameState$ | async; as gameState) {
+  @if (gameState.id) {
     <app-player [playerNum]="1"></app-player>
     <app-player [playerNum]="2"></app-player>
     <app-board></app-board>
     <div>
-      <p><b>ID:</b> {{gameState.id}}</p>
-      <p><b>Turn:</b> {{gameState.turn}}</p>
-      <p><b>Current Color:</b> {{gameState.current_color}}</p>
-      <p><b>Status:</b> {{gameState.status}}</p>
+      <p>
+        <b>ID:</b>
+        {{ gameState.id }}
+      </p>
+      <p>
+        <b>Turn:</b>
+        {{ gameState.turn }}
+      </p>
+      <p>
+        <b>Current Color:</b>
+        {{ gameState.current_color }}
+      </p>
+      <p>
+        <b>Status:</b>
+        {{ gameState.status }}
+      </p>
     </div>
-    <app-promote-unit *ngIf="gameState.status == 'promoting'"></app-promote-unit>
-  </ng-container>
-</ng-container>
+    @if (gameState.status == "promoting") {
+      <app-promote-unit></app-promote-unit>
+    }
+  }
+}

@@ -1,10 +1,15 @@
-Player {{playerNum}}:
-<div *ngIf="{ showPlayerLogin: showPlayerLogin$ | async, player: player$ | async } as playerState; else loadingBlock">
-  <p *ngIf="!playerState.showPlayerLogin && playerState.player" (click)="onClick()">{{playerState.player.id}}</p>
-  <button *ngIf="!playerState.showPlayerLogin && !playerState.player" (click)="onClick()">Select Player</button>
-  <app-login [playerNum]="playerNum" *ngIf="playerState.showPlayerLogin"></app-login>
+<div>
+  Player {{ playerNum }}:
+  @if (
+    { showPlayerLogin: showPlayerLogin$ | async, player: player$ | async };
+    as playerState
+  ) {
+    @if (playerState.player) {
+      <span>{{ playerState.player.id }}</span>
+    } @else if (playerState.showPlayerLogin) {
+      <app-login [playerNum]="playerNum"></app-login>
+    } @else if (!playerState.showPlayerLogin) {
+      <button (click)="onClick()">Select Player</button>
+    }
+  }
 </div>
-
-<ng-template #loadingBlock>
-  <p>Loading...</p>
-</ng-template>
