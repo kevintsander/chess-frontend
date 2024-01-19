@@ -2,9 +2,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GameState } from '../state/game.state';
 import { GameActions } from '../state/game.actions';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-promote-unit',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './promote-unit.component.html',
   styleUrls: ['./promote-unit.component.scss']
 })

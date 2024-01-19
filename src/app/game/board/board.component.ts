@@ -7,9 +7,14 @@ import { selectLocationStates, selectUnits } from '../state/game.selector';
 import { Unit } from '../unit/unit.model';
 import { INIT_STATUS_MAP, INIT_UNIT_MAP } from './board.constants';
 import { Subscription } from 'rxjs';
+import { SquareComponent } from './square/square.component';
 
 @Component({
   selector: 'app-board',
+  standalone: true,
+  imports: [
+    SquareComponent
+  ],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,9 +4,20 @@ import { Store } from '@ngrx/store';
 import { GameState } from './state/game.state';
 import { selectGameState } from './state/game.selector';
 import { GameActions } from './state/game.actions';
+import { BoardComponent } from './board/board.component';
+import { CommonModule } from '@angular/common';
+import { PlayerComponent } from '../player/player.component';
+import { PromoteUnitComponent } from './promote-unit/promote-unit.component';
 
 @Component({
   selector: 'app-game',
+  standalone: true,
+  imports: [
+    CommonModule,
+    BoardComponent,
+    PlayerComponent,
+    PromoteUnitComponent
+  ],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })

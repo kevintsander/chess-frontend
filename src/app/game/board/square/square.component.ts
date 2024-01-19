@@ -3,9 +3,16 @@ import { LocationStatus } from '../board.enums';
 import { GameData } from '../../game-data.model';
 import { Store } from '@ngrx/store';
 import { Unit } from '../../unit/unit.model';
+import { UnitComponent } from '../../unit/unit.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-square',
+  standalone: true,
+  imports: [
+    CommonModule,
+    UnitComponent
+  ],
   templateUrl: './square.component.html',
   styleUrls: ['./square.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
