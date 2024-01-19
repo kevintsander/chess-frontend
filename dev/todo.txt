@@ -3,20 +3,6 @@ Change all references to Action to BoardAction
 Move the promote into a new action reducer (start promote, end promote?)
 Should onSquareClick move to Square?
 Remove unused imports
-Convert Angular to standalone components
-Convert Angular templates to use new syntax
 Clean up FormGroup
 Unify naming (location/coordiante, signin/login...)
 Containerize API
-
-------
-Overhaul chess-engine players system
-  - what if we just remove player entirely from chess-engine and use color only? whatever uses the engine can add player names
-     - console game will need to be modified to handle player naming
- - can we remove unit dependency on player, just color only?
- - allow users to be changed
- - or, what if we keep it? initial user set, and if changed then who cares? game_log would be wrong but this is a weird chess scenario anyway, you're kinda "taking over" for the original person anyway
-      - but then we still need players to be set AFTER initializing the game, if not in chess engine then in the API and front end at least
-
-
-      ideally, we'll show a chess board with no units on it, until game is "started" (either by button or by both players logging in)
