@@ -2,18 +2,24 @@ import { createSelector, createFeatureSelector } from "@ngrx/store";
 import { GameState } from "./game.state";
 import { ActionUtil } from "../action/action.util";
 import { ActionType } from "../action/action-type.enum";
-import { LocationStatus } from "../board/board.enums";
+import { selectUser } from "src/app/user/state/user.selector";
 
 const actionUtil = new ActionUtil();
 
-export const selectGame = createFeatureSelector<GameState>('game');
-export const selectGameId = createSelector(selectGame, state => state.id);
-export const selectUnits = createSelector(selectGame, state => state.units);
-export const selectAllowedActions = createSelector(selectGame, state => state.allowedActions);
-export const selectStatus = createSelector(selectGame, state => state.status);
-export const selectSelectedLocation = createSelector(selectGame, state => state.selectedLocation);
-export const selectSelectedActionLocation = createSelector(selectGame, state => state.selectedActionLocation);
-export const selectSelectedPromoteUnitType = createSelector(selectGame, state => state.selectedPromoteUnitType);
+export const selectGameState = createFeatureSelector<GameState>('game');
+export const selectGameId = createSelector(selectGameState, state => state.id);
+export const selectCurrentColor = createSelector(selectGameState, state => state.current_color);
+export const selectUnits = createSelector(selectGameState, state => state.units);
+export const selectAllowedActions = createSelector(selectGameState, state => state.allowedActions);
+export const selectStatus = createSelector(selectGameState, state => state.status);
+export const selectSelectedLocation = createSelector(selectGameState, state => state.selectedLocation);
+export const selectSelectedActionLocation = createSelector(selectGameState, state => state.selectedActionLocation);
+export const selectSelectedPromoteUnitType = createSelector(selectGameState, state => state.selectedPromoteUnitType);
+export const selectPlayer1 = createSelector(selectGameState, state => state.player1);
+export const selectPlayer2 = createSelector(selectGameState, state => state.player2);
+export const selectShowPlayer1Login = createSelector(selectGameState, state => state.showPlayer1Login);
+export const selectShowPlayer2Login = createSelector(selectGameState, state => state.showPlayer2Login);
+export const selectCurrentPlayer = createSelector(selectGameState, selectCurrentColor, (playerState, currentColor) => currentColor === "white" ? playerState.player1 : playerState.player2)
 
 export const selectSelectedActionWithId = createSelector(
   selectGameId,
@@ -89,7 +95,7 @@ export const selectSelectedCastleOtherUnitLocation = createSelector(
   }
 );
 
-export const selectLocationStatusMap = createSelector(
+export const selectLocationStates = createSelector(
   selectSelectedLocation,
   selectSelectedActionLocation,
   selectSelectableLocations,
@@ -97,32 +103,9 @@ export const selectLocationStatusMap = createSelector(
   selectMovableLocations,
   selectSelectedEnPassantAttackLocation,
   selectSelectedCastleOtherUnitLocation,
-  (selectedLocation, selectedActionLocation, selectableLocations, attackableLocations, movableLocations, selectedEnPassantAttackLocation, selectedCastleOtherUnitLocation) => {
-    const boardLocationStates: { [location: string]: LocationStatus } = {};
-
-    if (selectedLocation) {
-      boardLocationStates[selectedLocation] = LocationStatus.Selected;
-    }
-    if (selectedActionLocation) {
-      boardLocationStates[selectedActionLocation] = LocationStatus.SelectedAction;
-    }
-    selectableLocations.forEach((selectableLocation) => {
-      boardLocationStates[selectableLocation] = LocationStatus.Selectable;
-    });
-    attackableLocations.forEach((attackableLocation) => {
-      boardLocationStates[attackableLocation] = LocationStatus.Attackable;
-    });
-    movableLocations.forEach((movableLocation) => {
-      boardLocationStates[movableLocation] = LocationStatus.Movable;
-    });
-    if (selectedEnPassantAttackLocation) {
-      boardLocationStates[selectedEnPassantAttackLocation] = LocationStatus.EnPassantable;
-    }
-    if (selectedCastleOtherUnitLocation) {
-      boardLocationStates[selectedCastleOtherUnitLocation] = LocationStatus.OtherCastleLocation;
-    }
-
-    return boardLocationStates;
+  selectCurrentPlayer,
+  selectUser,
+  (selectedLocation, selectedActionLocation, selectableLocations, attackableLocations, movableLocations, selectedEnPassantAttackLocation, selectedCastleOtherUnitLocation, currentPlayer, user) => {
+    return { selectedLocation, selectedActionLocation, selectableLocations, attackableLocations, movableLocations, selectedEnPassantAttackLocation, selectedCastleOtherUnitLocation, currentPlayer, user }
   }
 );
-

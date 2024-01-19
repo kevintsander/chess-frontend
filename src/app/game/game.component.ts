@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable, } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { GameState } from './state/game.state';
-import { selectGame } from './state/game.selector';
+import { selectGameState } from './state/game.selector';
 import { GameActions } from './state/game.actions';
-import { GameStatus } from './game-status.enum';
 
 @Component({
   selector: 'app-game',
@@ -18,7 +17,7 @@ export class GameComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.gameState$ = this.store.select(selectGame);
+    this.gameState$ = this.store.select(selectGameState);
   }
 
   loadGame(id: string) {

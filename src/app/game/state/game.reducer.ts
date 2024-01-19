@@ -1,11 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
 import { ActionUtil } from '../action/action.util';
 import { GameState } from './game.state';
-import { GameActions } from './game.actions';
+import { GameActions, PlayerActions } from './game.actions';
 import { GameStatus } from '../game-status.enum';
 
 const initialState: GameState = {
   id: undefined,
+
+  player1: null,
+  player2: null,
+  showPlayer1Login: false,
+  showPlayer2Login: false,
+
   turn: null,
   current_color: null,
   status: GameStatus.Initialized,
@@ -38,6 +44,8 @@ export const gameReducer = createReducer(
 
     return {
       ...state,
+      player1: gameData.player1,
+      player2: gameData.player2,
       turn: gameData.turn,
       current_color: gameData.current_color,
       units: gameData.units,
@@ -76,5 +84,38 @@ export const gameReducer = createReducer(
       ...state,
       selectedActionLocation: location
     }
-  })
+  }),
+
+  on(PlayerActions.showPlayer1Login, (state) => {
+    return {
+      ...state,
+      showPlayer1Login: true,
+      showPlayer2Login: false
+    }
+  }),
+
+  on(PlayerActions.showPlayer2Login, (state) => {
+    return {
+      ...state,
+      showPlayer1Login: false,
+      showPlayer2Login: true
+    }
+  }),
+
+  on(PlayerActions.setPlayer1, (state) => {
+    return {
+      ...state,
+      showPlayer1Login: false,
+      showPlayer2Login: false
+    }
+  }),
+
+  on(PlayerActions.setPlayer2, (state) => {
+    return {
+      ...state,
+      showPlayer1Login: false,
+      showPlayer2Login: false
+    }
+  }),
+
 );

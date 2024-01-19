@@ -1,14 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserActions } from "./user.actions";
-import { EMPTY, catchError, exhaustMap, filter, map, of, switchMap, tap, withLatestFrom } from "rxjs";
+import { catchError, exhaustMap, filter, map, of, withLatestFrom } from "rxjs";
 import { User } from "../user.model";
-import { GameDataService } from "src/app/game/game-data.service";
 import { AngularTokenService } from "@kevintsander/angular-token";
 import { UserState } from "./user.state";
 import { Store } from "@ngrx/store";
-import { selectSetPlayerOnLogin, selectUser, selectUserState } from "./user.selector";
-import { PlayerActions } from "src/app/player/state/player.actions";
+import { selectUserState } from "./user.selector";
+import { PlayerActions } from "src/app/game/state/game.actions";
 
 @Injectable()
 export class UserEffects {

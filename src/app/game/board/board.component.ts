@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { LocationStatus } from './board.enums'
 import { Store } from '@ngrx/store';
 import { GameState } from '../state/game.state';
 import { GameActions } from '../state/game.actions';
-import { selectLocationStatusMap, selectUnits } from '../state/game.selector';
+import { selectLocationStates, selectUnits } from '../state/game.selector';
 import { Unit } from '../unit/unit.model';
 import { INIT_STATUS_MAP, INIT_UNIT_MAP } from './board.constants';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -13,21 +14,24 @@ import { INIT_STATUS_MAP, INIT_UNIT_MAP } from './board.constants';
   styleUrls: ['./board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
   gameState: GameState | undefined;
   bgColorMap: { [location: string]: string } = {};
   unitMap: { [location: string]: Unit | null } = {};
   statusMap: { [location: string]: LocationStatus } = {};
 
+  private unitsSub!: Subscription;
+  private locationStatesSub!: Subscription;
+
   constructor(private stateStore: Store<GameState>, private changeDet: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.subscribeUnits();
-    this.subscribeStatuses();
+    this.subscribeLocationStates();
   }
 
   private subscribeUnits() {
-    this.stateStore.select(selectUnits).subscribe((units) => {
+    this.unitsSub = this.stateStore.select(selectUnits).subscribe((units) => {
       var newUnitMap: { [location: string]: Unit } = {}
       units.filter(unit => unit.location).forEach(unit => {
         newUnitMap[unit.location] = { ...unit };
@@ -37,10 +41,37 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  private subscribeStatuses() {
-    this.stateStore.select(selectLocationStatusMap).subscribe((locationsStatuses) => {
-      this.statusMap = { ...INIT_STATUS_MAP, ...locationsStatuses }
-    });
+  private subscribeLocationStates() {
+    this.stateStore.select(selectLocationStates).subscribe((locationStates) => {
+      const newStatuses: { [location: string]: LocationStatus } = {};
+
+      if (locationStates.currentPlayer?.id === locationStates.user?.id) {
+
+        if (locationStates.selectedLocation) {
+          newStatuses[locationStates.selectedLocation] = LocationStatus.Selected;
+        }
+        if (locationStates.selectedActionLocation) {
+          newStatuses[locationStates.selectedActionLocation] = LocationStatus.SelectedAction;
+        }
+        locationStates.selectableLocations.forEach((selectableLocation) => {
+          newStatuses[selectableLocation] = LocationStatus.Selectable;
+        });
+        locationStates.attackableLocations.forEach((attackableLocation) => {
+          newStatuses[attackableLocation] = LocationStatus.Attackable;
+        });
+        locationStates.movableLocations.forEach((movableLocation) => {
+          newStatuses[movableLocation] = LocationStatus.Movable;
+        });
+        if (locationStates.selectedEnPassantAttackLocation) {
+          newStatuses[locationStates.selectedEnPassantAttackLocation] = LocationStatus.EnPassantable;
+        }
+        if (locationStates.selectedCastleOtherUnitLocation) {
+          newStatuses[locationStates.selectedCastleOtherUnitLocation] = LocationStatus.OtherCastleLocation;
+        }
+      }
+
+      this.statusMap = { ...INIT_STATUS_MAP, ...newStatuses };
+    })
   }
 
   onSquareClick(location: string) {
@@ -56,5 +87,10 @@ export class BoardComponent implements OnInit {
     else if ([LocationStatus.Movable, LocationStatus.Attackable].includes(locationStatus)) {
       this.stateStore.dispatch(GameActions.selectActionLocation({ location: location }));
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unitsSub?.unsubscribe();
+    this.locationStatesSub?.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-import { Player } from "../player/state/player.model";
+import { Player } from "../player/player.model";
 import { Action } from "./action/action.model";
 import { GameStatus } from "./game-status.enum";
 import { Unit } from "./unit/unit.model";

@@ -1,4 +1,4 @@
-import { Player } from "src/app/player/state/player.model";
+import { Player } from "src/app/player/player.model";
 import { Action } from "../action/action.model";
 import { Promote } from "../action/promote.model";
 import { GameStatus } from "../game-status.enum";
@@ -6,6 +6,11 @@ import { Unit } from "../unit/unit.model";
 
 export interface GameState {
   id: string | undefined;
+
+  showPlayer1Login: boolean,
+  showPlayer2Login: boolean,
+  player1: Player | null,
+  player2: Player | null
 
   turn: number | null;
   current_color: string | null;
@@ -19,4 +24,5 @@ export interface GameState {
 
   promoteUnitLocation: string | null;
   selectedPromoteUnitType: string | null;
+
 }
