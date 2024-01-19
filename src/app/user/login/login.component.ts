@@ -1,13 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { UserState } from '../state/user.state';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../state/user.actions';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule
+  ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   @Input() playerNum: number | null = null;

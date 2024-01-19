@@ -14,12 +14,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { PromoteUnitComponent } from './game/promote-unit/promote-unit.component';
 import { gameReducer } from './game/state/game.reducer';
 import { GameEffects } from './game/state/game.effects';
-import { UserModule } from './user/user.module';
 import { PlayerComponent } from './player/player.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { AngularTokenModule } from '@kevintsander/angular-token';
 import { HeaderComponent } from './header/header.component';
+import { userReducer } from './user/state/user.reducer';
+import { UserEffects } from './user/state/user.effects';
+import { LoginComponent } from './user/login/login.component';
+import { SignUpComponent } from './user/sign-up/sign-up.component';
 
 
 @NgModule({
@@ -37,16 +40,17 @@ import { HeaderComponent } from './header/header.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    UserModule,
-    StoreModule.forRoot({ game: gameReducer }),
+    StoreModule.forRoot({ game: gameReducer, user: userReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
       connectInZone: true
     }),
-    EffectsModule.forRoot(GameEffects),
+    EffectsModule.forRoot([GameEffects, UserEffects]),
     AngularTokenModule.forRoot({ apiBase: environment.chessApiUrl }),
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    SignUpComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
