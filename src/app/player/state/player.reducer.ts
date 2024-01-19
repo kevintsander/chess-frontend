@@ -1,6 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { PlayerActions } from "./player.actions";
 import { PlayerState } from "./player.state";
+import { GameActions } from "src/app/game/state/game.actions";
 
 const initialState: PlayerState = {
   showPlayer1Login: false,
@@ -11,6 +12,16 @@ const initialState: PlayerState = {
 
 export const playerReducer = createReducer(
   initialState,
+
+  on(GameActions.receiveGameData, (state, { gameData }) => {
+
+    return {
+      ...state,
+      player1: gameData.player1,
+      player2: gameData.player2,
+    }
+  }),
+
 
   on(PlayerActions.showPlayer1Login, (state) => {
     return {

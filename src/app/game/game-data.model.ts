@@ -7,8 +7,8 @@ export interface GameData {
   id: string;
   turn: number;
   current_color: string | null;
-  player1: Player | null;
-  player2: Player | null;
+  player1: Player;
+  player2: Player;
   allowed_actions: Action[];
   promote_unit_location: string | null;
   units: Unit[];

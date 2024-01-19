@@ -10,7 +10,7 @@ import { UserActions } from '../state/user.actions';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @Input() player: number | null = null;
+  @Input() playerNum: number | null = null;
   loginFormGroup!: FormGroup<any>;
 
   constructor(private userStore: Store<UserState>) { }
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userStore.dispatch(UserActions.login({ ...this.loginFormGroup.value, setPlayerOnLogin: this.player }))
+    this.userStore.dispatch(UserActions.login({ ...this.loginFormGroup.value, setPlayerOnLogin: this.playerNum }))
   }
 
 }

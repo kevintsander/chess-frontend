@@ -7,14 +7,12 @@
 </div>
 <ng-container *ngIf="gameState$ | async; let gameState">
   <ng-container *ngIf="gameState.id">
-    <app-player [player]="1"></app-player>
-    <app-player [player]="2"></app-player>
+    <app-player [playerNum]="1"></app-player>
+    <app-player [playerNum]="2"></app-player>
     <app-board></app-board>
     <div>
       <p><b>ID:</b> {{gameState.id}}</p>
       <p><b>Turn:</b> {{gameState.turn}}</p>
-      <p><b>Player1:</b> {{gameState.player1?.id}}</p>
-      <p><b>Player2:</b> {{gameState.player2?.id}}</p>
       <p><b>Current Color:</b> {{gameState.current_color}}</p>
       <p><b>Status:</b> {{gameState.status}}</p>
     </div>

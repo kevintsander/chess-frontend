@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { selectUser } from '../user/state/user.selector';
 import { User } from '../user/user.model';
 import { CommonModule } from '@angular/common';
+import { UserActions } from '../user/state/user.actions';
 
 @Component({
   selector: 'app-header',
@@ -22,5 +23,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.userStore.select(selectUser);
+  }
+
+  logoutClick(): void {
+    this.userStore.dispatch(UserActions.logout());
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserActions } from "./user.actions";
-import { EMPTY, catchError, exhaustMap, filter, map, of, switchMap, withLatestFrom } from "rxjs";
+import { EMPTY, catchError, exhaustMap, filter, map, of, switchMap, tap, withLatestFrom } from "rxjs";
 import { User } from "../user.model";
 import { GameDataService } from "src/app/game/game-data.service";
 import { AngularTokenService } from "@kevintsander/angular-token";
@@ -52,5 +52,10 @@ export class UserEffects {
       }
     })
   ));
+
+  logout$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.logout),
+    exhaustMap(() => this.tokenService.signOut())
+  ), { dispatch: false });
 
 }

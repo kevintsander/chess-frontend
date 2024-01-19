@@ -1,7 +1,4 @@
-<ng-container *ngIf="user$ | async as user; else nouser">
-  <p>Welcome, user {{user.id}}</p>
+<ng-container *ngIf="{ value: user$ | async } as user">
+  <p *ngIf="user.value">Welcome, user {{user.value.id}}</p>
+  <button *ngIf="user.value" (click)="logoutClick()">Logout</button>
 </ng-container>
-
-<ng-template #nouser>
-  <p>Login</p>
-</ng-template>
