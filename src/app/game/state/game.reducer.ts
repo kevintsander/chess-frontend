@@ -1,5 +1,4 @@
 import { createReducer, on } from '@ngrx/store';
-import { ActionUtil } from '../action/action.util';
 import { GameState } from './game.state';
 import { GameActions, PlayerActions } from './game.actions';
 import { GameStatus } from '../game-status.enum';
@@ -9,7 +8,6 @@ const initialState: GameState = {
 
   player1: null,
   player2: null,
-  showPlayerNumLogin: null,
 
   turn: null,
   current_color: null,
@@ -82,13 +80,6 @@ export const gameReducer = createReducer(
     return {
       ...state,
       selectedActionLocation: location
-    }
-  }),
-
-  on(PlayerActions.showPlayerLogin, (state, { playerNum }) => {
-    return {
-      ...state,
-      showPlayerNumLogin: playerNum,
     }
   }),
 

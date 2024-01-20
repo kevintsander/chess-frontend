@@ -1,14 +1,9 @@
 <div>
   Player {{ playerNum }}:
-  @if (
-    { showPlayerLogin: showPlayerLogin$ | async, player: player$ | async };
-    as playerState
-  ) {
+  @if ({ player: player$ | async }; as playerState) {
     @if (playerState.player) {
       <span>{{ playerState.player.id }}</span>
-    } @else if (playerState.showPlayerLogin) {
-      <app-login [playerNum]="playerNum"></app-login>
-    } @else if (!playerState.showPlayerLogin) {
+    } @else {
       <button (click)="onClick()">Select Player</button>
     }
   }

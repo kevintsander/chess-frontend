@@ -1,2 +1,5 @@
 <app-header></app-header>
+@if (showLogin$ | async) {
+  <app-login></app-login>
+}
 <app-game></app-game>

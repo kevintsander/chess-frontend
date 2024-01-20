@@ -8,6 +8,7 @@ import { selectGameId, selectSelectedActionWithId } from "./game.selector";
 import { UserState } from "src/app/user/state/user.state";
 import { GameState } from "./game.state";
 import { selectUser } from "src/app/user/state/user.selector";
+import { UserActions } from "src/app/user/state/user.actions";
 
 @Injectable()
 export class GameEffects {
@@ -76,12 +77,12 @@ export class GameEffects {
   startSetPlayer$ = createEffect(() => this.actions$.pipe(
     ofType(PlayerActions.startSetPlayer),
     withLatestFrom(this.userStore.select(selectUser)),
-    map(([startSetPlayer1Action, user]) => {
+    map(([startSetPlayerAction, user]) => {
       if (user) {
-        return PlayerActions.setPlayer({ playerNum: startSetPlayer1Action.playerNum, id: user.id });
+        return PlayerActions.setPlayer({ playerNum: startSetPlayerAction.playerNum, id: user.id });
       }
       else {
-        return PlayerActions.showPlayerLogin({ playerNum: startSetPlayer1Action.playerNum });
+        return UserActions.showLogin({ setPlayerOnLogin: startSetPlayerAction.playerNum });
       }
     })
   ));

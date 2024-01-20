@@ -16,6 +16,7 @@ import { AngularTokenModule } from '@kevintsander/angular-token';
 import { HeaderComponent } from './header/header.component';
 import { userReducer } from './user/state/user.reducer';
 import { UserEffects } from './user/state/user.effects';
+import { LoginComponent } from './user/login/login.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { UserEffects } from './user/state/user.effects';
     AngularTokenModule.forRoot({ apiBase: environment.chessApiUrl }),
     HeaderComponent,
     GameComponent,
+    LoginComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

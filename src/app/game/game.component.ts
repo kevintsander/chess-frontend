@@ -22,7 +22,8 @@ import { PromoteUnitComponent } from './promote-unit/promote-unit.component';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  gameState$?: Observable<GameState>;
+  gameState$!: Observable<GameState>;
+  showLogin$!: Observable<boolean>;
 
   constructor(private store: Store<GameState>) { }
 
