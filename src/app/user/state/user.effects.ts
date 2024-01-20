@@ -43,12 +43,7 @@ export class UserEffects {
     withLatestFrom(this.userStore.select(selectUserState)),
     filter(([action, userState]) => userState.setPlayerOnLogin != null && [1, 2].includes(userState.setPlayerOnLogin)),
     map(([action, userState]) => {
-      if (userState.setPlayerOnLogin === 1) {
-        return PlayerActions.setPlayer1({ id: action.user.id });
-      }
-      else {
-        return PlayerActions.setPlayer2({ id: action.user.id });
-      }
+      return PlayerActions.setPlayer({ playerNum: userState.setPlayerOnLogin!, id: action.user.id });
     })
   ));
 

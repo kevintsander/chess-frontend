@@ -39,12 +39,7 @@ export class PlayerComponent implements OnInit {
   }
 
   onClick() {
-    if (this.playerNum === 1) {
-      this.gameStore.dispatch(PlayerActions.startSetPlayer1());
-    }
-    else if (this.playerNum === 2) {
-      this.gameStore.dispatch(PlayerActions.startSetPlayer2());
-    }
+    this.gameStore.dispatch(PlayerActions.startSetPlayer({ playerNum: this.playerNum }));
   }
 
 }

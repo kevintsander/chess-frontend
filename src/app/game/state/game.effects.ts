@@ -73,55 +73,30 @@ export class GameEffects {
     { dispatch: false }
   );
 
-  startSetPlayer1$ = createEffect(() => this.actions$.pipe(
-    ofType(PlayerActions.startSetPlayer1),
+  startSetPlayer$ = createEffect(() => this.actions$.pipe(
+    ofType(PlayerActions.startSetPlayer),
     withLatestFrom(this.userStore.select(selectUser)),
-    map(([_startSetPlayer1Action, user]) => {
+    map(([startSetPlayer1Action, user]) => {
       if (user) {
-        return PlayerActions.setPlayer1({ id: user.id });
+        return PlayerActions.setPlayer({ playerNum: startSetPlayer1Action.playerNum, id: user.id });
       }
       else {
-        return PlayerActions.showPlayer1Login();
-      }
-    })
-  ));
-
-  startSetPlayer2$ = createEffect(() => this.actions$.pipe(
-    ofType(PlayerActions.startSetPlayer2),
-    withLatestFrom(this.userStore.select(selectUser)),
-    map(([_startSetPlayer2Action, user]) => {
-      if (user) {
-        return PlayerActions.setPlayer2({ id: user.id });
-      }
-      else {
-        return PlayerActions.showPlayer2Login();
+        return PlayerActions.showPlayerLogin({ playerNum: startSetPlayer1Action.playerNum });
       }
     })
   ));
 
   // TODO -- can we have one event for each player and pass in number as props?
-  setPlayer1$ = createEffect(() => this.actions$.pipe(
-    ofType(PlayerActions.setPlayer1),
+  setPlayer$ = createEffect(() => this.actions$.pipe(
+    ofType(PlayerActions.setPlayer),
     withLatestFrom(this.gameStore.select(selectGameId)),
-    filter(([action, gameId]) => gameId != null),
-    switchMap(([action, gameId]) => {
-      return this.gameDataService.setPlayer$(gameId!, action.id, 1).pipe(
-        // tap((res) => console.log(res)),
-        map(() => PlayerActions.setPlayer1Success()),
-        catchError((error) => of(PlayerActions.setPlayer1Error(error)))
+    filter(([setPlayerAction, gameId]) => gameId != null),
+    switchMap(([setPlayerAction, gameId]) => {
+      return this.gameDataService.setPlayer$(gameId!, setPlayerAction.id, setPlayerAction.playerNum).pipe(
+        map(() => PlayerActions.setPlayerSuccess({ playerNum: setPlayerAction.playerNum })),
+        catchError((error) => of(PlayerActions.setPlayerError(error)))
       )
     })
   ));
 
-  setPlayer2$ = createEffect(() => this.actions$.pipe(
-    ofType(PlayerActions.setPlayer2),
-    withLatestFrom(this.gameStore.select(selectGameId)),
-    filter(([action, gameId]) => gameId != null),
-    switchMap(([action, gameId]) => {
-      return this.gameDataService.setPlayer$(gameId!, action.id, 2).pipe(
-        map(() => PlayerActions.setPlayer2Success()),
-        catchError((error) => of(PlayerActions.setPlayer2Error(error)))
-      )
-    })
-  ));
 }

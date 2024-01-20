@@ -7,8 +7,7 @@ import { Unit } from "../unit/unit.model";
 export interface GameState {
   id: string | undefined;
 
-  showPlayer1Login: boolean,
-  showPlayer2Login: boolean,
+  showPlayerNumLogin: number | null,
   player1: Player | null,
   player2: Player | null
 

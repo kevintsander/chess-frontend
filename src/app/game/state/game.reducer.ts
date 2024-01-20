@@ -9,8 +9,7 @@ const initialState: GameState = {
 
   player1: null,
   player2: null,
-  showPlayer1Login: false,
-  showPlayer2Login: false,
+  showPlayerNumLogin: null,
 
   turn: null,
   current_color: null,
@@ -86,36 +85,18 @@ export const gameReducer = createReducer(
     }
   }),
 
-  on(PlayerActions.showPlayer1Login, (state) => {
+  on(PlayerActions.showPlayerLogin, (state, { playerNum }) => {
     return {
       ...state,
-      showPlayer1Login: true,
-      showPlayer2Login: false
+      showPlayerNumLogin: playerNum,
     }
   }),
 
-  on(PlayerActions.showPlayer2Login, (state) => {
+  on(PlayerActions.setPlayer, (state) => {
     return {
       ...state,
-      showPlayer1Login: false,
-      showPlayer2Login: true
+      showPlayerNumLogin: null
     }
-  }),
-
-  on(PlayerActions.setPlayer1, (state) => {
-    return {
-      ...state,
-      showPlayer1Login: false,
-      showPlayer2Login: false
-    }
-  }),
-
-  on(PlayerActions.setPlayer2, (state) => {
-    return {
-      ...state,
-      showPlayer1Login: false,
-      showPlayer2Login: false
-    }
-  }),
+  })
 
 );
