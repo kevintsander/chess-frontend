@@ -13,18 +13,18 @@ export const userReducer = createReducer(
   initialState,
 
   on(UserActions.showLogin, (state, { setPlayerOnLogin }) => {
-    const newShowLogin = !state.showLogin
-
     return {
       ...state,
-      showLogin: newShowLogin,
-      setPlayerOnLogin: newShowLogin == true ? setPlayerOnLogin : null // unset player if not showing login
+      showLogin: true,
+      setPlayerOnLogin: setPlayerOnLogin
     }
   }),
 
-  on(UserActions.login, (state, { email, password }) => {
+  on(UserActions.hideLogin, (state) => {
     return {
       ...state,
+      showLogin: false,
+      setPlayerOnLogin: null
     }
   }),
 

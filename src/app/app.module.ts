@@ -17,6 +17,7 @@ import { HeaderComponent } from './header/header.component';
 import { userReducer } from './user/state/user.reducer';
 import { UserEffects } from './user/state/user.effects';
 import { LoginComponent } from './user/login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { LoginComponent } from './user/login/login.component';
     AngularTokenModule.forRoot({ apiBase: environment.chessApiUrl }),
     HeaderComponent,
     GameComponent,
-    LoginComponent
+    LoginComponent,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

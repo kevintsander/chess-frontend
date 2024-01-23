@@ -8,6 +8,7 @@ import { BoardComponent } from './board/board.component';
 import { CommonModule } from '@angular/common';
 import { PlayerComponent } from '../player/player.component';
 import { PromoteUnitComponent } from './promote-unit/promote-unit.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-game',
@@ -16,7 +17,8 @@ import { PromoteUnitComponent } from './promote-unit/promote-unit.component';
     CommonModule,
     BoardComponent,
     PlayerComponent,
-    PromoteUnitComponent
+    PromoteUnitComponent,
+    MatButtonModule
   ],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']

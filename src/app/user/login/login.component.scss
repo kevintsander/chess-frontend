@@ -1,4 +1,4 @@
-.fill {
+.dialog-bg-container {
   position: fixed;
   display: flex;
   align-items: center;
@@ -10,6 +10,13 @@
   background: hsla(0, 0%, 0%, 0.5);
 }
 
-.dialog {
-  background: white;
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-action-buttons-container {
+  display: flex;
+  gap: 1rem;
 }

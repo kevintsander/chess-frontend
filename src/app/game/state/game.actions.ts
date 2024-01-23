@@ -20,6 +20,7 @@ export const PlayerActions = createActionGroup({
   source: 'Player',
   events: {
     'Start Set Player': props<{ playerNum: number }>(),
+    'Show Player Login': props<{ playerNum: number }>(),
     'Set Player': props<{ playerNum: number, id: number }>(),
     'Set Player Success': props<{ playerNum: number }>(),
     'Set Player Error': props<{ error: string }>(),

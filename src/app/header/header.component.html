@@ -1,8 +1,13 @@
-@if ({ value: user$ | async }; as user) {
-  @if (user.value) {
-    <span>Welcome, user {{ user.value.id }}</span>
-    <button (click)="logoutClick()">Logout</button>
-  } @else {
-    <p>Login</p>
-  }
-}
+<header>
+  <div class="header-title"></div>
+  <nav class="header-nav">
+    @if ({ value: user$ | async }; as user) {
+      @if (user.value) {
+        <span>Welcome, user {{ user.value.id }}</span>
+        <button mat-stroked-button (click)="logoutClick()">Logout</button>
+      } @else {
+        <button mat-stroked-button (click)="loginClick()">Login</button>
+      }
+    }
+  </nav>
+</header>
