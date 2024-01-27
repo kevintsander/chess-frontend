@@ -5,8 +5,7 @@ header {
   padding: 1rem;
 }
 
-nav {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+.header-title > h1 {
+  margin: 0;
+  padding: 0;
 }

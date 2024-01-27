@@ -9,6 +9,9 @@ import { CommonModule } from '@angular/common';
 import { PlayerComponent } from '../player/player.component';
 import { PromoteUnitComponent } from './promote-unit/promote-unit.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-game',
@@ -18,6 +21,10 @@ import { MatButtonModule } from '@angular/material/button';
     BoardComponent,
     PlayerComponent,
     PromoteUnitComponent,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
     MatButtonModule
   ],
   templateUrl: './game.component.html',

@@ -1,6 +1,8 @@
 <header>
-  <div class="header-title"></div>
-  <nav class="header-nav">
+  <div class="header-title">
+    <h1>chess-engine</h1>
+  </div>
+  <nav class="horizontal-items">
     @if ({ value: user$ | async }; as user) {
       @if (user.value) {
         <span>Welcome, user {{ user.value.id }}</span>
