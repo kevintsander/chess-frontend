@@ -50,7 +50,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.stateStore.select(selectLocationStates).subscribe((locationStates) => {
       const newStatuses: { [location: string]: LocationStatus } = {};
 
-      if (locationStates.currentPlayer?.id === locationStates.user?.id) {
+      if (locationStates.user && locationStates.currentPlayer?.id === locationStates.user.id) {
 
         if (locationStates.selectedLocation) {
           newStatuses[locationStates.selectedLocation] = LocationStatus.Selected;
