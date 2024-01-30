@@ -1,6 +1,9 @@
 @if (showLogin$ | async) {
   <app-login></app-login>
 }
+@if (showSignUp$ | async) {
+  <app-sign-up></app-sign-up>
+}
 <app-header></app-header>
 <div class="game-container">
   <app-game></app-game>

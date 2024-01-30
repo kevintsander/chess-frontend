@@ -6,6 +6,7 @@ import { PlayerActions } from "src/app/game/state/game.actions";
 const initialState: UserState = {
   user: null,
   showLogin: false,
+  showSignUp: false,
   setPlayerOnLogin: null
 }
 
@@ -32,6 +33,21 @@ export const userReducer = createReducer(
     return {
       ...state,
       showLogin: false
+    }
+  }),
+
+
+  on(UserActions.showSignUp, (state) => {
+    return {
+      ...state,
+      showSignUp: true,
+    }
+  }),
+
+  on(UserActions.hideSignUp, (state) => {
+    return {
+      ...state,
+      showSignUp: false,
     }
   }),
 

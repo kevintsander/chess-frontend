@@ -10,10 +10,12 @@
       <mat-icon>search</mat-icon>
     </button>
   </mat-form-field>
-  <button mat-stroked-button type="button" (click)="createGame()">
+  <button mat-button color="primary" type="button" (click)="createGame()">
     Create Game
   </button>
-  <button mat-stroked-button type="button" (click)="endGame()">End Game</button>
+  <button mat-button color="warn" type="button" (click)="endGame()">
+    End Game
+  </button>
 </div>
 @if (gameState$ | async; as gameState) {
   @if (gameState.id) {

@@ -8,12 +8,7 @@
   height: 100%;
   width: 100%;
   background: hsla(0, 0%, 0%, 0.5);
-}
-
-.form-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  z-index: 999;
 }
 
 .card-action-buttons-container {

@@ -11,6 +11,13 @@ body {
 
 .horizontal-items {
   display: flex;
-  gap: 1rem;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.vertical-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   align-items: center;
 }

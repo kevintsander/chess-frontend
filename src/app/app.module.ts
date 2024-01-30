@@ -18,6 +18,7 @@ import { userReducer } from './user/state/user.reducer';
 import { UserEffects } from './user/state/user.effects';
 import { LoginComponent } from './user/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SignUpComponent } from './user/sign-up/sign-up.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HeaderComponent,
     GameComponent,
     LoginComponent,
+    SignUpComponent,
     BrowserAnimationsModule,
   ],
   providers: [],

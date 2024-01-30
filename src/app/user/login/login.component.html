@@ -5,25 +5,23 @@
         <mat-card-header>
           <h2>Login</h2>
         </mat-card-header>
-        <mat-card-content class="form-fields">
-          <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput type="email" formControlName="email" />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" />
-          </mat-form-field>
+        <mat-card-content>
+          <div class="vertical-items">
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="password" />
+            </mat-form-field>
+          </div>
         </mat-card-content>
-        <mat-card-actions align="end">
-          <button
-            type="button"
-            mat-raised-button
-            color="warn"
-            (click)="onClose()">
+        <mat-card-actions align="end" class="horizontal-items">
+          <button type="button" mat-button color="warn" (click)="onClose()">
             Cancel
           </button>
-          <button mat-raised-button color="primary" type="submit">Login</button>
+          <button mat-button color="primary" type="submit">Login</button>
         </mat-card-actions>
       </mat-card>
     </form>

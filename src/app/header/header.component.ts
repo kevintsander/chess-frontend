@@ -34,4 +34,8 @@ export class HeaderComponent implements OnInit {
   loginClick(): void {
     this.userStore.dispatch(UserActions.showLogin({ setPlayerOnLogin: null }))
   }
+
+  signUpClick(): void {
+    this.userStore.dispatch(UserActions.showSignUp());
+  }
 }

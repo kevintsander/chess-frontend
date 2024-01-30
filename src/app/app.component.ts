@@ -4,7 +4,7 @@ import { UserState } from './user/state/user.state';
 import { AngularTokenService, UserData } from '@kevintsander/angular-token';
 import { Observable, Subscription } from 'rxjs';
 import { UserActions } from './user/state/user.actions';
-import { selectShowLogin } from './user/state/user.selector';
+import { selectShowLogin, selectShowSignUp } from './user/state/user.selector';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,7 @@ import { selectShowLogin } from './user/state/user.selector';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'chess-frontend';
   showLogin$!: Observable<boolean>;
+  showSignUp$!: Observable<boolean>;
   private userDataSub!: Subscription;
   private validateTokenSub!: Subscription;
 
@@ -23,7 +24,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.setValidateTokenSub();
     this.setUserDataSub();
 
-    this.showLogin$ = this.userStore.select(selectShowLogin)
+    this.showLogin$ = this.userStore.select(selectShowLogin);
+    this.showSignUp$ = this.userStore.select(selectShowSignUp);
   }
 
   setValidateTokenSub(): void {
