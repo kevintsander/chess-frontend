@@ -29,7 +29,7 @@ export class SignUpComponent {
   ngOnInit(): void {
     this.signUpFormGroup = new FormGroup({
       email: new FormControl(),
-      username: new FormControl(),
+      nickname: new FormControl(),
       password: new FormControl()
     })
   }

@@ -51,6 +51,13 @@ export const userReducer = createReducer(
     }
   }),
 
+  on(UserActions.signUpSuccess, (state) => {
+    return {
+      ...state,
+      showSignUp: false,
+    }
+  }),
+
   on(UserActions.setCurrentUser, (state, { user }) => {
     return {
       ...state,

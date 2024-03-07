@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserActions } from "./user.actions";
-import { catchError, exhaustMap, filter, map, of, withLatestFrom } from "rxjs";
+import { catchError, exhaustMap, filter, map, of, switchMap, withLatestFrom } from "rxjs";
 import { User } from "../user.model";
-import { AngularTokenService } from "@kevintsander/angular-token";
+import { AngularTokenService, RegisterData } from "@kevintsander/angular-token";
 import { UserState } from "./user.state";
 import { Store } from "@ngrx/store";
 import { selectUserState } from "./user.selector";
@@ -51,5 +51,27 @@ export class UserEffects {
     ofType(UserActions.logout),
     exhaustMap(() => this.tokenService.signOut())
   ), { dispatch: false });
+
+  signUp$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.signUp),
+    exhaustMap(action => {
+      return this.tokenService.registerAccount({ login: action.email, nickname: action.nickname, password: action.password, passwordConfirmation: action.password }).pipe(
+        map((response) => {
+          if (response.data) {
+            const user: User = {
+              id: response.data.id,
+              email: response.data.email,
+              nickname: response.data.nickname
+            }
+
+            return UserActions.signUpSuccess({ user });
+          }
+          else { return UserActions.signUpFailure({ error: "No user data in login response" }) }
+        }),
+        catchError((error) => of(UserActions.signUpFailure({ error })))
+      )
+    })
+  ));
+
 
 }
