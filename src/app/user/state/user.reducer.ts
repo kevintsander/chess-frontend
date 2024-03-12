@@ -36,7 +36,6 @@ export const userReducer = createReducer(
     }
   }),
 
-
   on(UserActions.showSignUp, (state) => {
     return {
       ...state,

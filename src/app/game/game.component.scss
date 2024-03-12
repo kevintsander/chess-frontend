@@ -1,0 +1,21 @@
+:host {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas:
+    "game-nav"
+    "game-container";
+  grid-template-rows: auto 1fr;
+}
+
+.game-nav {
+  grid-area: game-nav;
+}
+
+.game-container {
+  grid-area: game-container;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

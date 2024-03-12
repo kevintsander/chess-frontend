@@ -1,47 +1,53 @@
-<div class="horizontal-items">
-  <mat-form-field>
-    <mat-label>Game ID</mat-label>
-    <input matInput id="game-id" #gameId />
-    <button
-      matSuffix
-      mat-icon-button
-      type="button"
-      (click)="loadGame(gameId.value)">
-      <mat-icon>search</mat-icon>
+<div class="game-nav">
+  <div class="horizontal-items">
+    <mat-form-field>
+      <mat-label>Game ID</mat-label>
+      <input matInput id="game-id" #gameId />
+      <button
+        matSuffix
+        mat-icon-button
+        type="button"
+        (click)="loadGame(gameId.value)">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-button color="primary" type="button" (click)="createGame()">
+      Create Game
     </button>
-  </mat-form-field>
-  <button mat-button color="primary" type="button" (click)="createGame()">
-    Create Game
-  </button>
-  <button mat-button color="warn" type="button" (click)="endGame()">
-    End Game
-  </button>
+    <button mat-button color="warn" type="button" (click)="endGame()">
+      End Game
+    </button>
+  </div>
 </div>
 @if (gameState$ | async; as gameState) {
   @if (gameState.id) {
-    <app-player [playerNum]="1"></app-player>
-    <app-player [playerNum]="2"></app-player>
-    <app-board></app-board>
-    <div>
-      <p>
-        <b>ID:</b>
-        {{ gameState.id }}
-      </p>
-      <p>
-        <b>Turn:</b>
-        {{ gameState.turn }}
-      </p>
-      <p>
-        <b>Current Color:</b>
-        {{ gameState.current_color }}
-      </p>
-      <p>
-        <b>Status:</b>
-        {{ gameState.status }}
-      </p>
+    <div class="game-container">
+      <div class="game">
+        <app-player [playerNum]="1"></app-player>
+        <app-player [playerNum]="2"></app-player>
+        <app-board></app-board>
+        <div>
+          <p>
+            <b>ID:</b>
+            {{ gameState.id }}
+          </p>
+          <p>
+            <b>Turn:</b>
+            {{ gameState.turn }}
+          </p>
+          <p>
+            <b>Current Color:</b>
+            {{ gameState.current_color }}
+          </p>
+          <p>
+            <b>Status:</b>
+            {{ gameState.status }}
+          </p>
+        </div>
+      </div>
+      @if (gameState.status == "promoting") {
+        <app-promote-unit></app-promote-unit>
+      }
     </div>
-    @if (gameState.status == "promoting") {
-      <app-promote-unit></app-promote-unit>
-    }
   }
 }
