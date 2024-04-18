@@ -19,3 +19,31 @@
   align-items: center;
   justify-content: center;
 }
+
+.game {
+  display: grid;
+  grid-template-areas:
+    "player1 game-id player2"
+    "board board board"
+    "footer footer footer";
+}
+
+.game-id {
+  grid-area: game-id;
+}
+
+.game-footer {
+  grid-area: footer;
+}
+
+.board-container {
+  grid-area: board;
+}
+
+.player1-container {
+  grid-area: player1;
+}
+
+.player2-container {
+  grid-area: player2;
+}

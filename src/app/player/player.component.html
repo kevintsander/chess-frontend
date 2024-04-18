@@ -1,8 +1,11 @@
-<div>
+<div
+  [class]="{
+    'current-player': isCurrentColor
+  }">
   Player {{ playerNum }}:
-  @if ({ player: player$ | async }; as playerState) {
-    @if (playerState.player) {
-      <span>{{ playerState.player.id }}</span>
+  @if ({ player: player$ | async }; as thisPlayerState) {
+    @if (thisPlayerState.player) {
+      <span>{{ thisPlayerState.player.id }}</span>
     } @else {
       <button (click)="onClick()">Select Player</button>
     }

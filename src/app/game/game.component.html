@@ -23,31 +23,26 @@
   @if (gameState.id) {
     <div class="game-container">
       <div class="game">
-        <app-player [playerNum]="1"></app-player>
-        <app-player [playerNum]="2"></app-player>
-        <app-board></app-board>
-        <div>
-          <p>
-            <b>ID:</b>
-            {{ gameState.id }}
-          </p>
-          <p>
-            <b>Turn:</b>
-            {{ gameState.turn }}
-          </p>
-          <p>
-            <b>Current Color:</b>
-            {{ gameState.current_color }}
-          </p>
-          <p>
-            <b>Status:</b>
-            {{ gameState.status }}
-          </p>
+        <app-player class="player1-container" [playerNum]="1"></app-player>
+        <div class="game-id">
+          {{ gameState.id }}
         </div>
+        <app-player class="player2-container" [playerNum]="2"></app-player>
+        <app-board class="board-container"></app-board>
+        <div class="game-footer">
+          <div class="game-turn">
+            <span>Turn:</span>
+            {{ gameState.turn }}
+          </div>
+          <div class="game-status">
+            <span>Status:</span>
+            {{ gameState.status }}
+          </div>
+        </div>
+        @if (gameState.status == "promoting") {
+          <app-promote-unit></app-promote-unit>
+        }
       </div>
-      @if (gameState.status == "promoting") {
-        <app-promote-unit></app-promote-unit>
-      }
     </div>
   }
 }

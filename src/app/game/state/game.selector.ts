@@ -17,7 +17,7 @@ export const selectSelectedActionLocation = createSelector(selectGameState, stat
 export const selectSelectedPromoteUnitType = createSelector(selectGameState, state => state.selectedPromoteUnitType);
 export const selectPlayer1 = createSelector(selectGameState, state => state.player1);
 export const selectPlayer2 = createSelector(selectGameState, state => state.player2);
-export const selectCurrentPlayer = createSelector(selectGameState, selectCurrentColor, (playerState, currentColor) => currentColor === "white" ? playerState.player1 : playerState.player2)
+export const selectCurrentPlayer = createSelector(selectGameState, selectCurrentColor, (playerState, currentColor) => currentColor === "white" ? playerState.player1 : playerState.player2);
 
 export const selectSelectedActionWithId = createSelector(
   selectGameId,
