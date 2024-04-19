@@ -1,5 +1,6 @@
 .board {
   display: inline-grid;
-  grid-template-columns: repeat(8, min-content);
+  grid-template-columns: repeat(8, 12.5%);
   border: 1px solid #000;
+  width: 100%;
 }

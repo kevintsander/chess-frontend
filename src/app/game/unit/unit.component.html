@@ -1,1 +1,5 @@
-<div [ngClass]="{'selectable': false, 'selected': false}">{{unit.symbol}}</div>
+<div class="unit-container" [ngClass]="{ selectable: false, selected: false }">
+  <div class="unit">
+    {{ unit.symbol }}
+  </div>
+</div>
