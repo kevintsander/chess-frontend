@@ -30,14 +30,8 @@
         <app-player class="player2-container" [playerNum]="2"></app-player>
         <app-board class="board-container"></app-board>
         <div class="game-footer">
-          <div class="game-turn">
-            <span>Turn:</span>
-            {{ gameState.turn }}
-          </div>
-          <div class="game-status">
-            <span>Status:</span>
-            {{ gameState.status }}
-          </div>
+          <app-meta key="Turn" [value]="gameState.turn"></app-meta>
+          <app-meta key="Status" [value]="gameState.status"></app-meta>
         </div>
         @if (gameState.status == "promoting") {
           <app-promote-unit></app-promote-unit>

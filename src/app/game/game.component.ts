@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MetaComponent } from './meta/meta.component';
 
 @Component({
   selector: 'app-game',
@@ -21,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
     BoardComponent,
     PlayerComponent,
     PromoteUnitComponent,
+    MetaComponent,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,

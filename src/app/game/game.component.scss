@@ -26,6 +26,7 @@
     "player1 game-id player2"
     "board board board"
     "footer footer footer";
+  width: 40%;
 }
 
 .game-id {
@@ -34,6 +35,8 @@
 
 .game-footer {
   grid-area: footer;
+  display: flex;
+  justify-content: space-between;
 }
 
 .board-container {
