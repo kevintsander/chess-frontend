@@ -1,13 +1,14 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
 import { GameState } from "./game.state";
-import { ActionUtil } from "../action/action.util";
-import { ActionType } from "../action/action-type.enum";
-import { selectUser } from "src/app/user/state/user.selector";
+import { ActionUtil } from "../../game/action/action.util";
+import { ActionType } from "../../game/action/action-type.enum";
+import { selectUser } from "src/app/state/user/user.selector";
+import { selectQueryParam, selectRouteParam } from "../router/router.selectors";
 
 const actionUtil = new ActionUtil();
 
 export const selectGameState = createFeatureSelector<GameState>('game');
-export const selectGameId = createSelector(selectGameState, state => state.id);
+export const selectGameId = selectRouteParam('gameId');
 export const selectCurrentColor = createSelector(selectGameState, state => state.current_color);
 export const selectUnits = createSelector(selectGameState, state => state.units);
 export const selectAllowedActions = createSelector(selectGameState, state => state.allowedActions);

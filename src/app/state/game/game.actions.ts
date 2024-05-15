@@ -1,5 +1,5 @@
 import { createActionGroup, props, emptyProps } from '@ngrx/store';
-import { GameData } from '../game-data.model';
+import { GameData } from '../../game/game-data.model';
 
 export const GameActions = createActionGroup({
   source: 'Game',

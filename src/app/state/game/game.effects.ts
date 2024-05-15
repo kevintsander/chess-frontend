@@ -3,12 +3,12 @@ import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { Store } from "@ngrx/store"
 import { GameActions, PlayerActions } from "./game.actions";
 import { catchError, filter, map, of, repeat, switchMap, takeUntil, tap, withLatestFrom } from "rxjs";
-import { GameDataService } from "../game-data.service";
+import { GameDataService } from "../../game/game-data.service";
 import { selectGameId, selectSelectedActionWithId } from "./game.selector";
-import { UserState } from "src/app/user/state/user.state";
+import { UserState } from "src/app/state/user/user.state";
 import { GameState } from "./game.state";
-import { selectUser } from "src/app/user/state/user.selector";
-import { UserActions } from "src/app/user/state/user.actions";
+import { selectUser } from "src/app/state/user/user.selector";
+import { UserActions } from "src/app/state/user/user.actions";
 
 @Injectable()
 export class GameEffects {

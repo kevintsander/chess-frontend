@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserState } from './user/state/user.state';
+import { UserState } from './state/user/user.state';
 import { AngularTokenService, UserData } from '@kevintsander/angular-token';
 import { Observable, Subscription } from 'rxjs';
-import { UserActions } from './user/state/user.actions';
-import { selectShowLogin, selectShowSignUp } from './user/state/user.selector';
+import { UserActions } from './state/user/user.actions';
+import { selectShowLogin, selectShowSignUp } from './state/user/user.selector';
 
 @Component({
   selector: 'app-root',

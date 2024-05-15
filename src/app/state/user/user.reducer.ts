@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { UserActions } from "./user.actions";
 import { UserState } from "./user.state";
-import { PlayerActions } from "src/app/game/state/game.actions";
+import { PlayerActions } from "../game/game.actions";
 
 const initialState: UserState = {
   user: null,

@@ -8,17 +8,19 @@ import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { gameReducer } from './game/state/game.reducer';
-import { GameEffects } from './game/state/game.effects';
+import { gameReducer } from './state/game/game.reducer';
+import { GameEffects } from './state/game/game.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { AngularTokenModule } from '@kevintsander/angular-token';
 import { HeaderComponent } from './header/header.component';
-import { userReducer } from './user/state/user.reducer';
-import { UserEffects } from './user/state/user.effects';
+import { userReducer } from './state/user/user.reducer';
+import { UserEffects } from './state/user/user.effects';
 import { LoginComponent } from './user/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { CustomSerializer } from './state/router/router.custom-serializer';
 
 
 @NgModule({
@@ -30,19 +32,28 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    StoreModule.forRoot({ game: gameReducer, user: userReducer }),
+    StoreModule.forRoot({
+      router: routerReducer,
+      user: userReducer,
+      game: gameReducer
+    }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
       connectInZone: true
     }),
     EffectsModule.forRoot([GameEffects, UserEffects]),
+    StoreRouterConnectingModule.forRoot(),
     AngularTokenModule.forRoot({ apiBase: environment.chessApiUrl }),
     HeaderComponent,
     GameComponent,
     LoginComponent,
     SignUpComponent,
     BrowserAnimationsModule,
+    StoreRouterConnectingModule.forRoot(),
+    // StoreRouterConnectingModule.forRoot({
+    //   serializer: CustomSerializer
+    // }),
   ],
   providers: [],
   bootstrap: [AppComponent]

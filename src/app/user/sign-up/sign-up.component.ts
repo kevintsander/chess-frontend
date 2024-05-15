@@ -4,41 +4,41 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Store } from '@ngrx/store';
-import { UserState } from '../state/user.state';
-import { UserActions } from '../state/user.actions';
+import { UserState } from '../../state/user/user.state';
+import { UserActions } from '../../state/user/user.actions';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-sign-up',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatInputModule
-  ],
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+    selector: 'app-sign-up',
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatCardModule,
+        MatInputModule
+    ],
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-  signUpFormGroup!: FormGroup<any>;
+    signUpFormGroup!: FormGroup<any>;
 
-  constructor(private userStore: Store<UserState>) { }
+    constructor(private userStore: Store<UserState>) { }
 
-  ngOnInit(): void {
-    this.signUpFormGroup = new FormGroup({
-      email: new FormControl(),
-      nickname: new FormControl(),
-      password: new FormControl()
-    })
-  }
+    ngOnInit(): void {
+        this.signUpFormGroup = new FormGroup({
+            email: new FormControl(),
+            nickname: new FormControl(),
+            password: new FormControl()
+        })
+    }
 
-  onSubmit() {
-    this.userStore.dispatch(UserActions.signUp({ ...this.signUpFormGroup.value }));
-  }
+    onSubmit() {
+        this.userStore.dispatch(UserActions.signUp({ ...this.signUpFormGroup.value }));
+    }
 
-  onClose() {
-    this.userStore.dispatch(UserActions.hideSignUp())
-  }
+    onClose() {
+        this.userStore.dispatch(UserActions.hideSignUp())
+    }
 }

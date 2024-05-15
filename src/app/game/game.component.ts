@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { GameState } from './state/game.state';
-import { selectGameState } from './state/game.selector';
-import { GameActions } from './state/game.actions';
+import { GameState } from '../state/game/game.state';
+import { selectGameId, selectGameState } from '../state/game/game.selector';
+import { GameActions } from '../state/game/game.actions';
 import { BoardComponent } from './board/board.component';
 import { CommonModule } from '@angular/common';
 import { PlayerComponent } from '../player/player.component';
@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MetaComponent } from './meta/meta.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -36,16 +37,23 @@ export class GameComponent implements OnInit {
   gameState$!: Observable<GameState>;
   showLogin$!: Observable<boolean>;
 
-  constructor(private store: Store<GameState>) { }
-
+  constructor(private router: Router, private store: Store) { }
 
   ngOnInit(): void {
+    this.store.select(selectGameId).subscribe(id => {
+      if (id) {
+        this.store.dispatch(GameActions.startGame({ id: id }));
+      }
+    });
+
+    // TODO: move to game state container
     this.gameState$ = this.store.select(selectGameState);
   }
 
   loadGame(id: string) {
     this.store.dispatch(GameActions.endGame());
-    this.store.dispatch(GameActions.startGame({ id: id }));
+    this.router.navigate(['games', id]);
+
   }
 
   createGame() {
