@@ -9,6 +9,7 @@ import { UserState } from "src/app/state/user/user.state";
 import { GameState } from "./game.state";
 import { selectUser } from "src/app/state/user/user.selector";
 import { UserActions } from "src/app/state/user/user.actions";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class GameEffects {
@@ -17,20 +18,23 @@ export class GameEffects {
     private actions$: Actions,
     private gameDataService: GameDataService,
     private gameStore: Store<GameState>,
-    private userStore: Store<UserState>
+    private userStore: Store<UserState>,
+    private router: Router
   ) { }
 
   createGame$ = createEffect(() => this.actions$.pipe(
     ofType(GameActions.createGame),
     switchMap((_action) =>
       this.gameDataService.createGame$().pipe(
-        map((id) => GameActions.startGame({ id: id }))
+        tap((id) => this.router.navigate(['/games', id]))
       )
     )
-  ));
+  ),
+    { dispatch: false }
+  );
 
   startGame$ = createEffect(() => this.actions$.pipe(
-    ofType(GameActions.startGame),
+    ofType(GameActions.subscribeGame),
     switchMap((action) =>
       this.gameDataService.getGameData$(action.id).pipe(
         map((game) => GameActions.receiveGameData({ gameData: game })),
@@ -41,7 +45,7 @@ export class GameEffects {
         ),
         repeat({
           delay: () => this.actions$.pipe(
-            ofType(GameActions.startGame)
+            ofType(GameActions.subscribeGame)
           )
         })
       )

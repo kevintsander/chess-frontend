@@ -42,18 +42,17 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {
     this.store.select(selectGameId).subscribe(id => {
       if (id) {
-        this.store.dispatch(GameActions.startGame({ id: id }));
+        this.store.dispatch(GameActions.subscribeGame({ id: id }));
       }
     });
 
-    // TODO: move to game state container
+    // TODO: move to game state container --- or rename this something else and make innter game
     this.gameState$ = this.store.select(selectGameState);
   }
 
   loadGame(id: string) {
     this.store.dispatch(GameActions.endGame());
     this.router.navigate(['games', id]);
-
   }
 
   createGame() {
