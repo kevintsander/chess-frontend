@@ -5,15 +5,11 @@ export const UserActions = createActionGroup({
   source: 'User',
   events: {
     // log in
-    'Show Login': props<{ setPlayerOnLogin: number | null }>(),
-    'Hide Login': emptyProps(),
-    'Login': props<{ email: string, password: string }>(),
-    'Login Success': props<{ user: User }>(),
+    'Login': props<{ email: string, password: string, setPlayerOnLogin: number | null }>(),
+    'Login Success': props<{ user: User, setPlayerOnLogin: number | null }>(),
     'Login Failure': props<{ error: string }>(),
 
     // sign up
-    'Show Sign Up': emptyProps(),
-    'Hide Sign Up': emptyProps(),
     'Sign Up': props<{ email: string, nickname: string, password: string }>(),
     'Sign Up Success': props<{ user: User }>(),
     'Sign Up Failure': props<{ error: string }>(),

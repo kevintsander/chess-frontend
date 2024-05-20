@@ -5,10 +5,7 @@ import { GameActions, PlayerActions } from "./game.actions";
 import { catchError, filter, map, of, repeat, switchMap, takeUntil, tap, withLatestFrom } from "rxjs";
 import { GameDataService } from "../../game/game-data.service";
 import { selectGameId, selectSelectedActionWithId } from "./game.selector";
-import { UserState } from "src/app/state/user/user.state";
 import { GameState } from "./game.state";
-import { selectUser } from "src/app/state/user/user.selector";
-import { UserActions } from "src/app/state/user/user.actions";
 import { Router } from "@angular/router";
 
 @Injectable()
@@ -18,7 +15,6 @@ export class GameEffects {
     private actions$: Actions,
     private gameDataService: GameDataService,
     private gameStore: Store<GameState>,
-    private userStore: Store<UserState>,
     private router: Router
   ) { }
 
@@ -77,19 +73,6 @@ export class GameEffects {
   ),
     { dispatch: false }
   );
-
-  startSetPlayer$ = createEffect(() => this.actions$.pipe(
-    ofType(PlayerActions.startSetPlayer),
-    withLatestFrom(this.userStore.select(selectUser)),
-    map(([startSetPlayerAction, user]) => {
-      if (user) {
-        return PlayerActions.setPlayer({ playerNum: startSetPlayerAction.playerNum, id: user.id });
-      }
-      else {
-        return UserActions.showLogin({ setPlayerOnLogin: startSetPlayerAction.playerNum });
-      }
-    })
-  ));
 
   // TODO -- can we have one event for each player and pass in number as props?
   setPlayer$ = createEffect(() => this.actions$.pipe(

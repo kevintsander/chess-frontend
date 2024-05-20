@@ -1,44 +1,63 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { UserState } from '../../state/user/user.state';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../../state/user/user.actions';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Router } from '@angular/router';
+import { selectSetPlayerOnLogin, selectUser } from 'src/app/state/user/user.selector';
 
 @Component({
-    selector: 'app-login',
-    standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        MatCardModule,
-        MatButtonModule,
-        MatInputModule,
-        MatFormFieldModule
-    ],
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
+  selector: 'app-login',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule
+  ],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-    loginFormGroup!: FormGroup<any>;
+  loginFormGroup = this.fb.group({
+    email: ['', Validators.required],
+    password: ['', Validators.required]
+  })
+  setPlayerOnLogin?: number;
 
-    constructor(private userStore: Store<UserState>) { }
+  constructor(private store: Store, private router: Router, private fb: FormBuilder) { }
 
-    ngOnInit(): void {
-        this.loginFormGroup = new FormGroup({
-            email: new FormControl(),
-            password: new FormControl()
-        })
+  ngOnInit(): void {
+    this.store.select(selectSetPlayerOnLogin)
+      .subscribe({
+        next: (id) => this.setPlayerOnLogin = Number(id)
+      });
+    this.subscribeUserLogin();
+  }
+
+  private subscribeUserLogin(): void {
+    this.store.select(selectUser).subscribe({
+      next: (user) => {
+        if (user) {
+          this.router.navigate([{ outlets: { popup: null } }]);
+        }
+      }
+    });
+  }
+
+  onSubmit() {
+    if (this.loginFormGroup.valid) {
+      const model = this.loginFormGroup.value;
+      this.store.dispatch(UserActions.login({ email: model.email!, password: model.password!, setPlayerOnLogin: this.setPlayerOnLogin ?? null }))
     }
+  }
 
-    onSubmit() {
-        this.userStore.dispatch(UserActions.login({ ...this.loginFormGroup.value }))
-    }
-
-    onClose() {
-        this.userStore.dispatch(UserActions.hideLogin())
-    }
+  onClose() {
+    this.router.navigate([{ outlets: { popup: null } }]);
+  }
 
 }

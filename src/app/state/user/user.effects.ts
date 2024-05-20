@@ -1,20 +1,16 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserActions } from "./user.actions";
-import { catchError, exhaustMap, filter, map, of, switchMap, withLatestFrom } from "rxjs";
+import { EMPTY, catchError, exhaustMap, filter, iif, map, mergeMap, of } from "rxjs";
 import { User } from "../../user/user.model";
 import { AngularTokenService, RegisterData } from "@kevintsander/angular-token";
-import { UserState } from "./user.state";
-import { Store } from "@ngrx/store";
-import { selectUserState } from "./user.selector";
 import { PlayerActions } from "../game/game.actions";
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
-    private tokenService: AngularTokenService,
-    private userStore: Store<UserState>
+    private tokenService: AngularTokenService
   ) { }
 
   login$ = createEffect(() => this.actions$.pipe(
@@ -29,7 +25,7 @@ export class UserEffects {
               nickname: response.data.nickname
             }
 
-            return UserActions.loginSuccess({ user });
+            return UserActions.loginSuccess({ user, setPlayerOnLogin: action.setPlayerOnLogin });
           }
           else { return UserActions.loginFailure({ error: "No user data in login response" }) }
         }),
@@ -38,14 +34,14 @@ export class UserEffects {
     })
   ));
 
-  loginSuccess$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActions.loginSuccess),
-    withLatestFrom(this.userStore.select(selectUserState)),
-    filter(([action, userState]) => userState.setPlayerOnLogin != null && [1, 2].includes(userState.setPlayerOnLogin)),
-    map(([action, userState]) => {
-      return PlayerActions.setPlayer({ playerNum: userState.setPlayerOnLogin!, id: action.user.id });
-    })
-  ));
+  loginSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.loginSuccess),
+      filter(action => [1, 2].includes(action.setPlayerOnLogin ?? 0)),
+      map(action => PlayerActions.setPlayer({ playerNum: action.setPlayerOnLogin!, id: action.user.id }))
+    )
+  }
+  );
 
   logout$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.logout),

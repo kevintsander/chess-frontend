@@ -7,38 +7,40 @@ import { Store } from '@ngrx/store';
 import { UserState } from '../../state/user/user.state';
 import { UserActions } from '../../state/user/user.actions';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-sign-up',
-    standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatInputModule
-    ],
-    templateUrl: './sign-up.component.html',
-    styleUrls: ['./sign-up.component.scss']
+  selector: 'app-sign-up',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule
+  ],
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent {
-    signUpFormGroup!: FormGroup<any>;
+  signUpFormGroup!: FormGroup<any>;
 
-    constructor(private userStore: Store<UserState>) { }
+  constructor(private userStore: Store<UserState>, private router: Router) { }
 
-    ngOnInit(): void {
-        this.signUpFormGroup = new FormGroup({
-            email: new FormControl(),
-            nickname: new FormControl(),
-            password: new FormControl()
-        })
-    }
+  ngOnInit(): void {
+    this.signUpFormGroup = new FormGroup({
+      email: new FormControl(),
+      nickname: new FormControl(),
+      password: new FormControl()
+    })
+  }
 
-    onSubmit() {
-        this.userStore.dispatch(UserActions.signUp({ ...this.signUpFormGroup.value }));
-    }
+  onSubmit() {
+    this.userStore.dispatch(UserActions.signUp({ ...this.signUpFormGroup.value }))
+    this.onClose();
+  }
 
-    onClose() {
-        this.userStore.dispatch(UserActions.hideSignUp())
-    }
+  onClose() {
+    this.router.navigate([{ outlets: { popup: null } }]);
+  }
 }

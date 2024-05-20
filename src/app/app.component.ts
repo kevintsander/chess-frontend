@@ -4,7 +4,6 @@ import { UserState } from './state/user/user.state';
 import { AngularTokenService, UserData } from '@kevintsander/angular-token';
 import { Observable, Subscription } from 'rxjs';
 import { UserActions } from './state/user/user.actions';
-import { selectShowLogin, selectShowSignUp } from './state/user/user.selector';
 
 @Component({
   selector: 'app-root',
@@ -23,9 +22,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.setValidateTokenSub();
     this.setUserDataSub();
-
-    this.showLogin$ = this.userStore.select(selectShowLogin);
-    this.showSignUp$ = this.userStore.select(selectShowSignUp);
   }
 
   setValidateTokenSub(): void {
