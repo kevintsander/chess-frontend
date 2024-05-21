@@ -8,6 +8,7 @@ import { UserState } from '../../state/user/user.state';
 import { UserActions } from '../../state/user/user.actions';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { DialogComponent } from 'src/app/dialog/dialog.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,7 +18,8 @@ import { Router } from '@angular/router';
     MatButtonModule,
     MatFormFieldModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    DialogComponent
   ],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']

@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { selectSetPlayerOnLogin, selectUser } from 'src/app/state/user/user.selector';
+import { DialogComponent } from 'src/app/dialog/dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ import { selectSetPlayerOnLogin, selectUser } from 'src/app/state/user/user.sele
     MatCardModule,
     MatButtonModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    DialogComponent
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],

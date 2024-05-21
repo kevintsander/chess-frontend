@@ -20,7 +20,6 @@ import { LoginComponent } from './user/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
-import { CustomSerializer } from './state/router/router.custom-serializer';
 
 
 @NgModule({

@@ -1,5 +1,5 @@
-<div class="dialog-bg-container">
-  <div class="dialog">
+<app-dialog>
+  <ng-container dialog-content>
     <form [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
       <mat-card>
         <mat-card-header>
@@ -25,5 +25,5 @@
         </mat-card-actions>
       </mat-card>
     </form>
-  </div>
-</div>
+  </ng-container>
+</app-dialog>
