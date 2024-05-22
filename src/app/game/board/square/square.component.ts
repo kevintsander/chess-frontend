@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { LocationStatus } from '../board.enums';
 import { GameData } from '../../game-data.model';
 import { Store } from '@ngrx/store';
@@ -17,43 +17,18 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./square.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SquareComponent implements OnInit, OnChanges {
+export class SquareComponent {
   @Input({ required: true }) location!: string;
-  @Input({ required: true }) bgColor!: string;
+  @Input({ required: true }) bgColor!: number;
   @Input() unit: Unit | null = null;
   @Input() status: LocationStatus = LocationStatus.None;
-  @Output() click: EventEmitter<string> = new EventEmitter();
+  @Output() click: EventEmitter<{ location: string, status: LocationStatus }> = new EventEmitter();
 
-  bgClass!: string;
-  displayStateClass!: string;
 
-  constructor(store: Store<GameData>) {
-  }
-
-  ngOnInit(): void {
-    this.bgClass = `bg-${this.bgColor}`;
-    this.displayStateClass = this.getDisplayStateClass(this.status);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.displayStateClass = this.getDisplayStateClass(this.status);
-  }
+  constructor(store: Store<GameData>) { }
 
   onClick() {
-    this.click.emit(this.location);
+    this.click.emit({ location: this.location, status: this.status });
   }
 
-  private getDisplayStateClass(displayState: LocationStatus) {
-    switch (displayState) {
-      case (LocationStatus.Selected):
-        return "selected"
-      case (LocationStatus.Selectable):
-        return "selectable"
-      case (LocationStatus.Movable):
-        return "movable"
-      case (LocationStatus.Attackable):
-        return "attackable"
-    }
-    return "";
-  }
 }

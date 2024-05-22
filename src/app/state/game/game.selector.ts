@@ -3,7 +3,7 @@ import { GameState } from "./game.state";
 import { ActionUtil } from "../../game/action/action.util";
 import { ActionType } from "../../game/action/action-type.enum";
 import { selectUser } from "src/app/state/user/user.selector";
-import { selectQueryParam, selectRouteParam } from "../router/router.selectors";
+import { selectRouteParam } from "../router/router.selectors";
 
 const actionUtil = new ActionUtil();
 

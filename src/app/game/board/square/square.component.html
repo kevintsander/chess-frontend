@@ -1,6 +1,7 @@
 <div
   id="square-{{ location }}"
-  [ngClass]="['square', status, bgClass]"
+  class="square"
+  [ngClass]="['square', status.toString(), 'bg-color' + bgColor.toString()]"
   (click)="onClick()">
   @if (unit) {
     <app-unit [unit]="unit"></app-unit>

@@ -1,101 +1,146 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { LocationStatus } from './board.enums'
 import { Store } from '@ngrx/store';
 import { GameState } from '../../state/game/game.state';
 import { GameActions } from '../../state/game/game.actions';
 import { selectLocationStates, selectUnits } from '../../state/game/game.selector';
 import { Unit } from '../unit/unit.model';
-import { INIT_STATUS_MAP, INIT_UNIT_MAP } from './board.constants';
-import { Subscription } from 'rxjs';
+import { Observable, combineLatest, forkJoin, map, tap } from 'rxjs';
 import { SquareComponent } from './square/square.component';
+import { ISquareState } from './square/square-state.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-board',
-    standalone: true,
-    imports: [
-        SquareComponent
-    ],
-    templateUrl: './board.component.html',
-    styleUrls: ['./board.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-board',
+  standalone: true,
+  imports: [
+    SquareComponent,
+    CommonModule
+  ],
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BoardComponent implements OnInit, OnDestroy {
-    gameState: GameState | undefined;
-    bgColorMap: { [location: string]: string } = {};
-    unitMap: { [location: string]: Unit | null } = {};
-    statusMap: { [location: string]: LocationStatus } = {};
+export class BoardComponent implements OnInit {
+  private static squareStatesTemplate: ISquareState[] = [];
+  private static squareStateIndexMap: { [location: string]: number } = {}
 
-    private unitsSub!: Subscription;
-    private locationStatesSub!: Subscription;
+  squareStates$?: Observable<ISquareState[]>;
+  squareStates: ISquareState[] = [];
 
-    constructor(private stateStore: Store<GameState>, private changeDet: ChangeDetectorRef) { }
+  static {
+    this.initSquareStatesTemplate();
+  }
 
-    ngOnInit() {
-        this.subscribeUnits();
-        this.subscribeLocationStates();
-    }
+  private static initSquareStatesTemplate() {
+    const boardSize = 8;
+    const startChar = 97; // lowercase a
+    let color1 = true;
+    const ranks = [...Array(boardSize).keys()].map(i => i + 1)
+    let index = 0;
 
-    private subscribeUnits() {
-        this.unitsSub = this.stateStore.select(selectUnits).subscribe((units) => {
-            var newUnitMap: { [location: string]: Unit } = {}
-            units.filter(unit => unit.location).forEach(unit => {
-                newUnitMap[unit.location] = { ...unit };
-            })
-            this.unitMap = { ...INIT_UNIT_MAP, ...newUnitMap };
-            this.changeDet.markForCheck(); // not exactly sure why this is needed here but not below
-        });
-    }
-
-    private subscribeLocationStates() {
-        this.stateStore.select(selectLocationStates).subscribe((locationStates) => {
-            const newStatuses: { [location: string]: LocationStatus } = {};
-
-            if (locationStates.user && locationStates.currentPlayer?.id === locationStates.user.id) {
-
-                if (locationStates.selectedLocation) {
-                    newStatuses[locationStates.selectedLocation] = LocationStatus.Selected;
-                }
-                if (locationStates.selectedActionLocation) {
-                    newStatuses[locationStates.selectedActionLocation] = LocationStatus.SelectedAction;
-                }
-                locationStates.selectableLocations.forEach((selectableLocation) => {
-                    newStatuses[selectableLocation] = LocationStatus.Selectable;
-                });
-                locationStates.attackableLocations.forEach((attackableLocation) => {
-                    newStatuses[attackableLocation] = LocationStatus.Attackable;
-                });
-                locationStates.movableLocations.forEach((movableLocation) => {
-                    newStatuses[movableLocation] = LocationStatus.Movable;
-                });
-                if (locationStates.selectedEnPassantAttackLocation) {
-                    newStatuses[locationStates.selectedEnPassantAttackLocation] = LocationStatus.EnPassantable;
-                }
-                if (locationStates.selectedCastleOtherUnitLocation) {
-                    newStatuses[locationStates.selectedCastleOtherUnitLocation] = LocationStatus.OtherCastleLocation;
-                }
-            }
-
-            this.statusMap = { ...INIT_STATUS_MAP, ...newStatuses };
+    ranks.forEach(rank => {
+      const files = [...Array(boardSize).keys()].map(i => String.fromCharCode(i + 97))
+      files.forEach(file => {
+        const location = file + rank.toString();
+        this.squareStatesTemplate.push({
+          location,
+          bgColor: color1 ? 1 : 2,
+          unit: null,
+          status: LocationStatus.None
         })
-    }
 
-    onSquareClick(location: string) {
-        const locationStatus = this.statusMap[location];
-        if (!locationStatus) { return }
+        // build index map so we can look up rows by location
+        this.squareStateIndexMap[location] = index;
+        index++;
+        color1 = !color1;
+      });
+      color1 = !color1;
+    })
+  }
 
-        if (locationStatus == LocationStatus.Selectable) {
-            this.stateStore.dispatch(GameActions.selectUnit({ location: location }));
-        }
-        else if (locationStatus == LocationStatus.Selected) {
-            this.stateStore.dispatch(GameActions.unselectUnit());
-        }
-        else if ([LocationStatus.Movable, LocationStatus.Attackable].includes(locationStatus)) {
-            this.stateStore.dispatch(GameActions.selectActionLocation({ location: location }));
-        }
-    }
+  constructor(private stateStore: Store<GameState>) { }
 
-    ngOnDestroy(): void {
-        this.unitsSub?.unsubscribe();
-        this.locationStatesSub?.unsubscribe();
+  ngOnInit() {
+    this.squareStates$ = this.getSquareStates$();
+  }
+
+  private getSquareStates$(): Observable<ISquareState[]> {
+    return combineLatest(
+      [this.getUnitMap$(), this.getStatusMap$()],
+      (unitMap, statusMap) => {
+        const states = [...BoardComponent.squareStatesTemplate]
+        states.forEach(state => {
+          state.status = statusMap[state.location] ?? LocationStatus.None;
+          state.unit = unitMap[state.location] ?? null;
+        })
+        return states;
+      });
+  }
+
+  private getUnitMap$(): Observable<{ [location: string]: Unit }> {
+    return this.stateStore.select(selectUnits).pipe(
+      map(units => {
+        var newUnitMap: { [location: string]: Unit } = {}
+        units.filter(unit => unit.location).forEach(unit => {
+          newUnitMap[unit.location] = { ...unit };
+        })
+        return { ...newUnitMap };
+      }));
+  }
+
+  private getStatusMap$(): Observable<{ [location: string]: LocationStatus }> {
+
+    return this.stateStore.select(selectLocationStates).pipe(
+      map(locationStates => {
+        const newStatuses: { [location: string]: LocationStatus } = {};
+
+        if (locationStates.user && locationStates.currentPlayer?.id === locationStates.user.id) {
+
+          if (locationStates.selectedLocation) {
+            newStatuses[locationStates.selectedLocation] = LocationStatus.Selected;
+          }
+          if (locationStates.selectedActionLocation) {
+            newStatuses[locationStates.selectedActionLocation] = LocationStatus.SelectedAction;
+          }
+          locationStates.selectableLocations.forEach((selectableLocation) => {
+            newStatuses[selectableLocation] = LocationStatus.Selectable;
+          });
+          locationStates.attackableLocations.forEach((attackableLocation) => {
+            newStatuses[attackableLocation] = LocationStatus.Attackable;
+          });
+          locationStates.movableLocations.forEach((movableLocation) => {
+            newStatuses[movableLocation] = LocationStatus.Movable;
+          });
+          if (locationStates.selectedEnPassantAttackLocation) {
+            newStatuses[locationStates.selectedEnPassantAttackLocation] = LocationStatus.EnPassantable;
+          }
+          if (locationStates.selectedCastleOtherUnitLocation) {
+            newStatuses[locationStates.selectedCastleOtherUnitLocation] = LocationStatus.OtherCastleLocation;
+          }
+        }
+
+        return { ...newStatuses };
+      })
+    )
+  }
+
+  onSquareClick(event: { location: string, status: LocationStatus }) {
+    const status = event.status;
+    const location = event.location;
+
+    if (!status) { return }
+
+    if (status == LocationStatus.Selectable) {
+      this.stateStore.dispatch(GameActions.selectUnit({ location: location }));
     }
+    else if (status == LocationStatus.Selected) {
+      this.stateStore.dispatch(GameActions.unselectUnit());
+    }
+    else if ([LocationStatus.Movable, LocationStatus.Attackable].includes(status)) {
+      this.stateStore.dispatch(GameActions.selectActionLocation({ location: location }));
+    }
+  }
 }
+
+
