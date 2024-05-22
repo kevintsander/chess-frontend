@@ -43,6 +43,6 @@ export class SignUpComponent {
   }
 
   onClose() {
-    this.router.navigate([{ outlets: { popup: null } }]);
+    this.router.navigate([{ outlets: { dialog: null } }]);
   }
 }

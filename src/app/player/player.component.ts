@@ -51,7 +51,7 @@ export class PlayerComponent implements OnInit {
           this.store.dispatch(PlayerActions.setPlayer({ playerNum: this.playerNum, id: user.id }))
         }
         else {
-          this.router.navigate([{ outlets: { popup: 'user/login' } }], { queryParams: { setPlayerOnLogin: this.playerNum } })
+          this.router.navigate([{ outlets: { dialog: 'login' } }], { queryParams: { setPlayerOnLogin: this.playerNum } })
         }
       }
     }).unsubscribe();

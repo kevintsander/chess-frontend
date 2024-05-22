@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     this.store.select(selectUser).subscribe({
       next: (user) => {
         if (user) {
-          this.router.navigate([{ outlets: { popup: null } }]);
+          this.router.navigate([{ outlets: { dialog: null } }]);
         }
       }
     });
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   onClose() {
-    this.router.navigate([{ outlets: { popup: null } }]);
+    this.router.navigate([{ outlets: { dialog: null } }]);
   }
 
 }
