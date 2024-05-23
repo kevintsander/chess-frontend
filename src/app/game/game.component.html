@@ -3,14 +3,23 @@
     <div class="game-container">
       <div class="game">
         <app-player class="player1-container" [playerNum]="1"></app-player>
-        <div class="game-id">
-          {{ gameState.id }}
-        </div>
-        <app-player class="player2-container" [playerNum]="2"></app-player>
+        <app-player
+          class="player2-container"
+          [playerNum]="2"
+          align="end"></app-player>
         <app-board class="board-container"></app-board>
         <div class="game-footer">
-          <app-meta key="Turn" [value]="gameState.turn"></app-meta>
-          <app-meta key="Status" [value]="gameState.status"></app-meta>
+          <div class="turn">Turn: {{ gameState.turn }}</div>
+          <div class="game-id">Game ID: {{ gameState.id }}</div>
+          <div class="status">
+            @if (
+              ![gameStatus.Initialized, gameStatus.Playing].includes(
+                gameState.status
+              )
+            ) {
+              {{ gameState.status | uppercase }}
+            }
+          </div>
         </div>
         @if (gameState.status == "promoting") {
           <app-promote-unit></app-promote-unit>

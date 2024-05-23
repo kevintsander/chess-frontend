@@ -23,7 +23,7 @@
   <nav class="user-items">
     @if ({ value: user$ | async }; as user) {
       @if (user.value) {
-        <span>Welcome, user {{ user.value.id }}</span>
+        <span>Hello, {{ user.value.nickname }}</span>
         <button mat-stroked-button color="secondary" (click)="logoutClick()">
           Logout
         </button>

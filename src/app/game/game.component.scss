@@ -10,19 +10,27 @@
 .game {
   display: grid;
   grid-template-areas:
-    "player1 game-id player2"
+    "player1 empty player2"
     "board board board"
     "footer footer footer";
-  width: 40%;
+}
+
+.turn {
+  grid-area: turn;
 }
 
 .game-id {
   grid-area: game-id;
 }
 
+.status {
+  grid-area: status;
+}
+
 .game-footer {
   grid-area: footer;
-  display: flex;
+  display: grid;
+  grid-template-areas: "turn game-id status";
   justify-content: space-between;
 }
 
@@ -36,4 +44,17 @@
 
 .player2-container {
   grid-area: player2;
+}
+
+@media screen and (orientation: landscape) {
+  .game {
+    aspect-ratio: 1 / 1; // need to fix this, doesn't quite work as expected
+    height: 75%;
+  }
+}
+@media screen and (orientation: portrait) {
+  .game {
+    width: 75%;
+    aspect-ratio: 1 / 1;
+  }
 }

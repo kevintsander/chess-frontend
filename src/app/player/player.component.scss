@@ -1,3 +1,27 @@
-.current-player {
-  font-weight: bold;
+.current-player-is-user {
+  background-color: yellow;
+}
+
+.player-card {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+
+.start {
+  align-items: start;
+}
+
+.end {
+  align-items: end;
+}
+
+h3 {
+  font-size: 0.9rem;
+  line-height: 0.1rem;
+}
+
+.player-name {
+  font-size: 2rem;
+  font-weight: 700;
 }

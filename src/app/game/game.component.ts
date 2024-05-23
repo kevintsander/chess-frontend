@@ -12,8 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MetaComponent } from './meta/meta.component';
 import { Router } from '@angular/router';
+import { GameStatus } from "./game-status.enum";
 
 @Component({
   selector: 'app-game',
@@ -23,7 +23,6 @@ import { Router } from '@angular/router';
     BoardComponent,
     PlayerComponent,
     PromoteUnitComponent,
-    MetaComponent,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -34,6 +33,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit, OnDestroy {
+  gameStatus = GameStatus;
   gameState$!: Observable<GameState>;
   showLogin$!: Observable<boolean>;
 
