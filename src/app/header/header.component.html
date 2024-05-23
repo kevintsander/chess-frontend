@@ -1,24 +1,42 @@
 <header>
   <div class="header-title">
-    <h1>chess-engine</h1>
+    <h1><a [routerLink]="['/']">chess-engine</a></h1>
   </div>
-  <nav class="horizontal-items">
+  <nav class="game-items">
+    <mat-form-field class="search" subscriptSizing="dynamic">
+      <mat-label>Find Game ID</mat-label>
+      <input matInput id="game-id" #gameId />
+      <button
+        matSuffix
+        mat-icon-button
+        appearance="outline"
+        type="button"
+        [routerLink]="['/games', gameId.value]">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-stroked-button color="primary" (click)="createGameClick()">
+      New Game
+      <mat-icon fontIcon="add"></mat-icon>
+    </button>
+  </nav>
+  <nav class="user-items">
     @if ({ value: user$ | async }; as user) {
       @if (user.value) {
         <span>Welcome, user {{ user.value.id }}</span>
-        <button mat-button color="primary" (click)="logoutClick()">
+        <button mat-stroked-button color="secondary" (click)="logoutClick()">
           Logout
         </button>
       } @else {
         <button
-          mat-button
-          color="primary"
+          mat-stroked-button
+          color="secondary"
           [routerLink]="[{ outlets: { dialog: 'login' } }]">
           Login
         </button>
         <button
-          mat-button
-          color="primary"
+          mat-stroked-button
+          color="secondary"
           [routerLink]="[{ outlets: { dialog: 'signup' } }]">
           Sign Up
         </button>

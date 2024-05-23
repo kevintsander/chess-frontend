@@ -53,7 +53,7 @@ export const gameReducer = createReducer(
     }
   }),
 
-  on(GameActions.endGame, (state) => {
+  on(GameActions.clearGame, (state) => {
     return {
       ...initialState
     }

@@ -11,7 +11,7 @@ import { UserActions } from './state/user/user.actions';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'chess-frontend';
+  title = 'chess-engine';
   showLogin$!: Observable<boolean>;
   showSignUp$!: Observable<boolean>;
   private userDataSub!: Subscription;
@@ -40,7 +40,5 @@ export class AppComponent implements OnInit, OnDestroy {
     this.userDataSub?.unsubscribe();
     this.validateTokenSub?.unsubscribe();
   }
-
-
 
 }

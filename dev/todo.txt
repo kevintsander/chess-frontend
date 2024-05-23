@@ -1,5 +1,3 @@
-Secondary route to signin/signup
-Subscribe for board? Async pipe? Could that help with data issues?
 
 Change selectedLocation to selectedUnitLocation
 Change all references to Action to BoardAction

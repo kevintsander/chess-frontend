@@ -23,7 +23,6 @@ import { CommonModule } from '@angular/common';
 })
 export class BoardComponent implements OnInit {
   private static squareStatesTemplate: ISquareState[] = [];
-  private static squareStateIndexMap: { [location: string]: number } = {}
 
   squareStates$?: Observable<ISquareState[]>;
   squareStates: ISquareState[] = [];
@@ -49,9 +48,6 @@ export class BoardComponent implements OnInit {
           unit: null,
           status: LocationStatus.None
         })
-
-        // build index map so we can look up rows by location
-        this.squareStateIndexMap[location] = index;
         index++;
         color1 = !color1;
       });

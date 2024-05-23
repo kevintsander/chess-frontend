@@ -36,7 +36,7 @@ export class GameEffects {
         map((game) => GameActions.receiveGameData({ gameData: game })),
         takeUntil(
           this.actions$.pipe(
-            ofType(GameActions.endGame)
+            ofType(GameActions.clearGame)
           )
         ),
         repeat({

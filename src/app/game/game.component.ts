@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { GameState } from '../state/game/game.state';
@@ -33,7 +33,7 @@ import { Router } from '@angular/router';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
   gameState$!: Observable<GameState>;
   showLogin$!: Observable<boolean>;
 
@@ -50,17 +50,8 @@ export class GameComponent implements OnInit {
     this.gameState$ = this.store.select(selectGameState);
   }
 
-  loadGame(id: string) {
-    this.store.dispatch(GameActions.endGame());
-    this.router.navigate(['games', id]);
-  }
-
-  createGame() {
-    this.store.dispatch(GameActions.createGame());
-  }
-
-  endGame() {
-    this.store.dispatch(GameActions.endGame());
+  ngOnDestroy(): void {
+    this.store.dispatch(GameActions.clearGame());
   }
 
 }

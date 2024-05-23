@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 header {
   border-bottom: 1px solid black;
   display: flex;
@@ -8,4 +10,26 @@ header {
 .header-title > h1 {
   margin: 0;
   padding: 0;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+.search {
+  @include mat.all-component-densities(-10);
+  width: 24rem;
+}
+
+.game-items {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-items {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
