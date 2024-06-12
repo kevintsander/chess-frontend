@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { GameState } from '../state/game/game.state';
 import { selectGameId, selectGameState } from '../state/game/game.selector';
@@ -45,8 +45,6 @@ export class GameComponent implements OnInit, OnDestroy {
         this.store.dispatch(GameActions.subscribeGame({ id: id }));
       }
     });
-
-    // TODO: move to game state container --- or rename this something else and make innter game
     this.gameState$ = this.store.select(selectGameState);
   }
 

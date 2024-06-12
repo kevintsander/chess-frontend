@@ -19,7 +19,7 @@ export class GameDataService {
 
   createGame$(): Observable<string> {
     return this.httpClient.post(this.apiUrl, {}, { responseType: 'text' }).pipe(
-      tap((id) => console.log(id))
+      tap((id) => console.log(`Created game: ${id}`))
     );
   }
 

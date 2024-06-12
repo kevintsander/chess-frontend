@@ -36,10 +36,9 @@ export class BoardComponent implements OnInit {
     const startChar = 97; // lowercase a
     let color1 = true;
     const ranks = [...Array(boardSize).keys()].map(i => i + 1)
-    let index = 0;
+    const files = [...Array(boardSize).keys()].map(i => String.fromCharCode(i + 97))
 
     ranks.forEach(rank => {
-      const files = [...Array(boardSize).keys()].map(i => String.fromCharCode(i + 97))
       files.forEach(file => {
         const location = file + rank.toString();
         this.squareStatesTemplate.push({
@@ -48,7 +47,6 @@ export class BoardComponent implements OnInit {
           unit: null,
           status: LocationStatus.None
         })
-        index++;
         color1 = !color1;
       });
       color1 = !color1;

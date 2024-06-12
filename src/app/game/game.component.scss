@@ -1,7 +1,6 @@
 .game-container {
   grid-area: game-container;
   height: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,6 +12,9 @@
     "player1 empty player2"
     "board board board"
     "footer footer footer";
+  grid-template-rows: auto 1fr auto;
+  width: fit-content;
+  height: fit-content;
 }
 
 .turn {
@@ -36,6 +38,7 @@
 
 .board-container {
   grid-area: board;
+  height: 100%;
 }
 
 .player1-container {
@@ -44,17 +47,4 @@
 
 .player2-container {
   grid-area: player2;
-}
-
-@media screen and (orientation: landscape) {
-  .game {
-    aspect-ratio: 1 / 1; // need to fix this, doesn't quite work as expected
-    height: 75%;
-  }
-}
-@media screen and (orientation: portrait) {
-  .game {
-    width: 75%;
-    aspect-ratio: 1 / 1;
-  }
 }
