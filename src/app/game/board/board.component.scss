@@ -2,18 +2,6 @@
   display: grid;
   grid-template-columns: repeat(8, 12.5%);
   border: 1px solid #000;
-}
-
-@media all and (orientation: portrait) {
-  .board {
-    width: 75vw;
-    height: 75vw;
-  }
-}
-
-@media all and (orientation: landscape) {
-  .board {
-    width: 75vh;
-    height: 75vh;
-  }
+  width: 75vmin;
+  height: 75vmin;
 }

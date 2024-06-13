@@ -103,6 +103,9 @@ export class BoardComponent implements OnInit {
           locationStates.attackableLocations.forEach((attackableLocation) => {
             newStatuses[attackableLocation] = LocationStatus.Attackable;
           });
+          locationStates.enPassantableLocations.forEach((enPassantableLocation) => {
+            newStatuses[enPassantableLocation] = LocationStatus.EnPassantable;
+          });
           locationStates.movableLocations.forEach((movableLocation) => {
             newStatuses[movableLocation] = LocationStatus.Movable;
           });
@@ -131,7 +134,7 @@ export class BoardComponent implements OnInit {
     else if (status == LocationStatus.Selected) {
       this.stateStore.dispatch(GameActions.unselectUnit());
     }
-    else if ([LocationStatus.Movable, LocationStatus.Attackable].includes(status)) {
+    else if ([LocationStatus.Movable, LocationStatus.Attackable, LocationStatus.EnPassantable].includes(status)) {
       this.stateStore.dispatch(GameActions.selectActionLocation({ location: location }));
     }
   }

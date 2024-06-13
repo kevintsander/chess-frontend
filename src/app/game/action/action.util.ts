@@ -15,6 +15,10 @@ export class ActionUtil {
     return [... new Set(actions.filter(a => a.type === ActionType.Attack)?.flatMap(a => a.moves.map(m => m.to_location)))] ?? [];
   }
 
+  getEnPassantableLocations(actions: Action[]): string[] {
+    return [... new Set(actions.filter(a => a.type === ActionType.EnPassant)?.flatMap(a => a.moves.map(m => m.to_location)))] ?? [];
+  }
+
   getOtherCastleUnitLocation(location: string, action: Action) {
     return action.moves.find(m => m.to_location !== location)!.to_location
   }

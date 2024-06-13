@@ -62,6 +62,16 @@ export const selectAttackableLocations = createSelector(
 );
 
 
+export const selectEnPassantableLocations = createSelector(
+  selectSelectedLocation,
+  selectAllowedActions,
+  (selectedLocation, allowedActions) => {
+    if (selectedLocation == null) { return [] }
+    var unitActions = actionUtil.getFromLocationActions(selectedLocation, allowedActions);
+    return actionUtil.getEnPassantableLocations(unitActions)
+  }
+);
+
 export const selectSelectedEnPassantAttackLocation = createSelector(
   selectSelectedLocation,
   selectSelectedActionLocation,
@@ -99,12 +109,13 @@ export const selectLocationStates = createSelector(
   selectSelectedActionLocation,
   selectSelectableLocations,
   selectAttackableLocations,
+  selectEnPassantableLocations,
   selectMovableLocations,
   selectSelectedEnPassantAttackLocation,
   selectSelectedCastleOtherUnitLocation,
   selectCurrentPlayer,
   selectUser,
-  (selectedLocation, selectedActionLocation, selectableLocations, attackableLocations, movableLocations, selectedEnPassantAttackLocation, selectedCastleOtherUnitLocation, currentPlayer, user) => {
-    return { selectedLocation, selectedActionLocation, selectableLocations, attackableLocations, movableLocations, selectedEnPassantAttackLocation, selectedCastleOtherUnitLocation, currentPlayer, user }
+  (selectedLocation, selectedActionLocation, selectableLocations, attackableLocations, enPassantableLocations, movableLocations, selectedEnPassantAttackLocation, selectedCastleOtherUnitLocation, currentPlayer, user) => {
+    return { selectedLocation, selectedActionLocation, selectableLocations, attackableLocations, enPassantableLocations, movableLocations, selectedEnPassantAttackLocation, selectedCastleOtherUnitLocation, currentPlayer, user }
   }
 );
