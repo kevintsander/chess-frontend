@@ -24,7 +24,6 @@ export class SquareComponent {
   @Input() status: LocationStatus = LocationStatus.None;
   @Output() click: EventEmitter<{ location: string, status: LocationStatus }> = new EventEmitter();
 
-
   constructor(store: Store<GameData>) { }
 
   onClick() {

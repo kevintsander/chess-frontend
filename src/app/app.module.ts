@@ -20,6 +20,8 @@ import { LoginComponent } from './user/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { SharedEffects } from './state/shared/shared.effects';
+import { sharedReducer } from './state/shared/shared.reducer';
 
 
 @NgModule({
@@ -32,6 +34,7 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
     HttpClientModule,
     FormsModule,
     StoreModule.forRoot({
+      shared: sharedReducer,
       router: routerReducer,
       user: userReducer,
       game: gameReducer
@@ -41,7 +44,7 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
       logOnly: environment.production, // Restrict extension to log-only mode
       connectInZone: true
     }),
-    EffectsModule.forRoot([GameEffects, UserEffects]),
+    EffectsModule.forRoot([SharedEffects, GameEffects, UserEffects]),
     StoreRouterConnectingModule.forRoot(),
     AngularTokenModule.forRoot({ apiBase: environment.chessApiUrl }),
     HeaderComponent,

@@ -25,7 +25,6 @@ export class BoardComponent implements OnInit {
   private static squareStatesTemplate: ISquareState[] = [];
 
   squareStates$?: Observable<ISquareState[]>;
-  squareStates: ISquareState[] = [];
 
   static {
     this.initSquareStatesTemplate();
