@@ -1,12 +1,6 @@
 import { ToastType } from "./toast-type.enum";
-export interface IToast {
-  id: string,
-  message: string,
-  type: ToastType,
-  duration: number
-}
 
-export class Toast implements IToast {
+export class Toast {
   id: string = crypto.randomUUID();
   message: string = "";
   type: ToastType;

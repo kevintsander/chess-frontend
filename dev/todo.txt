@@ -5,6 +5,8 @@ Move the promote into a new action reducer (start promote, end promote?)
 Should onSquareClick move to Square?
 Separate Game and Player Actions
 Clean up NGRX file naming (singular/plural)
+Clean up NGRX store conventions (just Store or Store<T>)
+Show hover/attack
 Remove unused imports
 Clean up FormGroup
 Unify naming (location/coordiante, signin/login...)

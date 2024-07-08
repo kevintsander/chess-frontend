@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.setValidateTokenSub();
     this.setUserDataSub();
 
-    this.sharedStore.dispatch(ToastActions.popToast({ toast: new Toast("Welcome to Chess!") }))
+    this.sharedStore.dispatch(ToastActions.popToast({ toast: new Toast("Welcome to Chess!", ToastType.Error, 7500) }))
     this.sharedStore.dispatch(ToastActions.popToast({ toast: new Toast("Welcome to Chess2!", ToastType.Error, 10000) }))
   }
 

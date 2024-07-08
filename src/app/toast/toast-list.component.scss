@@ -1,0 +1,15 @@
+.toast-list {
+  display: flex;
+  flex-direction: column-reverse;
+  list-style-type: none;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.toast {
+  padding: 1rem;
+  width: 20rem;
+  word-wrap: break-word;
+  border: 1px solid black;
+}

@@ -1,0 +1,9 @@
+@if (toasts$ | async; as toasts) {
+  @if (toasts.length > 0) {
+    <ul class="toast-list">
+      @for (toast of toasts; track toast.id) {
+        <li class="toast">{{ toast.message }}</li>
+      }
+    </ul>
+  }
+}
