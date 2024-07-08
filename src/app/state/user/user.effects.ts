@@ -5,6 +5,9 @@ import { EMPTY, catchError, exhaustMap, filter, iif, map, mergeMap, of } from "r
 import { User } from "../../user/user.model";
 import { AngularTokenService, RegisterData } from "@kevintsander/angular-token";
 import { PlayerActions } from "../game/game.actions";
+import { ToastActions } from "../shared/shared.actions";
+import { Toast } from "src/app/toast/toast.model";
+import { ToastType } from "src/app/toast/toast-type.enum";
 
 @Injectable()
 export class UserEffects {
@@ -29,7 +32,10 @@ export class UserEffects {
           }
           else { return UserActions.loginFailure({ error: "No user data in login response" }) }
         }),
-        catchError((error) => of(UserActions.loginFailure({ error })))
+        catchError((error) => {
+          console.log(error)
+          return of(UserActions.loginFailure({ error: error.message }))
+        })
       )
     })
   ));
@@ -42,6 +48,13 @@ export class UserEffects {
     )
   }
   );
+
+  loginFailure$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.loginFailure),
+      map(action => ToastActions.popToast(`Login Error: ${action.error}}`, ToastType.Error))
+    )
+  })
 
   logout$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.logout),

@@ -1,10 +1,11 @@
 import { createActionGroup, props, emptyProps } from '@ngrx/store';
+import { ToastType } from 'src/app/toast/toast-type.enum';
 import { Toast } from 'src/app/toast/toast.model';
 
 export const ToastActions = createActionGroup({
   source: 'Toast',
   events: {
-    'Pop Toast': props<{ toast: Toast }>(),
-    'Eat Toast': props<{ id: string }>()
+    'Pop Toast': (message: string, type: ToastType = ToastType.Info, duration: number = 5000) => ({ toast: new Toast(message, type, duration) }),
+    'Eat Toast': (id: string) => ({ id })
   }
 });

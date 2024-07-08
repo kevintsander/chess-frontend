@@ -6,7 +6,7 @@ export class Toast {
   type: ToastType;
   duration: number;
 
-  constructor(message: string, type: ToastType = ToastType.Info, duration: number = 5000) {
+  constructor(message: string, type: ToastType, duration: number) {
     this.message = message
     this.type = type
     this.duration = duration

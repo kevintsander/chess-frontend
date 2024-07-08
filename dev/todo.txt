@@ -6,6 +6,7 @@ Should onSquareClick move to Square?
 Separate Game and Player Actions
 Clean up NGRX file naming (singular/plural)
 Clean up NGRX store conventions (just Store or Store<T>)
+Simplify prop declarations in ngrx Actions (see toast for good example)
 Show hover/attack
 Remove unused imports
 Clean up FormGroup
