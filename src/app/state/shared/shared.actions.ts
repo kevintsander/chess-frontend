@@ -1,6 +1,6 @@
 import { createActionGroup, props, emptyProps } from '@ngrx/store';
-import { ToastType } from 'src/app/toast/toast-type.enum';
-import { Toast } from 'src/app/toast/toast.model';
+import { ToastType } from 'src/app/ui/shared/toast/toast-type.enum';
+import { Toast } from 'src/app/ui/shared/toast/toast.model';
 
 export const ToastActions = createActionGroup({
   source: 'Toast',

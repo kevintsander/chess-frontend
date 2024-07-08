@@ -1,4 +1,4 @@
-export enum GameStatus {
+export enum GameDataStatus {
   Initialized = "initialized",
   Playing = "playing",
   Check = "check",

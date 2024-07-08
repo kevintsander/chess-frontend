@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { GameState } from './game.state';
 import { GameActions, PlayerActions } from './game.actions';
-import { GameStatus } from '../../game/game-status.enum';
+import { GameDataStatus } from '../../data/game/game-data-status.enum';
 
 const initialState: GameState = {
   id: undefined,
@@ -11,7 +11,7 @@ const initialState: GameState = {
 
   turn: null,
   current_color: null,
-  status: GameStatus.Initialized,
+  status: GameDataStatus.Initialized,
 
   units: [],
   allowedActions: [],

@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GameComponent } from './game/game.component';
+import { GameComponent } from './ui/game/game.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { gameReducer } from './state/game/game.reducer';
@@ -13,16 +13,16 @@ import { GameEffects } from './state/game/game.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { AngularTokenModule } from '@kevintsander/angular-token';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './ui/shared/header/header.component';
 import { userReducer } from './state/user/user.reducer';
 import { UserEffects } from './state/user/user.effects';
-import { LoginComponent } from './user/login/login.component';
+import { LoginComponent } from './ui/user/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { SignUpComponent } from './ui/user/sign-up/sign-up.component';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { SharedEffects } from './state/shared/shared.effects';
 import { sharedReducer } from './state/shared/shared.reducer';
-import { ToastListComponent } from './toast/toast-list.component';
+import { ToastListComponent } from './ui/shared/toast/toast-list.component';
 
 
 @NgModule({

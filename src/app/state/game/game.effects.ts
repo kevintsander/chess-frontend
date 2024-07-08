@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { Store } from "@ngrx/store"
 import { GameActions, PlayerActions } from "./game.actions";
 import { catchError, filter, map, of, repeat, switchMap, takeUntil, tap, withLatestFrom } from "rxjs";
-import { GameDataService } from "../../game/game-data.service";
+import { GameDataService } from "../../data/game/game-data.service";
 import { selectGameId, selectSelectedActionWithId } from "./game.selectors";
 import { GameState } from "./game.state";
 import { Router } from "@angular/router";

@@ -6,8 +6,8 @@ import { Observable, Subscription } from 'rxjs';
 import { UserActions } from './state/user/user.actions';
 import { SharedState } from './state/shared/shared.state';
 import { ToastActions } from './state/shared/shared.actions';
-import { Toast } from './toast/toast.model';
-import { ToastType } from './toast/toast-type.enum';
+import { Toast } from './ui/shared/toast/toast.model';
+import { ToastType } from './ui/shared/toast/toast-type.enum';
 
 @Component({
   selector: 'app-root',

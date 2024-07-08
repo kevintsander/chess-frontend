@@ -1,4 +1,4 @@
-import { Unit } from "../unit/unit.model";
+import { Unit } from "../../../ui/game/unit/unit.model";
 import { ActionType } from "./action-type.enum";
 import { Action } from "./action.model";
 

@@ -1,7 +1,7 @@
-import { Player } from "src/app/player/player.model";
-import { Action } from "../../game/action/action.model";
-import { GameStatus } from "../../game/game-status.enum";
-import { Unit } from "../../game/unit/unit.model";
+import { Player } from "src/app/ui/player/player.model";
+import { Action } from "../../data/game/action/action.model";
+import { GameDataStatus } from "../../data/game/game-data-status.enum";
+import { Unit } from "../../ui/game/unit/unit.model";
 
 export interface GameState {
   id: string | undefined;
@@ -11,7 +11,7 @@ export interface GameState {
 
   turn: number | null;
   current_color: string | null;
-  status: GameStatus;
+  status: GameDataStatus;
 
   units: Unit[];
   allowedActions: Action[];

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GameState } from '../../state/game/game.state';
-import { GameActions } from '../../state/game/game.actions';
+import { GameState } from '../../../state/game/game.state';
+import { GameActions } from '../../../state/game/game.actions';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

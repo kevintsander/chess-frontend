@@ -2,12 +2,12 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserActions } from "./user.actions";
 import { EMPTY, catchError, exhaustMap, filter, iif, map, mergeMap, of } from "rxjs";
-import { User } from "../../user/user.model";
+import { User } from "./user.model";
 import { AngularTokenService, RegisterData } from "@kevintsander/angular-token";
 import { PlayerActions } from "../game/game.actions";
 import { ToastActions } from "../shared/shared.actions";
-import { Toast } from "src/app/toast/toast.model";
-import { ToastType } from "src/app/toast/toast-type.enum";
+import { Toast } from "src/app/ui/shared/toast/toast.model";
+import { ToastType } from "src/app/ui/shared/toast/toast-type.enum";
 
 @Injectable()
 export class UserEffects {

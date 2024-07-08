@@ -1,11 +1,11 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
 import { GameState } from "./game.state";
-import { ActionUtil } from "../../game/action/action.util";
-import { ActionType } from "../../game/action/action-type.enum";
+import { ActionUtil } from "../../data/game/action/action.util";
+import { ActionType } from "../../data/game/action/action-type.enum";
 import { selectUser } from "src/app/state/user/user.selectors";
 import { selectRouteParam } from "../router/router.selectors";
 
-const actionUtil = new ActionUtil();
+const gameDataActionUtil = new ActionUtil();
 
 export const selectGameState = createFeatureSelector<GameState>('game');
 export const selectGameId = selectRouteParam('gameId');
@@ -34,7 +34,7 @@ export const selectSelectableLocations = createSelector(
   selectAllowedActions,
   (selectedLocation, allowedActions) => {
     var selectableLocations =
-      actionUtil
+      gameDataActionUtil
         .getSelectableLocations(allowedActions)
         .filter(l => l != selectedLocation);
     return selectableLocations;
@@ -46,8 +46,8 @@ export const selectMovableLocations = createSelector(
   selectAllowedActions,
   (selectedLocation, allowedActions) => {
     if (selectedLocation == null) { return [] }
-    var unitActions = actionUtil.getFromLocationActions(selectedLocation, allowedActions);
-    return actionUtil.getMovableLocations(unitActions)
+    var unitActions = gameDataActionUtil.getFromLocationActions(selectedLocation, allowedActions);
+    return gameDataActionUtil.getMovableLocations(unitActions)
   }
 );
 
@@ -56,8 +56,8 @@ export const selectAttackableLocations = createSelector(
   selectAllowedActions,
   (selectedLocation, allowedActions) => {
     if (selectedLocation == null) { return [] }
-    var unitActions = actionUtil.getFromLocationActions(selectedLocation, allowedActions);
-    return actionUtil.getAttackableLocations(unitActions)
+    var unitActions = gameDataActionUtil.getFromLocationActions(selectedLocation, allowedActions);
+    return gameDataActionUtil.getAttackableLocations(unitActions)
   }
 );
 
@@ -67,8 +67,8 @@ export const selectEnPassantableLocations = createSelector(
   selectAllowedActions,
   (selectedLocation, allowedActions) => {
     if (selectedLocation == null) { return [] }
-    var unitActions = actionUtil.getFromLocationActions(selectedLocation, allowedActions);
-    return actionUtil.getEnPassantableLocations(unitActions)
+    var unitActions = gameDataActionUtil.getFromLocationActions(selectedLocation, allowedActions);
+    return gameDataActionUtil.getEnPassantableLocations(unitActions)
   }
 );
 
@@ -79,7 +79,7 @@ export const selectSelectedEnPassantAttackLocation = createSelector(
   (selectedLocation, selectedActionLocation, allowedActions) => {
     if (selectedLocation == null || selectedActionLocation == null) { return null }
 
-    const locationAction = actionUtil.getToLocationAction(selectedLocation, selectedActionLocation, allowedActions);
+    const locationAction = gameDataActionUtil.getToLocationAction(selectedLocation, selectedActionLocation, allowedActions);
     var selectedEnPassantAttackLocation: string | null = null;
     if (locationAction && locationAction.type === ActionType.EnPassant) {
       selectedEnPassantAttackLocation = locationAction.capture_unit;
@@ -95,10 +95,10 @@ export const selectSelectedCastleOtherUnitLocation = createSelector(
   (selectedLocation, selectedActionLocation, allowedActions) => {
     if (selectedLocation == null || selectedActionLocation == null) { return null }
 
-    const locationAction = actionUtil.getToLocationAction(selectedLocation, selectedActionLocation, allowedActions);
+    const locationAction = gameDataActionUtil.getToLocationAction(selectedLocation, selectedActionLocation, allowedActions);
     var selectedQueensideCastleOtherUnitLocation: string | null = null;
     if (locationAction && [ActionType.KingsideCastle, ActionType.QueensideCastle].includes(locationAction.type)) {
-      selectedQueensideCastleOtherUnitLocation = actionUtil.getOtherCastleUnitLocation(selectedActionLocation, locationAction);
+      selectedQueensideCastleOtherUnitLocation = gameDataActionUtil.getOtherCastleUnitLocation(selectedActionLocation, locationAction);
     }
     return selectedQueensideCastleOtherUnitLocation;
   }
