@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserState } from '../state/user/user.state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectUser } from '../state/user/user.selector';
+import { selectUser } from '../state/user/user.selectors';
 import { User } from '../user/user.model';
 import { CommonModule } from '@angular/common';
 import { UserActions } from '../state/user/user.actions';
@@ -13,7 +13,7 @@ import { GameActions } from '../state/game/game.actions';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { selectGameId } from '../state/game/game.selector';
+import { selectGameId } from '../state/game/game.selectors';
 
 @Component({
   selector: 'app-header',

@@ -3,7 +3,7 @@ import { SharedState } from '../state/shared/shared.state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Toast } from './toast.model';
-import { selectToasts } from '../state/shared/shared.selector';
+import { selectToasts } from '../state/shared/shared.selectors';
 import { CommonModule } from '@angular/common';
 
 @Component({

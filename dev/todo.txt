@@ -3,8 +3,6 @@ Change selectedLocation to selectedUnitLocation
 Change all references to Action to BoardAction
 Move the promote into a new action reducer (start promote, end promote?)
 Should onSquareClick move to Square?
-Separate Game and Player Actions
-Clean up NGRX file naming (singular/plural)
 Clean up NGRX store conventions (just Store or Store<T>)
 Simplify prop declarations in ngrx Actions (see toast for good example)
 Show hover/attack

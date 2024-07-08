@@ -3,7 +3,7 @@ import { LocationStatus } from './board.enums'
 import { Store } from '@ngrx/store';
 import { GameState } from '../../state/game/game.state';
 import { GameActions } from '../../state/game/game.actions';
-import { selectLocationStates, selectUnits } from '../../state/game/game.selector';
+import { selectLocationStates, selectUnits } from '../../state/game/game.selectors';
 import { Unit } from '../unit/unit.model';
 import { Observable, combineLatest, forkJoin, map, tap } from 'rxjs';
 import { SquareComponent } from './square/square.component';
@@ -119,23 +119,6 @@ export class BoardComponent implements OnInit {
         return { ...newStatuses };
       })
     )
-  }
-
-  onSquareClick(event: { location: string, status: LocationStatus }) {
-    const status = event.status;
-    const location = event.location;
-
-    if (!status) { return }
-
-    if (status == LocationStatus.Selectable) {
-      this.stateStore.dispatch(GameActions.selectUnit({ location: location }));
-    }
-    else if (status == LocationStatus.Selected) {
-      this.stateStore.dispatch(GameActions.unselectUnit());
-    }
-    else if ([LocationStatus.Movable, LocationStatus.Attackable, LocationStatus.EnPassantable].includes(status)) {
-      this.stateStore.dispatch(GameActions.selectActionLocation({ location: location }));
-    }
   }
 }
 

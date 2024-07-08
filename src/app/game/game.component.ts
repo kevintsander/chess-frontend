@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { GameState } from '../state/game/game.state';
-import { selectGameId, selectGameState } from '../state/game/game.selector';
+import { selectGameId, selectGameState } from '../state/game/game.selectors';
 import { GameActions } from '../state/game/game.actions';
 import { BoardComponent } from './board/board.component';
 import { CommonModule } from '@angular/common';

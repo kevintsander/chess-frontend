@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
-import { selectSetPlayerOnLogin, selectUser } from 'src/app/state/user/user.selector';
+import { selectSetPlayerOnLogin, selectUser } from 'src/app/state/user/user.selectors';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
 
 @Component({
