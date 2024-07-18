@@ -1,3 +1,16 @@
+Upgrade Rails
+Upgrade Angular
+Clean up environments
+ -new local, dev = azure
+Clean up azure resources
+ -terraform, consistent naming
+Set up auto deployment for back end on commit
+ - is it possible to do a rails:migrate then?
+Secrets + Environment Variables
+Add Confirmation Emails
+Add Sign In / Sign Up Validation
+Add Error/Success Messages (or animations)
+
 Move the promotion logic for showing UI into a new action reducer (start promote, end promote?)
 Clean up NGRX store conventions (just Store or Store<T>)
 Simplify prop declarations in ngrx Actions (see toast for good example)
