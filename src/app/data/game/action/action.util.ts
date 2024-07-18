@@ -8,15 +8,15 @@ export class ActionUtil {
   }
 
   getMovableLocations(actions: Action[]): string[] {
-    return [... new Set(actions.filter(a => a.type === ActionType.Move)?.flatMap(a => a.moves.map(m => m.to_location)))] ?? [];
+    return [... new Set(actions.filter(a => a.type === ActionType.Move)?.flatMap(a => a.moves.map(m => m.to_location)))];
   }
 
   getAttackableLocations(actions: Action[]): string[] {
-    return [... new Set(actions.filter(a => a.type === ActionType.Attack)?.flatMap(a => a.moves.map(m => m.to_location)))] ?? [];
+    return [... new Set(actions.filter(a => a.type === ActionType.Attack)?.flatMap(a => a.moves.map(m => m.to_location)))];
   }
 
   getEnPassantableLocations(actions: Action[]): string[] {
-    return [... new Set(actions.filter(a => a.type === ActionType.EnPassant)?.flatMap(a => a.moves.map(m => m.to_location)))] ?? [];
+    return [... new Set(actions.filter(a => a.type === ActionType.EnPassant)?.flatMap(a => a.moves.map(m => m.to_location)))];
   }
 
   getOtherCastleUnitLocation(location: string, action: Action) {
