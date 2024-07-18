@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  chessApiUrl: "http://localhost:3000",
-  chessActionCableUrl: "http://localhost:3000/cable"
+  chessApiUrl: "https://test-container-app3.thankfulrock-d8e7a63e.northcentralus.azurecontainerapps.io/",
+  chessActionCableUrl: "https://test-container-app3.thankfulrock-d8e7a63e.northcentralus.azurecontainerapps.io/cable"
 };
