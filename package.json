@@ -30,7 +30,7 @@
     "@ngrx/store-devtools": "^18.0.1",
     "@rails/actioncable": "^7.1.3-4",
     "c": "^1.1.1",
-    "node": "^20.10.0",
+    "node": "^22.5.0",
     "prettier": "^3.2.4",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
