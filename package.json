@@ -23,7 +23,7 @@
     "@angular/platform-browser": "^18.1.1",
     "@angular/platform-browser-dynamic": "^18.1.1",
     "@angular/router": "^18.1.1",
-    "@kevintsander/angular-token": "file:local_packages/kevintsander-angular-token-17.0.0.tgz",
+    "@kevintsander/angular-token": "file:local_packages/angular-token-app-18.1.1.tgz",
     "@ngrx/effects": "^18.0.1",
     "@ngrx/router-store": "^18.0.1",
     "@ngrx/store": "^18.0.1",
