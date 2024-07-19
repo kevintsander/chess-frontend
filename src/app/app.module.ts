@@ -12,7 +12,7 @@ import { gameReducer } from './state/game/game.reducer';
 import { GameEffects } from './state/game/game.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
-import { AngularTokenModule } from '@kevintsander/angular-token';
+import { AngularTokenModule } from '@kevintsander/angular-token'
 import { HeaderComponent } from './ui/shared/header/header.component';
 import { userReducer } from './state/user/user.reducer';
 import { UserEffects } from './state/user/user.effects';
@@ -25,31 +25,34 @@ import { sharedReducer } from './state/shared/shared.reducer';
 import { ToastListComponent } from './ui/shared/toast/toast-list.component';
 
 
-@NgModule({ declarations: [
-        AppComponent,
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        StoreModule.forRoot({
-            shared: sharedReducer,
-            router: routerReducer,
-            user: userReducer,
-            game: gameReducer
-        }),
-        StoreDevtoolsModule.instrument({
-            maxAge: 25, // Retains last 25 states
-            logOnly: environment.production, // Restrict extension to log-only mode
-            connectInZone: true
-        }),
-        EffectsModule.forRoot([SharedEffects, GameEffects, UserEffects]),
-        StoreRouterConnectingModule.forRoot(),
-        AngularTokenModule.forRoot({ apiBase: environment.chessApiUrl }),
-        HeaderComponent,
-        GameComponent,
-        LoginComponent,
-        SignUpComponent,
-        ToastListComponent,
-        BrowserAnimationsModule,
-        StoreRouterConnectingModule.forRoot()], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  bootstrap: [AppComponent], imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    StoreModule.forRoot({
+      shared: sharedReducer,
+      router: routerReducer,
+      user: userReducer,
+      game: gameReducer
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      connectInZone: true
+    }),
+    EffectsModule.forRoot([SharedEffects, GameEffects, UserEffects]),
+    StoreRouterConnectingModule.forRoot(),
+    AngularTokenModule.forRoot({ apiBase: environment.chessApiUrl }),
+    HeaderComponent,
+    GameComponent,
+    LoginComponent,
+    SignUpComponent,
+    ToastListComponent,
+    BrowserAnimationsModule,
+    StoreRouterConnectingModule.forRoot()], providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule { }

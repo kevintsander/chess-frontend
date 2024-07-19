@@ -11,6 +11,7 @@ Add Confirmation Emails
 Add Sign In / Sign Up Validation
 Add Error/Success Messages (or animations)
 Host angular token app forked npm package somewhere real
+Remove examples from angular token app and extra related dependencies
 
 Move the promotion logic for showing UI into a new action reducer (start promote, end promote?)
 Clean up NGRX store conventions (just Store or Store<T>)
