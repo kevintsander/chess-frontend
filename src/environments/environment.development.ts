@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  chessApiUrl: "https://cntapp-sander-chess-dev-01.lemonplant-3486f733.northcentralus.azurecontainerapps.io/",
-  chessActionCableUrl: "https://cntapp-sander-chess-dev-01.lemonplant-3486f733.northcentralus.azurecontainerapps.io/cable"
+  chessApiUrl: "http://localhost:3000/",
+  chessActionCableUrl: "http://localhost:3000/cable"
 };

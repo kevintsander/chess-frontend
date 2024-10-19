@@ -2,13 +2,45 @@
   @if (gameState.id) {
     <div class="game-container">
       <div class="game">
-        <app-player class="player1-container" [playerNum]="1"></app-player>
-        <app-player
-          class="player2-container"
-          [playerNum]="2"
-          align="end"></app-player>
+        <div class="player1-bar">
+          <div
+            class="player1-nickname"
+            [class.selected-nickname]="gameState.current_color === 'white'">
+            {{ gameState.player1?.nickname ?? "&#8203;" }}
+          </div>
+        </div>
         <app-board class="board-container"></app-board>
-        <div class="game-footer">
+        <div class="player2-bar">
+          <div
+            class="player2-nickname"
+            [class.selected-nickname]="gameState.current_color === 'black'">
+            {{ gameState.player2?.nickname ?? "&#8203;" }}
+          </div>
+        </div>
+
+        <div
+          class="players-join-container"
+          *ngIf="!gameState.player1 || !gameState.player2">
+          <div
+            *ngIf="!gameState.player1"
+            class="player1-join"
+            (click)="onPlayerClick(1)">
+            <button class="player1-button">
+              <img class="player-join-img" src="/assets/svg/white-rook.svg" />
+              Join
+            </button>
+          </div>
+          <div
+            *ngIf="!gameState.player2"
+            class="player2-join"
+            (click)="onPlayerClick(2)">
+            <button class="player2-button">
+              <img class="player-join-img" src="/assets/svg/black-rook.svg" />
+              Join
+            </button>
+          </div>
+        </div>
+        <!-- <div class="game-footer">
           <div class="turn">Turn: {{ gameState.turn }}</div>
           <div class="game-id">Game ID: {{ gameState.id }}</div>
           <div class="status">
@@ -20,7 +52,7 @@
               {{ gameState.status | uppercase }}
             }
           </div>
-        </div>
+        </div> -->
         @if (gameState.status == "promoting") {
           <app-promote-unit></app-promote-unit>
         }

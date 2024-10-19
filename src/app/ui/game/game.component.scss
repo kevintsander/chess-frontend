@@ -7,44 +7,102 @@
 }
 
 .game {
-  display: grid;
-  grid-template-areas:
-    "player1 empty player2"
-    "board board board"
-    "footer footer footer";
-  grid-template-rows: auto 1fr auto;
+  position: relative;
   width: fit-content;
   height: fit-content;
-}
-
-.turn {
-  grid-area: turn;
-}
-
-.game-id {
-  grid-area: game-id;
-}
-
-.status {
-  grid-area: status;
+  display: flex;
+  flex-direction: column;
 }
 
 .game-footer {
-  grid-area: footer;
   display: grid;
   grid-template-areas: "turn game-id status";
   justify-content: space-between;
 }
 
 .board-container {
-  grid-area: board;
   height: 100%;
 }
 
-.player1-container {
-  grid-area: player1;
+.players-join-container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
-.player2-container {
-  grid-area: player2;
+.player1-join {
+  position: absolute;
+  top: 0;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.player2-join {
+  position: absolute;
+  bottom: 0;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.player-join-img {
+  width: 33%;
+  height: 33%;
+}
+
+.player1-bar {
+  @extend .player-bar;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.player2-bar {
+  @extend .player-bar;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.player-bar {
+  background-color: black;
+  color: white;
+  padding: 0.4rem 1rem;
+  font-weight: bold;
+}
+
+.selected-nickname {
+  color: yellow;
+}
+
+.player1-button {
+  color: white;
+}
+
+.player-2-button {
+  color: black;
+}
+
+button {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2rem 6rem;
+  width: 33%;
+  height: 33%;
+  background-color: #32cd32;
+  border: none;
+  border-radius: 1rem;
+  font-size: 2.5rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
+  padding-left: 4rem;
 }
